@@ -31,7 +31,7 @@ int main(void)
 	win_ptr = mlx_new_window(mlx_ptr, 500, 500, "Bonjour bonjour !!");
 	mlx_pixel_put(mlx_ptr, win_ptr, 250, 250, 0xFFFFFF);
 	mlx_key_hook(win_ptr, deal_key, (void *)0);
-//	draw_line(mlx_ptr, win_ptr, p0, p1);
+	draw_line(mlx_ptr, win_ptr, p0, p1);
 	mlx_loop(mlx_ptr);
 	return (0);
 }
