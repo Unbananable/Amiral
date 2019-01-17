@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/17 18:01:12 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/17 18:15:51 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int		main(int ac, char **av)
 		usage();
 	map = reader(av[1], &map_info);
 	proj_map = projection(map, map_info);
-
+	draw_projection(proj_map, map_info);
 	return (0);
 }
