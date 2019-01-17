@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/17 18:39:26 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/17 19:45:14 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int		main(int ac, char **av)
 	t_point p0;
 	t_point p1;
 
+// TO DO: fonction init_point(x ,y ,z) ?
 	p0.x = 1;
 	p0.y = 1;
 	p1.x = 100;
