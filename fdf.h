@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/17 18:01:00 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/17 18:20:46 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct	s_map
 	int		width;
 	int		depth;
 	int		scale;
+	int		xmax;
+	int		ymax;
 }				t_map;
 
 void	draw_line(void *mlx_ptr, void *win_ptr, t_point p0, t_point p1);

@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:04:47 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/17 17:03:44 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/17 18:08:34 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	low_line(void *mlx_ptr, void * win_ptr, t_point p0, t_point p1)
 			delta -= 2 * dx;
 		}
 		delta += 2 * dy;
+		p.x++;
 	}
 }
 
@@ -73,6 +74,7 @@ static void	high_line(void *mlx_ptr, void *win_ptr, t_point p0, t_point p1)
 			delta -= 2 * dy;
 		}
 		delta += 2 * dx;
+		p.y++;
 	}
 }
 
