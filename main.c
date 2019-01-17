@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/17 18:20:33 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/17 18:34:36 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ int		main(int ac, char **av)
 	mlx_key_hook(win_ptr, deal_key, (void *)0);
 	draw_line(mlx_ptr, win_ptr, p0, p1);
 	mlx_loop(mlx_ptr);*/
+	draw_projection(proj_map, map_info);
 	return (0);
 }
