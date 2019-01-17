@@ -6,13 +6,11 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:03:04 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/17 14:53:21 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/17 17:44:48 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* TO DO
- * - gestion des altitudes negatives
- * - Checker la conformite de la map
  * - Gestion des erreurs (fuites memoires, etc.)
 */
 
@@ -37,7 +35,38 @@ static int	get_width(char *line)
 	return (res);
 }
 
-static int *get_alts(char *line, int len)
+static int	is_int(char *str)
+{
+	int		i;
+	int		nb;
+	int		is_neg;
+
+	i = -1;
+	while (str[++i])
+		if (!ft_isdigit(str[i]) && (i || str[i] != '-'))
+			return (0);
+	nb = ft_atoi(str);
+	is_neg = (nb < 0 || (nb == 0 && ft_strchr(str, '-'))) ? 1 : 0;
+	i = -1;
+	while (str[i] && str[i] != ' ')
+		i++;
+	while (--i >= 0 && nb)
+	{
+		if (str[i] - '0' != ft_abs(nb % 10))
+			return (0);
+		nb /= 10;
+	}
+	while (i >= 0 && (str[i] == '0' || str[i] == ' '))
+		i--;
+	if ((!is_neg && str[i] == '-') || (is_neg && str[i] != '-'))
+		return (0);
+	i = (is_neg && str[i] == '-') ? i - 1 : i;
+	while (i >= 0 && (str[i] == ' '))
+		i--;
+	return ((!nb && i == -1));
+}
+
+static int	*get_alts(char *line, int len)
 {
 	int		*res;
 	int		i;
@@ -47,13 +76,20 @@ static int *get_alts(char *line, int len)
 		error();
 	i = -1;
 	j = 0;
-	while (line[++i])
-		if (ft_isdigit(line[i]))
+	while (j < len && line[++i])
+		if (line[i] != ' ')
 		{
-			res[j++] = ft_atoi(line + i);
-			while (line[i] && ft_isdigit(line[i]))
-				i++;
+			if (is_int(line + i))
+			{
+				res[j++] = ft_atoi(line + i);
+				while (line[i] && line[i] != ' ')
+					i++;
+			}
+			else
+				error("Z NON INT");
 		}
+	if (line[i] || j != len)
+		error("LARGEUR INVALIDE");
 	return (res);
 }
 
@@ -64,12 +100,12 @@ static int	**realloc(int **src, int size, int len)
 	int		j;
 
 	if (!(res = (int **)malloc(sizeof(int *) * size * BUFFER_SIZE)))
-		error();
+		error("MALLOC FOIREUX");
 	i = -1;
 	while (++i < (size - 1) * BUFFER_SIZE)
 	{
 		if (!(res[i] = (int *)malloc(sizeof(int) * len)))
-			error();
+			error("MALLOC FOIREUX");
 		j = -1;
 		while (++j < len)
 			res[i][j] = src[i][j];
@@ -87,7 +123,7 @@ int			**reader(char *file_name, t_map *map_info)
 	int		**res;
 
 	if ((fd = read(file_name, O_RDONLY) == -1))
-		error();
+		error("BAD OUVERTURE DE FICHIER");
 	if(get_next_line(fd, &line))
 		map_info->depth = 1;
 	else
@@ -95,7 +131,7 @@ int			**reader(char *file_name, t_map *map_info)
 	map_info->width = get_width(line);
 	size = 1;
 	if (!(res = (char **)malloc(sizeof(char *) * size * BUFFER_SIZE)))
-		error();
+		error("MALLOC FOIREUX");
 	res[0] = get_alts(linei, map_info->width);
 	free(line);
 	i = 1;
