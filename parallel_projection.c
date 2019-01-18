@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 18:17:01 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/18 17:56:59 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/18 18:48:38 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ t_point	**parallel_projection(int **map, t_map *map_info)
 		j = -1;
 		while (++j < map_info->width)
 		{
-			res[i][j].x = nearbyint(i + ratio * cos(angle) * (map_info->depth - i));
-			res[i][j].y = nearbyint(map[i][j] + ratio * sin(angle) * (map_info->depth - i));
+			if ((res[i][j].x = j + ratio * cos(angle) * (map_info->depth - i)) > map_info->xmax)
+				map_info->xmax = res[i][j].x;
+			if ((res[i][j].y = map_info->depth - map[i][j] - ratio * sin(angle) * (map_info->depth - i)) > map_info->ymax)
+				map_info->ymax = res[i][j].y;
 		}
 	}
 	return (res);

@@ -6,15 +6,15 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/18 18:07:54 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/18 18:31:54 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# define WIN_HEIGHT 500
-# define WIN_WIDTH 500
+# define WIN_HEIGHT 1000
+# define WIN_WIDTH 1000
 # define MARGIN 20
 # define BUFFER_SIZE 100
 
