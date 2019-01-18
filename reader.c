@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:03:04 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/18 14:25:06 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/18 14:35:37 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	*get_alts(char *line, t_map *map_info)
 		error("MALLOC CACA");
 	i = -1;
 	j = 0;
-	while (j < len && line[++i])
+	while (j < map_info->width && line[++i])
 		if (line[i] != ' ')
 		{
 			if (is_int(line + i))
@@ -92,7 +92,7 @@ static int	*get_alts(char *line, t_map *map_info)
 			else
 				error("Z NON INT");
 		}
-	if (line[i] || j != len)
+	if (line[i] || j != map_info->width)
 		error("LARGEUR INVALIDE");
 	return (res);
 }
@@ -138,7 +138,7 @@ int			**reader(char *file_name, t_map *map_info)
 	size = 1;
 	if (!(res = (int **)malloc(sizeof(int *) * size * BUFFER_SIZE)))
 		error("MALLOC FOIREUX");
-	res[0] = get_alts(line, map_info->width);
+	res[0] = get_alts(line, map_info);
 	free(line);
 	while (get_next_line(fd, &line))
 	{
