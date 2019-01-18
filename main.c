@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/18 17:28:42 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/18 18:07:44 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "mlx.h"
 #include "fdf.h"
 #include "libft/includes/libft.h"
+
+#include <stdio.h>
 
 int		deal_key(int key, void *param)
 {
@@ -59,6 +61,7 @@ int		main(int ac, char **av)
 	win.win_ptr = mlx_new_window(win.mlx_ptr, WIN_HEIGHT, WIN_WIDTH, "FdF");
 	map = reader(av[1], &map_info);
 	proj_map = top_projection(map, &map_info);
+	get_placement_info(proj_map, &map_info);
 	draw_in_win(win, proj_map, map_info);
 	mlx_key_hook(win.win_ptr, deal_key, (void *)0);
 	mlx_loop(win.mlx_ptr);

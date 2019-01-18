@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:04:47 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/18 17:29:39 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/18 17:52:13 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ static void	low_line(t_win win, t_point p0, t_point p1, t_map map_info)
 		dy = -dy;
 	}
 	delta = 2 * dy - dx;
-	p.y = p0.y * map_info.scale;
-	p.x = p0.x * map_info.scale;
-	while (p.x <= p1.x * map_info.scale)
+	p.y = p0.y * map_info.scale + map_info.y_offset;
+	p.x = p0.x * map_info.scale + map_info.x_offset;
+	while (p.x <= p1.x * map_info.scale + map_info.x_offset)
 	{
 		mlx_pixel_put(win.mlx_ptr, win.win_ptr, p.x, p.y, 0xffdd75); //jaune
 		if (delta > 0)
@@ -63,9 +63,9 @@ static void	high_line(t_win win, t_point p0, t_point p1, t_map map_info)
 		dx = -dx;
 	}
 	delta = 2 * dx - dy;
-	p.y = p0.y * map_info.scale;
-	p.x = p0.x * map_info.scale;
-	while (p.y <= p1.y * map_info.scale)
+	p.y = p0.y * map_info.scale + map_info.y_offset;
+	p.x = p0.x * map_info.scale + map_info.x_offset;
+	while (p.y <= p1.y * map_info.scale + map_info.y_offset)
 	{
 		mlx_pixel_put(win.mlx_ptr, win.win_ptr, p.x, p.y, 0xffdd75); //jaune
 		if (delta > 0)
@@ -98,7 +98,6 @@ void	draw_in_win(t_win win, t_point **points, t_map map_info)
 	int		j;
 
 	i = 0;
-	map_info.scale = 10;
 	while (i < map_info.depth)
 	{
 		j = 0;

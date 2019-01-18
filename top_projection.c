@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/18 17:29:43 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/18 18:07:56 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@ t_point	**top_projection(int **map, t_map *map_info)
 			res[i][j].y = i;
 		}
 	}
+	map_info->xmax = map_info->width - 1;
+	map_info->ymax = map_info->depth - 1;
 	return (res);
 }
