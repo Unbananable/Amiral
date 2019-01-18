@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/18 14:30:21 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/18 16:29:39 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ void	draw_in_win(t_win win, t_point **points, t_map map_info);
 int		**reader(char *file_name, t_map *map_info);
 t_point	**parallel_projection(int **map, t_map *map_info);
 t_point	**isometric_projection(int **map, t_map *map_info);
+t_point **top_projection(int **map, t_map *map_info);
 
 #endif

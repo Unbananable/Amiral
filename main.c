@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/18 16:22:43 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/18 16:32:26 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,9 @@ int		main(int ac, char **av)
 		usage();
 	win.mlx_ptr = mlx_init();
 	win.win_ptr = mlx_new_window(win.mlx_ptr, WIN_HEIGHT, WIN_WIDTH, "FdF");
-	printf("Début (apres initialisation)\n");
 	map = reader(av[1], &map_info);
-	printf("Apres reader\n");
-	proj_map = parallel_projection(map, &map_info);
-	printf("Apres parallel_projection\n");
+	proj_map = top_projection(map, &map_info);
 	draw_in_win(win, proj_map, map_info);
-	printf("Apres draw_in_win\n");
 	mlx_key_hook(win.win_ptr, deal_key, (void *)0);
 	mlx_loop(win.mlx_ptr);
 

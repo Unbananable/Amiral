@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:04:47 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/18 16:20:56 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/18 16:34:00 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ static void	high_line(t_win win, t_point p0, t_point p1, t_map map_info)
 
 void		draw_line(t_win win, t_point p0, t_point p1, t_map map_info)
 {
-	printf("Draw_line\n");
 	if (ft_abs(p1.y - p0.y) < ft_abs(p1.x - p0.x))
 		if (p0.x > p1.x)
 			low_line(win, p1, p0, map_info);
@@ -98,17 +97,13 @@ void	draw_in_win(t_win win, t_point **points, t_map map_info)
 	int		i;
 	int		j;
 
-	printf("Début draw_in_win, i: %d\n", i);
 	i = 0;
 	map_info.scale = 10;
 	while (i < map_info.depth)
 	{
 		j = 0;
-		printf("j: %d\n", j);
 		while (j < map_info.width)
 		{
-			printf("map_info.width: %d, map_info.depth: %d, scale: %d\n", map_info.width, map_info.depth, map_info.scale);
-			printf("in while: (i,j): (%d,%d)\n", i, j);
 			if (i != map_info.depth - 1 && points[i + 1][j].x && points[i + 1][j].y)
 				draw_line(win, points[i][j], points[i + 1][j], map_info);
 			if (j != map_info.width - 1 && points[i][j + 1].x && points[i][j + 1].y)
