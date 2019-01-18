@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/18 10:30:02 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/18 12:39:34 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct	s_map
 }				t_map;
 
 void	draw_line(void *mlx_ptr, void *win_ptr, t_point p0, t_point p1);
+void	draw_in_win(void *mlx_ptr, void *win_ptr, t_point **points, t_map map_info);
 int		**reader(char *file_name, t_map *map_info);
 
 #endif

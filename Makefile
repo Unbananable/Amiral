@@ -6,7 +6,7 @@
 #    By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 17:58:51 by dtrigalo          #+#    #+#              #
-#    Updated: 2019/01/17 17:06:57 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/01/18 12:40:47 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = fdf
 
 CFLAGS = -Wall -Wextra -Werror -g
 
-SRC1 = main.c draw_line.c
+SRC1 = main.c draw.c
 
 MAGENTA = \033[0;35m
 CYAN = \033[0;36m

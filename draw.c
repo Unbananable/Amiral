@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:04:47 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/17 18:08:34 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/18 12:40:15 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,25 @@ void		draw_line(void *mlx_ptr, void *win_ptr, t_point p0, t_point p1)
 			high_line(mlx_ptr, win_ptr, p1, p0);
 		else
 			high_line(mlx_ptr, win_ptr, p0, p1);
+}
+
+void	draw_in_win(void *mlx_ptr, void *win_ptr, t_point **points, t_map map_info)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < map_info.width)
+	{
+		j = 0;
+		while (j < map_info.depth)
+		{
+			if (i != map_info.width - 1 && points[i + 1][j].x && points[i + 1][j].y)
+				draw_line(mlx_ptr, win_ptr, points[i][j], points[i + 1][j]);
+			if (j != map_info.depth - 1 && points[i][j + 1].x && points[i][j + 1].y)
+				draw_line(mlx_ptr, win_ptr, points[i][j], points[i][j + 1]);
+			j++;
+		}
+		i++;
+	}
 }
