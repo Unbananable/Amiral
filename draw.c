@@ -6,13 +6,14 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:04:47 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/18 17:52:13 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/18 20:03:10 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
 #include "fdf.h"
 #include "libft/includes/libft.h"
+#include <math.h>
 
 static void	low_line(t_win win, t_point p0, t_point p1, t_map map_info)
 {
@@ -57,7 +58,7 @@ static void	high_line(t_win win, t_point p0, t_point p1, t_map map_info)
 	dx = (p1.x - p0.x) * map_info.scale;
 	dy = (p1.y - p0.y) * map_info.scale;
 	xi = 1;
-	if (dy < 0)
+	if (dx < 0)
 	{
 		xi = -1;
 		dx = -dx;
@@ -80,7 +81,7 @@ static void	high_line(t_win win, t_point p0, t_point p1, t_map map_info)
 
 void		draw_line(t_win win, t_point p0, t_point p1, t_map map_info)
 {
-	if (ft_abs(p1.y - p0.y) < ft_abs(p1.x - p0.x))
+	if (fabs(p1.y - p0.y) < fabs(p1.x - p0.x))
 		if (p0.x > p1.x)
 			low_line(win, p1, p0, map_info);
 		else

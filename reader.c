@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:03:04 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/18 15:28:50 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/18 20:03:12 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,17 @@ static int	*get_alts(char *line, t_map *map_info)
 		{
 			if (is_int(line + i))
 			{
-				if((res[j++] = ft_atoi(line + i) > map_info->zmax))
+				if((res[j++] = ft_atoi(line + i)) > map_info->zmax)
 					map_info->zmax = res[j - 1];
 				map_info->zmin = (res[j - 1] < map_info->zmin) ? res[j - 1] : map_info->zmin;
-				while (line[i] && line[i] != ' ')
+				while (line[i] && line[i] != ' ' && line[i] != '\t')
 					i++;
 			}
 			else
 				error("Z NON INT");
 		}
 		else if (line[i] != ' ' && line[i] != '\t')
-			error("CHAR INCALID SUR LA MAP");
+			error("CHAR INVALID SUR LA MAP");
 	if (line[i] || j != map_info->width)
 		error("LARGEUR INVALIDE");
 	return (res);
