@@ -6,13 +6,12 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 18:17:01 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/18 10:44:30 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/18 12:13:03 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* TO DO
  * - gestion des erreurs (fuites memoire etc.)
- * - formules de calcul des coordonnees (cf cahier)
 */
 
 #include <math.h>
