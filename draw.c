@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:04:47 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/18 12:40:15 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/18 14:27:59 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "fdf.h"
 #include "libft.h"
 
-static void	low_line(void *mlx_ptr, void * win_ptr, t_point p0, t_point p1)
+static void	low_line(t_win win, t_point p0, t_point p1, t_map map_info)
 {
 	t_point p;
 	int	dx;
@@ -35,7 +35,7 @@ static void	low_line(void *mlx_ptr, void * win_ptr, t_point p0, t_point p1)
 	p.x = p0.x;
 	while (p.x <= p1.x)
 	{
-		mlx_pixel_put(mlx_ptr, win_ptr, p.x, p.y, 0xffdd75); //jaune
+		mlx_pixel_put(win.mlx_ptr, win.win_ptr, p.x * map_info.scale, p.y * map_info.scale, 0xffdd75); //jaune
 		if (delta > 0)
 		{
 			p.y = p.y + yi;
@@ -46,7 +46,7 @@ static void	low_line(void *mlx_ptr, void * win_ptr, t_point p0, t_point p1)
 	}
 }
 
-static void	high_line(void *mlx_ptr, void *win_ptr, t_point p0, t_point p1)
+static void	high_line(t_win win, t_point p0, t_point p1, t_map map_info)
 {
 	t_point p;
 	int	dx;
@@ -67,7 +67,7 @@ static void	high_line(void *mlx_ptr, void *win_ptr, t_point p0, t_point p1)
 	p.x = p0.x;
 	while (p.y <= p1.y)
 	{
-		mlx_pixel_put(mlx_ptr, win_ptr, p.x, p.y, 0xffdd75); //jaune
+		mlx_pixel_put(win.mlx_ptr, win.win_ptr, p.x * map_info.scale, p.y * map_info.scale, 0xffdd75); //jaune
 		if (delta > 0)
 		{
 			p.x = p.x + xi;
@@ -78,21 +78,21 @@ static void	high_line(void *mlx_ptr, void *win_ptr, t_point p0, t_point p1)
 	}
 }
 
-void		draw_line(void *mlx_ptr, void *win_ptr, t_point p0, t_point p1)
+void		draw_line(t_win win, t_point p0, t_point p1, t_map map_info)
 {
 	if (ft_abs(p1.y - p0.y) < ft_abs(p1.x - p0.x))
 		if (p0.x > p1.x)
-			low_line(mlx_ptr, win_ptr, p1, p0);
+			low_line(win, p1, p0);
 		else
-			low_line(mlx_ptr, win_ptr, p0, p1);
+			low_line(win, p0, p1);
 	else
 		if (p0.y > p1.y)
-			high_line(mlx_ptr, win_ptr, p1, p0);
+			high_line(win, p1, p0);
 		else
-			high_line(mlx_ptr, win_ptr, p0, p1);
+			high_line(win, p0, p1);
 }
 
-void	draw_in_win(void *mlx_ptr, void *win_ptr, t_point **points, t_map map_info)
+void	draw_in_win(t_win win, t_point **points, t_map map_info)
 {
 	int		i;
 	int		j;
