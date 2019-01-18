@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:03:04 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/18 14:35:37 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/18 15:28:50 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,10 @@ static int	is_int(char *str)
 	int		nb;
 	int		is_neg;
 
-	i = -1;
-	while (str[++i])
-		if (!ft_isdigit(str[i]) && (i || str[i] != '-'))
-			return (0);
 	nb = ft_atoi(str);
 	is_neg = (nb < 0 || (nb == 0 && ft_strchr(str, '-'))) ? 1 : 0;
-	i = -1;
-	while (str[i] && str[i] != ' ')
+	i = 0 + is_neg;
+	while (str[i] && ft_isdigit(str[i]))
 		i++;
 	while (--i >= 0 && nb)
 	{
@@ -79,7 +75,7 @@ static int	*get_alts(char *line, t_map *map_info)
 	i = -1;
 	j = 0;
 	while (j < map_info->width && line[++i])
-		if (line[i] != ' ')
+		if (ft_isdigit(line[i]) || line[i] == '-')
 		{
 			if (is_int(line + i))
 			{
@@ -92,6 +88,8 @@ static int	*get_alts(char *line, t_map *map_info)
 			else
 				error("Z NON INT");
 		}
+		else if (line[i] != ' ' && line[i] != '\t')
+			error("CHAR INCALID SUR LA MAP");
 	if (line[i] || j != map_info->width)
 		error("LARGEUR INVALIDE");
 	return (res);
@@ -128,7 +126,7 @@ int			**reader(char *file_name, t_map *map_info)
 
 	map_info->zmax = 0;
 	map_info->zmin = 0;
-	if ((fd = open(file_name, O_RDONLY) == -1))
+	if ((fd = open(file_name, O_RDONLY)) == -1)
 		error("BAD OUVERTURE DE FICHIER");
 	if(get_next_line(fd, &line))
 		map_info->depth = 1;
