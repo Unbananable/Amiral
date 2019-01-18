@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/18 17:15:58 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/18 18:07:54 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,11 @@ typedef struct	s_map
 {
 	int		width;
 	int		depth;
-	int		scale;
 	double	xmax;
 	double	ymax;
+	int		scale;
+	int		x_offset;
+	int		y_offset;
 	int		zmax;
 	int		zmin;
 	//Pour identifier les points de la map, on rajouterais pas un t_point **points ? (Idée)
@@ -54,5 +56,6 @@ int		**reader(char *file_name, t_map *map_info);
 t_point	**parallel_projection(int **map, t_map *map_info);
 t_point	**isometric_projection(int **map, t_map *map_info);
 t_point **top_projection(int **map, t_map *map_info);
+void	get_placement_info(t_point **proj_map, t_map *map_info);
 
 #endif
