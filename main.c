@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/18 17:28:42 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/18 18:38:55 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,19 @@
 #include "mlx.h"
 #include "fdf.h"
 #include "libft/includes/libft.h"
+#include "libft/includes/ft_printf.h"
+
+int		deal_mouse(int button, int x, int y, void *param)
+{
+	t_win	*win;
+
+	win = (t_win *)param;
+	if (param == NULL)
+		return (0);
+	ft_printf("Mouse key: %d, x: %d, y: %d\n", button, x, y);
+	mlx_pixel_put(win->mlx_ptr, win->win_ptr, x, y, 0xffdd75);
+	return (0);
+}
 
 int		deal_key(int key, void *param)
 {
@@ -61,6 +74,7 @@ int		main(int ac, char **av)
 	proj_map = top_projection(map, &map_info);
 	draw_in_win(win, proj_map, map_info);
 	mlx_key_hook(win.win_ptr, deal_key, (void *)0);
+	mlx_mouse_hook(win.win_ptr, deal_mouse, &win);
 	mlx_loop(win.mlx_ptr);
 
 /*	void	*mlx_ptr;
