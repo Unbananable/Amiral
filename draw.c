@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:04:47 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/18 14:30:43 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/18 14:35:38 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,14 @@ void		draw_line(t_win win, t_point p0, t_point p1, t_map map_info)
 {
 	if (ft_abs(p1.y - p0.y) < ft_abs(p1.x - p0.x))
 		if (p0.x > p1.x)
-			low_line(win, p1, p0);
+			low_line(win, p1, p0, map_info);
 		else
-			low_line(win, p0, p1);
+			low_line(win, p0, p1, map_info);
 	else
 		if (p0.y > p1.y)
-			high_line(win, p1, p0);
+			high_line(win, p1, p0, map_info);
 		else
-			high_line(win, p0, p1);
+			high_line(win, p0, p1, map_info);
 }
 
 void	draw_in_win(t_win win, t_point **points, t_map map_info)
@@ -104,9 +104,9 @@ void	draw_in_win(t_win win, t_point **points, t_map map_info)
 		while (j < map_info.depth)
 		{
 			if (i != map_info.width - 1 && points[i + 1][j].x && points[i + 1][j].y)
-				draw_line(mlx_ptr, win_ptr, points[i][j], points[i + 1][j]);
+				draw_line(win, points[i][j], points[i + 1][j], map_info);
 			if (j != map_info.depth - 1 && points[i][j + 1].x && points[i][j + 1].y)
-				draw_line(mlx_ptr, win_ptr, points[i][j], points[i][j + 1]);
+				draw_line(win, points[i][j], points[i][j + 1], map_info);
 			j++;
 		}
 		i++;
