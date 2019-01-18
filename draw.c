@@ -6,13 +6,13 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:04:47 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/18 14:27:59 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/18 14:30:43 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
 #include "fdf.h"
-#include "libft.h"
+#include "libft/includes/libft.h"
 
 static void	low_line(t_win win, t_point p0, t_point p1, t_map map_info)
 {
