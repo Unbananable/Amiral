@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/18 12:42:38 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/18 12:45:29 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,15 @@ int		main(int ac, char **av)
 /*	int		**map;
 	t_point **proj_map;
 	t_map	map_info;
+	void	*mlx_ptr;
+	void	*win_ptr;
 
 	if (ac != 2)
 		usage();
+	mlx_ptr = mlx_init();
+	win_ptr = mlx_new_window(mlx_ptr, WIN_HEIGHT, WIN_WIDTH, "FdF");
 	map = reader(av[1], &map_info);
-	proj_map = projection(map, map_info);
-	draw_projection(proj_map, map_info);*/
+	proj_map = projection(map, map_info);*/
 
 	void	*mlx_ptr;
 	void	*win_ptr;
@@ -59,6 +62,7 @@ int		main(int ac, char **av)
 	mlx_pixel_put(mlx_ptr, win_ptr, 1000, 1000, 0xFFFFFF);
 	mlx_key_hook(win_ptr, deal_key, (void *)0);
 //	draw_line(mlx_ptr, win_ptr, p0, p1);
+	draw_projection(proj_map, map_info);
 	mlx_loop(mlx_ptr);
 	return (0);
 }

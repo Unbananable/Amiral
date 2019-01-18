@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:03:04 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/17 17:44:48 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/18 12:24:02 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 */
 
 #include <stdlib.h>
-#include "libft.h"
+#include "libft/includes/libft.h"
+#include "fdf.h"
+#include <fcntl.h>
+#include "get_next_line.h"
 
 static int	get_width(char *line)
 {
@@ -31,7 +34,6 @@ static int	get_width(char *line)
 			while (line[i] && ft_isdigit(line[i]))
 				i++;
 		}
-	}
 	return (res);
 }
 
@@ -73,7 +75,7 @@ static int	*get_alts(char *line, int len)
 	int		j;
 	
 	if (!(res = (int *)malloc(sizeof(int) * len)))
-		error();
+		error("MALLOC CACA");
 	i = -1;
 	j = 0;
 	while (j < len && line[++i])
@@ -93,7 +95,7 @@ static int	*get_alts(char *line, int len)
 	return (res);
 }
 
-static int	**realloc(int **src, int size, int len)
+static int	**reader_realloc(int **src, int size, int len)
 {
 	int		**res;
 	int		i;
@@ -122,7 +124,7 @@ int			**reader(char *file_name, t_map *map_info)
 	int		size;
 	int		**res;
 
-	if ((fd = read(file_name, O_RDONLY) == -1))
+	if ((fd = open(file_name, O_RDONLY) == -1))
 		error("BAD OUVERTURE DE FICHIER");
 	if(get_next_line(fd, &line))
 		map_info->depth = 1;
@@ -130,16 +132,15 @@ int			**reader(char *file_name, t_map *map_info)
 		return (NULL);
 	map_info->width = get_width(line);
 	size = 1;
-	if (!(res = (char **)malloc(sizeof(char *) * size * BUFFER_SIZE)))
+	if (!(res = (int **)malloc(sizeof(int *) * size * BUFFER_SIZE)))
 		error("MALLOC FOIREUX");
-	res[0] = get_alts(linei, map_info->width);
+	res[0] = get_alts(line, map_info->width);
 	free(line);
-	i = 1;
 	while (get_next_line(fd, &line))
 	{
 		map_info->depth++;
 		if (map_info->depth > size * BUFFER_SIZE)
-			res = realloc(res, ++size, map_info->width);
+			res = reader_realloc(res, ++size, map_info->width);
 		res[map_info->depth - 1] = get_alts(line, map_info->width);
 		free(line);
 	}
