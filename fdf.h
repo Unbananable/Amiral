@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/18 16:29:39 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/18 17:15:58 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
  */
 typedef struct	s_point
 {
-	int		x;
-	int		y;
+	double	x;
+	double	y;
 	int		colour;
 }				t_point;
 
@@ -34,8 +34,8 @@ typedef struct	s_map
 	int		width;
 	int		depth;
 	int		scale;
-	int		xmax;
-	int		ymax;
+	double	xmax;
+	double	ymax;
 	int		zmax;
 	int		zmin;
 	//Pour identifier les points de la map, on rajouterais pas un t_point **points ? (Idée)
