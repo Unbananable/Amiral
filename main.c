@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/18 15:20:29 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/18 15:33:27 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,15 @@ int		deal_key(int key, void *param)
 	if (key == 53)
 		exit(1);
 /*	if (key >= 123 || key <= 126)
-		camera_arrow(key); //camera_top, camera_bot, camera_right, camera_left
+		camera_arrow(key,...); //camera_top, camera_bot, camera_right, camera_left
 	if (key == 4 || key == 5 || key == 24 || key == 27 || key == 69 || key == 78)
-		camera_lense(key); //camera_zoom, camera_unzoom (+: 69 24 4) (-: 78 27 5)
+		camera_lense(key,...); //camera_zoom, camera_unzoom (+: 69 24 4) (-: 78 27 5)
 	if (key == ? -Make a choice-)
-		color_panel(key); //Several sets of colors, depending of the key ('1'(key 18) to '5'(key 23) for example)
-	
+		color_panel(key,...); //Several sets of colors, depending of the key ('1'(key 18) to '5'(key 23) for example)
+	if (key == 35 ('P'))
+		switch_projection(); //Switch between the 2 projections (+ affichage graphique du nom de la projection ?)
+	if (key == 8 ('C'))
+		activation_colours(); //Activation/désactivation des couleurs (une touche pour activer les couleurs et une touche pour les desactiver ou sinon il faut un interrupteur (var static ?) pour mémoriser si les couleurs sont actuellement affichées ou non)
 */	return (0);
 }
 
