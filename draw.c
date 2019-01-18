@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:04:47 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/18 17:15:11 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/18 17:29:39 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static void	low_line(t_win win, t_point p0, t_point p1, t_map map_info)
 	int	yi;
 	int	delta;
 
-	dx = p1.x - p0.x;
-	dy = p1.y - p0.y;
+	dx = (p1.x - p0.x) * map_info.scale;
+	dy = (p1.y - p0.y) * map_info.scale;
 	yi = 1;
 	if (dy < 0)
 	{
@@ -31,11 +31,11 @@ static void	low_line(t_win win, t_point p0, t_point p1, t_map map_info)
 		dy = -dy;
 	}
 	delta = 2 * dy - dx;
-	p.y = p0.y;
-	p.x = p0.x;
-	while (p.x <= p1.x)
+	p.y = p0.y * map_info.scale;
+	p.x = p0.x * map_info.scale;
+	while (p.x <= p1.x * map_info.scale)
 	{
-		mlx_pixel_put(win.mlx_ptr, win.win_ptr, p.x * map_info.scale, p.y * map_info.scale, 0xffdd75); //jaune
+		mlx_pixel_put(win.mlx_ptr, win.win_ptr, p.x, p.y, 0xffdd75); //jaune
 		if (delta > 0)
 		{
 			p.y = p.y + yi;
@@ -54,8 +54,8 @@ static void	high_line(t_win win, t_point p0, t_point p1, t_map map_info)
 	int	xi;
 	int	delta;
 
-	dx = p1.x - p0.x;
-	dy = p1.y - p0.y;
+	dx = (p1.x - p0.x) * map_info.scale;
+	dy = (p1.y - p0.y) * map_info.scale;
 	xi = 1;
 	if (dy < 0)
 	{
@@ -63,11 +63,11 @@ static void	high_line(t_win win, t_point p0, t_point p1, t_map map_info)
 		dx = -dx;
 	}
 	delta = 2 * dx - dy;
-	p.y = p0.y;
-	p.x = p0.x;
-	while (p.y <= p1.y)
+	p.y = p0.y * map_info.scale;
+	p.x = p0.x * map_info.scale;
+	while (p.y <= p1.y * map_info.scale)
 	{
-		mlx_pixel_put(win.mlx_ptr, win.win_ptr, p.x * map_info.scale, p.y * map_info.scale, 0xffdd75); //jaune
+		mlx_pixel_put(win.mlx_ptr, win.win_ptr, p.x, p.y, 0xffdd75); //jaune
 		if (delta > 0)
 		{
 			p.x = p.x + xi;
@@ -104,9 +104,9 @@ void	draw_in_win(t_win win, t_point **points, t_map map_info)
 		j = 0;
 		while (j < map_info.width)
 		{
-			if (i != map_info.depth - 1 && points[i + 1][j].x && points[i + 1][j].y)
+			if (i != map_info.depth - 1)
 				draw_line(win, points[i][j], points[i + 1][j], map_info);
-			if (j != map_info.width - 1 && points[i][j + 1].x && points[i][j + 1].y)
+			if (j != map_info.width - 1)
 				draw_line(win, points[i][j], points[i][j + 1], map_info);
 			j++;
 		}
