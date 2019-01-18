@@ -6,12 +6,12 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 10:49:54 by anleclab          #+#    #+#             */
-/*   Updated: 2018/11/22 12:36:40 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/18 12:55:38 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include "libft/libft.h"
+#include "libft/includes/libft.h"
 
 char	*ft_strdeljoin(char **dst, char **src)
 {

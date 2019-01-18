@@ -6,13 +6,13 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:04:47 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/18 12:40:15 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/18 12:54:55 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
 #include "fdf.h"
-#include "libft.h"
+#include "libft/includes/libft.h"
 
 static void	low_line(void *mlx_ptr, void * win_ptr, t_point p0, t_point p1)
 {

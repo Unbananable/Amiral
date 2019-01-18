@@ -6,14 +6,14 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 12:09:56 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/18 12:11:34 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/18 12:55:19 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "libft/includes/libft.h"
 #include <stdlib.h>
 
-void	error(char *str);
+void	error(char *str)
 {
 	ft_putstr(str);
 	exit(0);

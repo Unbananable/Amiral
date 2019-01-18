@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:03:04 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/18 12:24:02 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/18 14:25:06 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,13 @@ static int	is_int(char *str)
 	return ((!nb && i == -1));
 }
 
-static int	*get_alts(char *line, int len)
+static int	*get_alts(char *line, t_map *map_info)
 {
 	int		*res;
 	int		i;
 	int		j;
 	
-	if (!(res = (int *)malloc(sizeof(int) * len)))
+	if (!(res = (int *)malloc(sizeof(int) * map_info->width)))
 		error("MALLOC CACA");
 	i = -1;
 	j = 0;
@@ -83,7 +83,9 @@ static int	*get_alts(char *line, int len)
 		{
 			if (is_int(line + i))
 			{
-				res[j++] = ft_atoi(line + i);
+				if((res[j++] = ft_atoi(line + i) > map_info->zmax))
+					map_info->zmax = res[j - 1];
+				map_info->zmin = (res[j - 1] < map_info->zmin) ? res[j - 1] : map_info->zmin;
 				while (line[i] && line[i] != ' ')
 					i++;
 			}
@@ -124,6 +126,8 @@ int			**reader(char *file_name, t_map *map_info)
 	int		size;
 	int		**res;
 
+	map_info->zmax = 0;
+	map_info->zmin = 0;
 	if ((fd = open(file_name, O_RDONLY) == -1))
 		error("BAD OUVERTURE DE FICHIER");
 	if(get_next_line(fd, &line))
@@ -141,7 +145,7 @@ int			**reader(char *file_name, t_map *map_info)
 		map_info->depth++;
 		if (map_info->depth > size * BUFFER_SIZE)
 			res = reader_realloc(res, ++size, map_info->width);
-		res[map_info->depth - 1] = get_alts(line, map_info->width);
+		res[map_info->depth - 1] = get_alts(line, map_info);
 		free(line);
 	}
 	close(fd);
