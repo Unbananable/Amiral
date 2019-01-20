@@ -14,15 +14,6 @@
 #include <math.h>
 #include "fdf.h"
 
-static t_point	iso(double x, double y, double z)
-{
-	t_point	point;
-
-	point.x = (x - y) * cos(M_PI / 6);
-	point.y = (x + y) * sin(M_PI / 6);
-	return (point);
-}
-
 t_point			**isometric_projection(int **map, t_map *map_info)
 {
 	int		i;
@@ -31,23 +22,19 @@ t_point			**isometric_projection(int **map, t_map *map_info)
 
 	if (!(res = (t_point **)malloc(sizeof(t_point *) * map_info->depth)))
 		error("Askip c'est MALLOC TOUT PETE");
-	i = 0;
-	while (i < map_info->depth)
+	i = -1;
+	while (++i < map_info->depth)
 	{
 		if (!(res[i] = (t_point *)malloc(sizeof(t_point) * map_info->width)))
 			error("Askip c'est un SACRE MALLOC !");
-		j = 0;
-		while (j < map_info->width)
+		j = -1;
+		while (++j < map_info->width)
 		{
-			res[i][j].x = iso(i, j, map[i][j]).x * map_info->scale;
-			res[i][j].y = iso(i, j, map[i][j]).y * map_info->scale;
-			if (res[i][j].x > map_info->xmax)
+			if ((res[i][j].x = (i - j) * cos(M_PI / 6)) > map_info->xmax)
 				map_info->xmax = res[i][j].x;
-			if (res[i][j].y > map_info->ymax)
+			if ((res[i][j].y = (i + j) * sin(M_PI / 6) - map[i][j]) > map_info->ymax)
 				map_info->ymax = res[i][j].y;
-			j++;
 		}
-		i++;
 	}
 	return (res);
 }
