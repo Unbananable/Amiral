@@ -6,7 +6,7 @@
 #    By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:24:35 by dtrigalo          #+#    #+#              #
-#    Updated: 2019/01/17 16:07:17 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/01/21 16:10:37 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,7 +99,8 @@ LIBFT = 	ft_abs.c \
 			ft_wchar_to_bytes.c \
 			ft_double_power.c	\
 			ft_ldouble_power.c \
-			get_next_line.c
+			get_next_line.c \
+			ft_filelinecount.c
 
 OBJSFD = objects
 

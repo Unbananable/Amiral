@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:03:04 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/18 20:03:12 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/21 16:29:19 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,55 +95,32 @@ static int	*get_alts(char *line, t_map *map_info)
 	return (res);
 }
 
-static int	**reader_realloc(int **src, int size, int len)
-{
-	int		**res;
-	int		i;
-	int		j;
-
-	if (!(res = (int **)malloc(sizeof(int *) * size * BUFFER_SIZE)))
-		error("MALLOC FOIREUX");
-	i = -1;
-	while (++i < (size - 1) * BUFFER_SIZE)
-	{
-		if (!(res[i] = (int *)malloc(sizeof(int) * len)))
-			error("MALLOC FOIREUX");
-		j = -1;
-		while (++j < len)
-			res[i][j] = src[i][j];
-		free(src[i]);
-	}
-	free(src);
-	return (res);
-}
-
 int			**reader(char *file_name, t_map *map_info)
 {
 	int		fd;
 	char	*line;
 	int		size;
 	int		**res;
+	int		i;
 
 	map_info->zmax = 0;
 	map_info->zmin = 0;
 	if ((fd = open(file_name, O_RDONLY)) == -1)
 		error("BAD OUVERTURE DE FICHIER");
 	if(get_next_line(fd, &line))
-		map_info->depth = 1;
+		i = 1;
 	else
 		return (NULL);
 	map_info->width = get_width(line);
 	size = 1;
-	if (!(res = (int **)malloc(sizeof(int *) * size * BUFFER_SIZE)))
+	if (!(res = (int **)malloc(sizeof(int *) * map_info->depth)))
 		error("MALLOC FOIREUX");
-	res[0] = get_alts(line, map_info);
+	res[map_info->depth - 1] = get_alts(line, map_info);
 	free(line);
 	while (get_next_line(fd, &line))
 	{
-		map_info->depth++;
-		if (map_info->depth > size * BUFFER_SIZE)
-			res = reader_realloc(res, ++size, map_info->width);
-		res[map_info->depth - 1] = get_alts(line, map_info);
+		i++;
+		res[map_info->depth - i] = get_alts(line, map_info);
 		free(line);
 	}
 	close(fd);

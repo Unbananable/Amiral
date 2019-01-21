@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 14:42:05 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/17 16:06:47 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/21 16:11:30 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,7 @@ void			ft_print_int_array(int *array, int arr_size);
 
 double			ft_double_power(double n, int pow);
 long double		ft_ldouble_power(long double n, int pow);
+
+int				ft_filelinecount(int fd);
 
 #endif
