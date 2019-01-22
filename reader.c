@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:03:04 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/21 16:29:19 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/22 20:01:03 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,24 @@
 #include <fcntl.h>
 #include "get_next_line.h"
 
+#include <stdio.h>
+
 static int	get_width(char *line)
 {
 	int		res;
 	int		i;
 
-	i = -1;
+	i = 0;
 	res = 0;
-	while (line[++i])
+	while (line[i])
 		if (ft_isdigit(line[i]))
 		{
 			res++;
 			while (line[i] && ft_isdigit(line[i]))
 				i++;
 		}
+		else
+			i++;
 	return (res);
 }
 
@@ -44,7 +48,7 @@ static int	is_int(char *str)
 	int		is_neg;
 
 	nb = ft_atoi(str);
-	is_neg = (nb < 0 || (nb == 0 && ft_strchr(str, '-'))) ? 1 : 0;
+	is_neg = (nb < 0 || (nb == 0 && str[0] == '-')) ? 1 : 0;
 	i = 0 + is_neg;
 	while (str[i] && ft_isdigit(str[i]))
 		i++;
@@ -72,9 +76,9 @@ static int	*get_alts(char *line, t_map *map_info)
 	
 	if (!(res = (int *)malloc(sizeof(int) * map_info->width)))
 		error("MALLOC CACA");
-	i = -1;
+	i = 0;
 	j = 0;
-	while (j < map_info->width && line[++i])
+	while (j < map_info->width && line[i])
 		if (ft_isdigit(line[i]) || line[i] == '-')
 		{
 			if (is_int(line + i))
@@ -90,6 +94,10 @@ static int	*get_alts(char *line, t_map *map_info)
 		}
 		else if (line[i] != ' ' && line[i] != '\t')
 			error("CHAR INVALID SUR LA MAP");
+		else
+			i++;
+	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+		i++;
 	if (line[i] || j != map_info->width)
 		error("LARGEUR INVALIDE");
 	return (res);
@@ -99,7 +107,6 @@ int			**reader(char *file_name, t_map *map_info)
 {
 	int		fd;
 	char	*line;
-	int		size;
 	int		**res;
 	int		i;
 
@@ -112,12 +119,12 @@ int			**reader(char *file_name, t_map *map_info)
 	else
 		return (NULL);
 	map_info->width = get_width(line);
-	size = 1;
 	if (!(res = (int **)malloc(sizeof(int *) * map_info->depth)))
 		error("MALLOC FOIREUX");
 	res[map_info->depth - 1] = get_alts(line, map_info);
 	free(line);
-	while (get_next_line(fd, &line))
+int ret;
+	while ((ret = get_next_line(fd, &line)))
 	{
 		i++;
 		res[map_info->depth - i] = get_alts(line, map_info);

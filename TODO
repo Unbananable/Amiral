@@ -1,0 +1,8 @@
+o fix la lecture de fichier
+o ajouter la lecture/ecriture sur des images
+o fix les projection 
+o BONUS:
+	o couleurs suivant l'altitude
+	o zoom/dezoom
+	o rotation
+	o moduler l'echelle de l'altitude

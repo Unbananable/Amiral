@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 09:18:47 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/21 16:25:17 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/22 17:57:56 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,17 @@ int		ft_filelinecount(int fd)
 	char	buf[51];
 	int		i;
 
-	buf[50] = 0;
-	readchar = read(fd, buf, 50);
 	nblines = 0;
-	while (readchar > 0)
+	while ((readchar = read(fd, buf, 50)) > 0)
 	{
+		buf[readchar] = 0;
 		i = 0;
-		while (i < 50)
+		while (i < readchar)
 		{
 			if (buf[i] == '\n')
 				nblines++;
 			i++;
 		}
-		readchar = read(fd, buf, 50);
 	}
 	return (nblines);
 }
