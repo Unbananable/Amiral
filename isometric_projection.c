@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 19:03:06 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/21 15:11:42 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/22 20:56:19 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,22 @@ t_point			**isometric_projection(int **map, t_map *map_info)
 	int		j;
 	t_point	**res;
 
-	if (!(res = (t_point **)malloc(sizeof(t_point *) * map_info->depth)))
+	if (!(res = (t_point **)malloc(sizeof(t_point *) * DEPTH)))
 		error("Askip c'est MALLOC TOUT PETE");
 	i = -1;
-	while (++i < map_info->depth)
+	while (++i < DEPTH)
 	{
-		if (!(res[i] = (t_point *)malloc(sizeof(t_point) * map_info->width)))
+		if (!(res[i] = (t_point *)malloc(sizeof(t_point) * WIDTH)))
 			error("Askip c'est un SACRE MALLOC !");
 		j = -1;
-		while (++j < map_info->width)
+		while (++j < WIDTH)
 		{
-			if ((res[i][j].x = (i - j) * cos(M_PI / 6)) > map_info->xmax)
-				map_info->xmax = res[i][j].x;
-			if ((res[i][j].y = (i + j) * sin(M_PI / 6) - map[i][j]) > map_info->ymax)
-				map_info->ymax = res[i][j].y;
+			if ((res[i][j].x = (i - j) * cos(M_PI / 6)) > XMAX)
+				XMAX = res[i][j].x;
+			XMIN = (res[i][j].x < XMIN) ? res[i][j].x : XMIN;
+			if ((res[i][j].y = (i + j) * sin(M_PI / 6) - map[i][j]) > YMAX)
+				YMAX = res[i][j].y;
+			YMIN = (res[i][j].y < YMIN) ? res[i][j].y : YMIN;
 		}
 	}
 	return (res);

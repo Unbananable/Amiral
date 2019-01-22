@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:03:04 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/22 20:01:03 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/22 20:56:25 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,20 +114,18 @@ int			**reader(char *file_name, t_map *map_info)
 	map_info->zmin = 0;
 	if ((fd = open(file_name, O_RDONLY)) == -1)
 		error("BAD OUVERTURE DE FICHIER");
-	if(get_next_line(fd, &line))
-		i = 1;
-	else
+	if(!get_next_line(fd, &line))
 		return (NULL);
 	map_info->width = get_width(line);
 	if (!(res = (int **)malloc(sizeof(int *) * map_info->depth)))
 		error("MALLOC FOIREUX");
-	res[map_info->depth - 1] = get_alts(line, map_info);
+	res[0] = get_alts(line, map_info);
 	free(line);
-int ret;
-	while ((ret = get_next_line(fd, &line)))
+	i = 0;
+	while (get_next_line(fd, &line))
 	{
 		i++;
-		res[map_info->depth - i] = get_alts(line, map_info);
+		res[i] = get_alts(line, map_info);
 		free(line);
 	}
 	close(fd);

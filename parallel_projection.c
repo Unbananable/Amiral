@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 18:17:01 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/21 18:23:17 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/22 20:07:27 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_point	**parallel_projection(int **map, t_map *map_info)
 			if ((res[i][j].x = j + ratio * cos(angle) * (map_info->depth - i)) > map_info->xmax)
 				map_info->xmax = res[i][j].x;
 			map_info->xmin = (res[i][j].x < map_info->xmin) ? res[i][j].x : map_info->xmin;
-			if ((res[i][j].y = map[i][j] - ratio * sin(angle) * (map_info->depth -i)) > map_info->ymax)
+			if ((res[i][j].y = map[i][j] + ratio * sin(angle) * (map_info->depth -i)) > map_info->ymax)
 				map_info->ymax = res[i][j].y;
 			map_info->ymin = (res[i][j].y < map_info->ymin) ? res[i][j].y : map_info->ymin;
 		}

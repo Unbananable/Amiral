@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/22 20:01:06 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/22 20:56:23 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,19 +75,19 @@ int		main(int ac, char **av)
 	int		**map;
 	t_point **proj_map;
 	t_map	map_info;
-//	t_win	win;
+	t_win	win;
 
 	if (ac != 2)
 		usage();
-//	win.mlx_ptr = mlx_init();
-//	win.win_ptr = mlx_new_window(win.mlx_ptr, WIN_HEIGHT, WIN_WIDTH, "FdF");
+	win.mlx_ptr = mlx_init();
+	win.win_ptr = mlx_new_window(win.mlx_ptr, WIN_HEIGHT, WIN_WIDTH, "FdF");
 	init_map_info(&map_info, av[1]);
 	map = reader(av[1], &map_info);
-	proj_map = parallel_projection(map, &map_info);
+	proj_map = isometric_projection(map, &map_info);
 	get_placement_info(proj_map, &map_info);
-//	draw_in_win(win, proj_map, map_info);
-//	mlx_key_hook(win.win_ptr, deal_key, (void *)0);
-//	mlx_loop(win.mlx_ptr);
+	draw_in_win(win, proj_map, map_info);
+	mlx_key_hook(win.win_ptr, deal_key, (void *)0);
+	mlx_loop(win.mlx_ptr);
 
 /*	void	*mlx_ptr;
 	void	*win_ptr;

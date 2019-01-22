@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/21 15:52:58 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/22 20:56:20 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,14 @@
 # define MARGIN 20
 # define BUFFER_SIZE 100
 
-/*
- * typedef struct	s_camera ?? (Cookbook)
- * typedef struct	s_fdf ?? (Cookbook)
- */
+# define WIDTH map_info->width
+# define DEPTH map_info->depth
+# define XMIN map_info->xmin
+# define XMAX map_info->xmax
+# define YMIN map_info->ymin
+# define YMAX map_info->ymax
+# define SCALE map_info->scale
+
 typedef struct	s_point
 {
 	double	x;

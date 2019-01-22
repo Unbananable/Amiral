@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:04:47 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/18 20:03:10 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/22 20:16:38 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	low_line(t_win win, t_point p0, t_point p1, t_map map_info)
 	p.x = p0.x * map_info.scale + map_info.x_offset;
 	while (p.x <= p1.x * map_info.scale + map_info.x_offset)
 	{
-		mlx_pixel_put(win.mlx_ptr, win.win_ptr, p.x, p.y, 0xffdd75); //jaune
+		mlx_pixel_put(win.mlx_ptr, win.win_ptr, p.x, WIN_HEIGHT - p.y, 0xffdd75); //jaune
 		if (delta > 0)
 		{
 			p.y = p.y + yi;
@@ -68,7 +68,7 @@ static void	high_line(t_win win, t_point p0, t_point p1, t_map map_info)
 	p.x = p0.x * map_info.scale + map_info.x_offset;
 	while (p.y <= p1.y * map_info.scale + map_info.y_offset)
 	{
-		mlx_pixel_put(win.mlx_ptr, win.win_ptr, p.x, p.y, 0xffdd75); //jaune
+		mlx_pixel_put(win.mlx_ptr, win.win_ptr, p.x, WIN_HEIGHT - p.y, 0xffdd75); //jaune
 		if (delta > 0)
 		{
 			p.x = p.x + xi;
