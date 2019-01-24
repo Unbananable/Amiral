@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/24 18:40:08 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/24 20:06:34 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,29 @@ int		mouse_release(int button, int x, int y, void *param)
 	return (0);
 }
 
-int		key_press(int key, void *param)
+int		key_press(int key, t_fdf *fdf)
 {
 	ft_printf("Key press: %d\n", key);
 	if (key == 53)
 		exit(1);
-	return (0);
+/*	if (key >= 123 && key <= 126)
+	{//creer un directional_move.c
+		fdf->img_ptr = mlx_new_image(fdf->mlx_ptr, fdf->map_info.width, fdf->map_info.depth);
+		if (key == 123) // gauche
+			fdf->proj_map = toleft_move();
+		if (key == 124)// droite
+			fdf->proj_map = toright_move();
+		if (key == 125)// bas
+			fdf->proj_map = tobot_move();
+		if (key == 126)// haut
+			fdf->proj_map = totop_move();
+		get_placement_info(fdf->proj_map, &fdf->map_info);
+		draw(*fdf, fdf->proj_map, fdf->map_info);
+		mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
+		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
+		mlx_destroy_image(fdf->mlx_ptr, fdf->img_ptr);
+	}
+*/	return (0);
 }
 
 int		key_release(int key, t_fdf *fdf)
@@ -122,7 +139,7 @@ int		main(int ac, char **av)
 	fdf->proj_map = parallel_projection(fdf->map, &fdf->map_info);
 	get_placement_info(fdf->proj_map, &fdf->map_info);
 	draw(*fdf, fdf->proj_map, fdf->map_info);
-	mlx_hook(fdf->win_ptr, 2, 0, key_press, (void *)0);
+	mlx_hook(fdf->win_ptr, 2, 0, key_press, fdf);
 	mlx_hook(fdf->win_ptr, 3, 0, key_release, fdf);
 //	mlx_mouse_hook(win.win_ptr, mouse_hook, (void *)0);
 /* On veut tracer une ligne avec les deux prochaines instructions             */

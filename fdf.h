@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/24 18:39:37 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/24 19:48:39 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct	s_fdf
 	void	*img_ptr;
 	t_point	**proj_map;
 	t_map	map_info;
+	int		proj_id;
 }				t_fdf;
 
 void	error(char *str);
