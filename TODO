@@ -1,10 +1,14 @@
 o ajouter la lecture/ecriture sur des images
 o fix les projection
 o fix l'affichage
+o to the jam-boss: if you could check our GNL / put yours (according to your wonderful corrector), to be sures we're OK, would be cool !!
 o BONUS:
 	o couleurs suivant l'altitude
 	o zoom/dezoom
 	o rotation
 	o moduler l'echelle de l'altitude
+	o possibilité de gérer le multi fenetre (facilement, avec un while ! (y) )
 
 WARNING: ça ressemble à de la variable globale dans le .h ~
+Test parallel_projection avec sources/pyramide.fdf... probleme :(
+Isometric fonctionne mais seulement avec certaines tailles de map, donc reste des choses à régler..

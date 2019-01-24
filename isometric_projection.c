@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 19:03:06 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/24 11:32:37 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/24 18:55:20 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <math.h>
 #include "fdf.h"
 
-t_point			**isometric_projection(int **map, t_map *map_info)
+t_point	**isometric_projection(int **map, t_map *map_info)
 {
 	int		i;
 	int		j;
@@ -32,10 +32,10 @@ t_point			**isometric_projection(int **map, t_map *map_info)
 		{
 			if ((res[i][j].x = 1 + (i + j) * cos(M_PI / 6)) > XMAX)
 				XMAX = res[i][j].x;
-//			XMIN = (res[i][j].x < XMIN) ? res[i][j].x : XMIN;
+			//XMIN = (res[i][j].x <			 XMIN) ? res[i][j].x : XMIN;
 			if ((res[i][j].y = 1 + (i - j) * -sin(M_PI / 6) + map[i][j]) > YMAX)
 				YMAX = res[i][j].y;
-//			YMIN = (res[i][j].y < YMIN) ? res[i][j].y : YMIN;
+			//YMIN = (res[							i][j].y < YMIN) ? res[i][j].y : YMIN;
 		}
 	}
 	return (res);

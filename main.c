@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/24 13:52:09 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/24 18:40:08 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,26 @@
 #include <unistd.h>
 
 #include <stdio.h>
+
+static void	init_map_info(t_map *map_info, char *file_name)
+{
+	int		fd;
+
+	if ((fd = open(file_name, O_RDONLY)) == -1)
+		error("FILE PAS BON");
+	map_info->width = 0;
+	map_info->depth = ft_filelinecount(fd);
+	map_info->xmax = 0;
+	map_info->xmin = 0;
+	map_info->ymax = 0;
+	map_info->ymin = 0;
+	map_info->scale = 1;
+	map_info->x_offset = 0;
+	map_info->y_offset = 0;
+	map_info->zmax = 0;
+	map_info->zmin = 0;
+	close(fd);
+}
 
 int		red_cross_closing(void *param)
 {
@@ -47,9 +67,24 @@ int		key_press(int key, void *param)
 	return (0);
 }
 
-int		key_release(int key, void *param)
+int		key_release(int key, t_fdf *fdf)
 {
 	ft_printf("Key release: %d\n", key);
+	if (key == 34 || key == 35 || key == 17)
+	{
+		fdf->img_ptr = mlx_new_image(fdf->mlx_ptr, fdf->map_info.width, fdf->map_info.depth);
+		if (key == 35) //'P'
+			fdf->proj_map = parallel_projection(fdf->map, &fdf->map_info);
+		if (key == 34) //'I'
+			fdf->proj_map = isometric_projection(fdf->map, &fdf->map_info);
+		if (key == 17)
+			fdf->proj_map = top_projection(fdf->map, &fdf->map_info);
+		get_placement_info(fdf->proj_map, &fdf->map_info);
+		draw(*fdf, fdf->proj_map, fdf->map_info);
+		mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
+		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
+		mlx_destroy_image(fdf->mlx_ptr, fdf->img_ptr);
+	}
 	return (0);
 }
 
@@ -66,26 +101,6 @@ int		key_release(int key, void *param)
 		activation_colours(); //Activation/désactivation des couleurs (une touche pour activer les couleurs et une touche pour les desactiver ou sinon il faut un interrupteur (var static ?) pour mémoriser si les couleurs sont actuellement affichées ou non)*/
 /* ************************************************************************** */
 
-static void	init_map_info(t_map *map_info, char *file_name)
-{
-	int		fd;
-
-	if ((fd = open(file_name, O_RDONLY)) == -1)
-		error("FILE PAS BON");
-	map_info->width = 0;
-	map_info->depth = ft_filelinecount(fd);
-	map_info->xmax = 0;
-	map_info->xmin = 0;
-	map_info->ymax = 0;
-	map_info->ymin = 0;
-	map_info->scale = 1;
-	map_info->x_offset = 0;
-	map_info->y_offset = 0;
-	map_info->zmax = 0;
-	map_info->zmin = 0;
-	close(fd);
-}
-
 void	usage(void)
 {
 	ft_putstr("usage: ./fdf map_filename\n");
@@ -94,28 +109,27 @@ void	usage(void)
 
 int		main(int ac, char **av)
 {
-	int		**map;
-	t_point **proj_map;
-	t_map	map_info;
-	t_win	win;
+	t_fdf	*fdf;
 
 	if (ac != 2)
 		usage();
-	win.mlx_ptr = mlx_init();
-	win.win_ptr = mlx_new_window(win.mlx_ptr, WIN_HEIGHT, WIN_WIDTH, "FdF");
-	init_map_info(&map_info, av[1]);
-	map = reader(av[1], &map_info);
-	proj_map = isometric_projection(map, &map_info);
-	get_placement_info(proj_map, &map_info);
-	draw_in_win(win, proj_map, map_info);
-	mlx_hook(win.win_ptr, 2, 0, key_press, (void *)0);
-	mlx_hook(win.win_ptr, 3, 0, key_release, (void *)0);
+	if (!(fdf = (t_fdf *)malloc(sizeof(t_fdf) * 1000)))
+		exit(1);
+	fdf->mlx_ptr = mlx_init();
+	fdf->win_ptr = mlx_new_window(fdf->mlx_ptr, WIN_HEIGHT, WIN_WIDTH, "FdF");
+	init_map_info(&fdf->map_info, av[1]);
+	fdf->map = reader(av[1], &fdf->map_info);
+	fdf->proj_map = parallel_projection(fdf->map, &fdf->map_info);
+	get_placement_info(fdf->proj_map, &fdf->map_info);
+	draw(*fdf, fdf->proj_map, fdf->map_info);
+	mlx_hook(fdf->win_ptr, 2, 0, key_press, (void *)0);
+	mlx_hook(fdf->win_ptr, 3, 0, key_release, fdf);
 //	mlx_mouse_hook(win.win_ptr, mouse_hook, (void *)0);
 /* On veut tracer une ligne avec les deux prochaines instructions             */
-	mlx_hook(win.win_ptr, 4, 0, mouse_press, (void *)0);
-	mlx_hook(win.win_ptr, 5, 0, mouse_release, (void *)0);
+	mlx_hook(fdf->win_ptr, 4, 0, mouse_press, (void *)0);
+	mlx_hook(fdf->win_ptr, 5, 0, mouse_release, (void *)0);
 /* ************************************************************************** */
-	mlx_hook(win.win_ptr, 17, 0, red_cross_closing, (void *)0);
-	mlx_loop(win.mlx_ptr);
+	mlx_hook(fdf->win_ptr, 17, 0, red_cross_closing, (void *)0);
+	mlx_loop(fdf->mlx_ptr);
 	return (0);
 }

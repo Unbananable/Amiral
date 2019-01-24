@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:04:47 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/22 20:16:38 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/24 16:53:44 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "libft/includes/libft.h"
 #include <math.h>
 
-static void	low_line(t_win win, t_point p0, t_point p1, t_map map_info)
+static void	low_line(t_fdf fdf, t_point p0, t_point p1, t_map map_info)
 {
 	t_point p;
 	int	dx;
@@ -36,7 +36,7 @@ static void	low_line(t_win win, t_point p0, t_point p1, t_map map_info)
 	p.x = p0.x * map_info.scale + map_info.x_offset;
 	while (p.x <= p1.x * map_info.scale + map_info.x_offset)
 	{
-		mlx_pixel_put(win.mlx_ptr, win.win_ptr, p.x, WIN_HEIGHT - p.y, 0xffdd75); //jaune
+		mlx_pixel_put(fdf.mlx_ptr, fdf.win_ptr, p.x, WIN_HEIGHT - p.y, 0xffdd75); //jaune
 		if (delta > 0)
 		{
 			p.y = p.y + yi;
@@ -47,7 +47,7 @@ static void	low_line(t_win win, t_point p0, t_point p1, t_map map_info)
 	}
 }
 
-static void	high_line(t_win win, t_point p0, t_point p1, t_map map_info)
+static void	high_line(t_fdf fdf, t_point p0, t_point p1, t_map map_info)
 {
 	t_point p;
 	int	dx;
@@ -68,7 +68,7 @@ static void	high_line(t_win win, t_point p0, t_point p1, t_map map_info)
 	p.x = p0.x * map_info.scale + map_info.x_offset;
 	while (p.y <= p1.y * map_info.scale + map_info.y_offset)
 	{
-		mlx_pixel_put(win.mlx_ptr, win.win_ptr, p.x, WIN_HEIGHT - p.y, 0xffdd75); //jaune
+		mlx_pixel_put(fdf.mlx_ptr, fdf.win_ptr, p.x, WIN_HEIGHT - p.y, 0xffdd75); //jaune
 		if (delta > 0)
 		{
 			p.x = p.x + xi;
@@ -79,21 +79,21 @@ static void	high_line(t_win win, t_point p0, t_point p1, t_map map_info)
 	}
 }
 
-void		draw_line(t_win win, t_point p0, t_point p1, t_map map_info)
+void		draw_line(t_fdf fdf, t_point p0, t_point p1, t_map map_info)
 {
 	if (fabs(p1.y - p0.y) < fabs(p1.x - p0.x))
 		if (p0.x > p1.x)
-			low_line(win, p1, p0, map_info);
+			low_line(fdf, p1, p0, map_info);
 		else
-			low_line(win, p0, p1, map_info);
+			low_line(fdf, p0, p1, map_info);
 	else
 		if (p0.y > p1.y)
-			high_line(win, p1, p0, map_info);
+			high_line(fdf, p1, p0, map_info);
 		else
-			high_line(win, p0, p1, map_info);
+			high_line(fdf, p0, p1, map_info);
 }
 
-void	draw_in_win(t_win win, t_point **points, t_map map_info)
+void	draw(t_fdf fdf, t_point **points, t_map map_info)
 {
 	int		i;
 	int		j;
@@ -105,9 +105,9 @@ void	draw_in_win(t_win win, t_point **points, t_map map_info)
 		while (j < map_info.width)
 		{
 			if (i != map_info.depth - 1)
-				draw_line(win, points[i][j], points[i + 1][j], map_info);
+				draw_line(fdf, points[i][j], points[i + 1][j], map_info);
 			if (j != map_info.width - 1)
-				draw_line(win, points[i][j], points[i][j + 1], map_info);
+				draw_line(fdf, points[i][j], points[i][j + 1], map_info);
 			j++;
 		}
 		i++;

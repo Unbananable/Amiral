@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/22 20:56:20 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/24 18:39:37 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define YMIN map_info->ymin
 # define YMAX map_info->ymax
 # define SCALE map_info->scale
+
 
 typedef struct	s_point
 {
@@ -49,17 +50,21 @@ typedef struct	s_map
 	//Pour identifier les points de la map, on rajouterais pas un t_point **points ? (Idée)
 }				t_map;
 
-typedef struct	s_win
+typedef struct	s_fdf
 {
+	int		**map;
 	void	*mlx_ptr;
 	void	*win_ptr;
-}				t_win;
+	void	*img_ptr;
+	t_point	**proj_map;
+	t_map	map_info;
+}				t_fdf;
 
 void	error(char *str);
-void	draw_line(t_win win, t_point p0, t_point p1, t_map map_info);
-void	draw_in_win(t_win win, t_point **points, t_map map_info);
+void	draw_line(t_fdf fdf, t_point p0, t_point p1, t_map map_info);
+void	draw(t_fdf fdf, t_point **points, t_map map_info);
 int		**reader(char *file_name, t_map *map_info);
-t_point	**parallel_projection(int **map, t_map *map_info);
+t_point	**parallel_projection(int**map, t_map *map_info);
 t_point	**isometric_projection(int **map, t_map *map_info);
 t_point **top_projection(int **map, t_map *map_info);
 void	get_placement_info(t_point **proj_map, t_map *map_info);
