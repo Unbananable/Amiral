@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/22 20:56:23 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/24 13:35:10 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,36 @@
 #include "mlx.h"
 #include "fdf.h"
 #include "libft/includes/libft.h"
+#include "libft/includes/ft_printf.h"
 #include <fcntl.h>
 #include <unistd.h>
 
 #include <stdio.h>
 
-int		deal_key(int key, void *param)
+int		mouse_press(int button, int x, int y, void *param)
+{
+	ft_printf("Test press: (x,y): %d,%d\n", x, y);
+	return (0);
+}
+
+int		mouse_release(int button, int x, int y, void *param)
+{
+	ft_printf("Test release: (x,y): %d,%d\n", x, y);
+	return (0);
+}
+
+
+int		mouse_hook(int button, int x, int y, void *param)
+{
+	param += 0;
+	ft_printf("Mouse button: %d, (x,y): %d,%d\n", button, x, y);
+	return (0);
+}
+
+int		key_hook(int key, void *param)
 {
 //Action qui se déroule à chaque input clavier (on peut par exemple print la
 //touche (key) utilisée et s'en servir pour la relier à des actions définies
-	key +=0;
 	param +=0;
 	ft_putstr("Key: ");
 	ft_putnbr(key);
@@ -71,6 +91,9 @@ void	usage(void)
 
 int		main(int ac, char **av)
 {
+	static int		click_and_draw[2][2];
+	t_point p1;
+	t_point p2;
 
 	int		**map;
 	t_point **proj_map;
@@ -86,7 +109,13 @@ int		main(int ac, char **av)
 	proj_map = isometric_projection(map, &map_info);
 	get_placement_info(proj_map, &map_info);
 	draw_in_win(win, proj_map, map_info);
-	mlx_key_hook(win.win_ptr, deal_key, (void *)0);
+	win.map_info = map_info;
+	mlx_key_hook(win.win_ptr, key_hook, (void *)0);
+//	mlx_mouse_hook(win.win_ptr, mouse_hook, (void *)0);
+/* On veut tracer une ligne avec les deux prochaines instructions             */
+	mlx_hook(win.win_ptr, 4, 0, mouse_press, (void *)0);
+	mlx_hook(win.win_ptr, 5, 0, mouse_release, (void *)0);
+/* ************************************************************************** */
 	mlx_loop(win.mlx_ptr);
 
 /*	void	*mlx_ptr;

@@ -6,3 +6,5 @@ o BONUS:
 	o zoom/dezoom
 	o rotation
 	o moduler l'echelle de l'altitude
+
+WARNING: ça ressemble à de la variable globale dans le .h ~
