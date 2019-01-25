@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/25 12:09:50 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/25 14:30:28 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ int		main(int ac, char **av)
 	fdf->map = reader(av[1], &fdf->map_info);
 	fdf->proj_map = parallel_projection(fdf->map, &fdf->map_info);
 	get_placement_info(fdf->proj_map, &fdf->map_info);
-	draw(*fdf, fdf->proj_map, fdf->map_info);
+	draw_img(fdf, fdf->proj_map, fdf->map_info);
+//	draw(fdf, fdf->proj_map, fdf->map_info);
 	mlx_hook(fdf->win_ptr, 2, 0, key_press, fdf);
 	mlx_hook(fdf->win_ptr, 3, 0, key_release, fdf);
 //	mlx_mouse_hook(win.win_ptr, mouse_hook, (void *)0);

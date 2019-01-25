@@ -12,3 +12,27 @@ o BONUS:
 WARNING: ça ressemble à de la variable globale dans le .h ~
 Test parallel_projection avec sources/pyramide.fdf... probleme :(
 Isometric fonctionne mais seulement avec certaines tailles de map, donc reste des choses à régler..
+
+CTRL C V du Slack:
+
+o Transformer les put pixel en fill pixel (fct perso) et écrire sur image et plus sur fenetre (donc modifier draw
+
+o si ca change rien a l affichage, regler les soucis d'échelles et de coins non affichés sur les projections
+
+o rajouter l option de deplacement haut bas gauche droite (j ai push mes fonctions mais elles sont vides donc libre de changer)
+
+o rajouter un gradient de couleur
+
+o rajouter une option pour choisir les couleurs
+
+o gestion multi-fenetres ( relativement simple normalement)
+
+o rajouter un guide sur les differentes commandes au lancement de la fonction (et tej les key/button qui s affichent actuellement pour faciliter le dev)
+
+o je penses qu on en aura marre, mais accesoirement rajouter la proj conique
+
+o voir pourquoi Julia marche pas
+
+o norme et leak
+
+o corriger et obtenir un 125!

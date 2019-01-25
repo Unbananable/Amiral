@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/25 12:11:30 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/25 14:30:55 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,14 @@ typedef struct	s_map
 	double	zmin;
 }				t_map;
 
+typedef struct	s_image
+{
+	char	*addr;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}				t_image;
+
 typedef struct	s_fdf
 {
 	int		**map;
@@ -57,12 +65,16 @@ typedef struct	s_fdf
 	void	*img_ptr;
 	t_point	**proj_map;
 	t_map	map_info;
-	int		proj_id;
+	t_image	*image;
 }				t_fdf;
 
+void	fill_pixel(t_fdf *fdf, t_point p);
+void	new_image(t_fdf *fdf);
+void	draw_img(t_fdf *fdf, t_point **points, t_map map_info);
+
 void	error(char *str);
-void	draw_line(t_fdf fdf, t_point p0, t_point p1, t_map map_info);
-void	draw(t_fdf fdf, t_point **points, t_map map_info);
+void	draw_line(t_fdf *fdf, t_point p0, t_point p1, t_map map_info);
+void	draw(t_fdf *fdf, t_point **points, t_map map_info);
 int		**reader(char *file_name, t_map *map_info);
 t_point	**parallel_projection(int**map, t_map *map_info);
 t_point	**isometric_projection(int **map, t_map *map_info);
