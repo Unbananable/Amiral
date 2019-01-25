@@ -6,12 +6,14 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/18 18:07:56 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/25 21:08:19 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <stdlib.h>
+
+#include <stdio.h>
 
 t_point	**top_projection(int **map, t_map *map_info)
 {

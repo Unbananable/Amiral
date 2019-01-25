@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 14:05:36 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/25 17:32:07 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/25 21:09:51 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@
 #include <stdio.h>
 
 /*t_image	*del_image(t_fdf *fdf, t_image *image)
-{
-	if (image)
-	{
-		if (fdf->img_ptr)
-			mlx_destroy_image(fdf->mlx_ptr, fdf->img_ptr);
-		ft_memdel((void **)&image);
-	}
-	return (NULL);
-}*/
+  {
+  if (image)
+  {
+  if (fdf->img_ptr)
+  mlx_destroy_image(fdf->mlx_ptr, fdf->img_ptr);
+  ft_memdel((void **)&image);
+  }
+  return (NULL);
+  }*/
 
 void	clear_image(t_fdf *fdf)
 {
-	ft_bzero(fdf->img_ptr, WIN_WIDTH * WIN_HEIGHT);
+	ft_bzero(fdf->addr, WIN_WIDTH * WIN_HEIGHT * 4);
 }
 
 void	fill_pixel(t_fdf *fdf, t_point p)
@@ -51,7 +51,6 @@ void	new_image(t_fdf *fdf)
 	fdf->img_ptr ? mlx_destroy_image(fdf->mlx_ptr, fdf->img_ptr) : 0;
 	fdf->win_ptr ? mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr) : 0;
 	fdf->img_ptr = mlx_new_image(fdf->mlx_ptr, WIN_WIDTH , WIN_HEIGHT);
-	printf("test: mlx %p... win %p... img %p\n",fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr);
 	fdf->addr = (unsigned int *)mlx_get_data_addr(fdf->img_ptr, &(fdf->image.bpp), &(fdf->image.size_line), &(fdf->image.endian));
 }
 

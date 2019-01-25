@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/25 17:33:29 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/25 20:04:32 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int		red_cross_closing(void *param)
 int		mouse_press(int button, int x, int y, t_fdf *fdf)
 {
 	ft_printf("Mouse press: %d (x,y): %d,%d\n", button, x, y);
-//	mlx_pixel_put(fdf->mlx_ptr, fdf->win_ptr, x, y, 0xffdde5);
 	return (0);
 }
 
@@ -38,27 +37,32 @@ int		mouse_release(int button, int x, int y, t_fdf *fdf)
 
 int		key_press(int key, t_fdf *fdf)
 {
+	static int	i = 0;
+	static int	j = 0;
+
 	ft_printf("Key press: %d\n", key);
 	if (key == 53)
 		exit(0);
-/*	if (key >= 123 && key <= 126)
-	{//creer un directional_move.c
-		fdf->img_ptr = mlx_new_image(fdf->mlx_ptr, fdf->map_info.width, fdf->map_info.depth);
+	if (key >= 123 && key <= 126)
+	{
+		mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
 		if (key == 123) // gauche
-			fdf->proj_map = toleft_move();
-		if (key == 124)// droite
-			fdf->proj_map = toright_move();
-		if (key == 125)// bas
-			fdf->proj_map = tobot_move();
-		if (key == 126)// haut
-			fdf->proj_map = totop_move();
-		get_placement_info(fdf->proj_map, &fdf->map_info);
-		draw(*fdf, fdf->proj_map, fdf->map_info);
+			mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, --i, j);
+		else if (key == 124)// droite
+			mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, ++i, j);
+		else if (key == 125)// bas
+			mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, i, ++j);
+		else if (key == 126)// haut
+			mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, i, --j);
+	}
+	if (key == 49)
+	{
+		i = 0;
+		j = 0;
 		mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
 		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
-		mlx_destroy_image(fdf->mlx_ptr, fdf->img_ptr);
 	}
-*/	return (0);
+	return (0);
 }
 
 int		key_release(int key, t_fdf *fdf)
@@ -66,7 +70,7 @@ int		key_release(int key, t_fdf *fdf)
 	ft_printf("Key release: %d\n", key);
 	if (key == 34 || key == 35 || key == 17)
 	{
-//		clear_image(fdf);
+		clear_image(fdf);
 		if (key == 35) //'P'
 			fdf->proj_map = parallel_projection(fdf->map, &fdf->map_info);
 		if (key == 34) //'I'
@@ -75,7 +79,7 @@ int		key_release(int key, t_fdf *fdf)
 			fdf->proj_map = top_projection(fdf->map, &fdf->map_info);
 		get_placement_info(fdf->proj_map, &fdf->map_info);
 		draw_img(fdf, fdf->proj_map, fdf->map_info);
-		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 500, 500);
+		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
 	}
 	return (0);
 }
