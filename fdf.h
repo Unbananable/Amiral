@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/25 14:30:55 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/25 14:55:24 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct	s_map
 
 typedef struct	s_image
 {
-	char	*addr;
 	int		bpp;
 	int		size_line;
 	int		endian;
@@ -59,6 +58,7 @@ typedef struct	s_image
 
 typedef struct	s_fdf
 {
+	char	*addr;
 	int		**map;
 	void	*mlx_ptr;
 	void	*win_ptr;
