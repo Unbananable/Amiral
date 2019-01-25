@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/24 19:48:39 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/25 12:11:30 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ typedef struct	s_map
 	int		y_offset;
 	double	zmax;
 	double	zmin;
-	//Pour identifier les points de la map, on rajouterais pas un t_point **points ? (Idée)
 }				t_map;
 
 typedef struct	s_fdf
@@ -69,5 +68,11 @@ t_point	**parallel_projection(int**map, t_map *map_info);
 t_point	**isometric_projection(int **map, t_map *map_info);
 t_point **top_projection(int **map, t_map *map_info);
 void	get_placement_info(t_point **proj_map, t_map *map_info);
+
+int		red_cross_closing(void *param);
+int		mouse_press(int button, int x, int y, void *param);
+int		mouse_release(int button, int x, int y, void *param);
+int		key_press(int key, t_fdf *fdf);
+int		key_release(int key, t_fdf *fdf);
 
 #endif
