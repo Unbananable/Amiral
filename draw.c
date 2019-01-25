@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:04:47 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/25 12:24:21 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/25 16:56:48 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	high_line(t_fdf *fdf, t_point p0, t_point p1, t_map map_info)
 	}
 }
 
-void		draw_line(t_fdf *fdf, t_point p0, t_point p1, t_map map_info)
+/*void		draw_line(t_fdf *fdf, t_point p0, t_point p1, t_map map_info)
 {
 	if (fabs(p1.y - p0.y) < fabs(p1.x - p0.x))
 		if (p0.x > p1.x)
@@ -91,7 +91,7 @@ void		draw_line(t_fdf *fdf, t_point p0, t_point p1, t_map map_info)
 			high_line(fdf, p1, p0, map_info);
 		else
 			high_line(fdf, p0, p1, map_info);
-}
+}*/
 
 void	draw(t_fdf *fdf, t_point **points, t_map map_info)
 {

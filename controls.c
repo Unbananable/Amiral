@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/25 12:36:17 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/25 17:33:29 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ int		red_cross_closing(void *param)
 	return (0);
 }
 
-int		mouse_press(int button, int x, int y, void *param)
+int		mouse_press(int button, int x, int y, t_fdf *fdf)
 {
 	ft_printf("Mouse press: %d (x,y): %d,%d\n", button, x, y);
+//	mlx_pixel_put(fdf->mlx_ptr, fdf->win_ptr, x, y, 0xffdde5);
 	return (0);
 }
 
-int		mouse_release(int button, int x, int y, void *param)
+int		mouse_release(int button, int x, int y, t_fdf *fdf)
 {
 	ft_printf("Mouse release: %d (x,y): %d,%d\n", button, x, y);
 	return (0);
@@ -65,7 +66,7 @@ int		key_release(int key, t_fdf *fdf)
 	ft_printf("Key release: %d\n", key);
 	if (key == 34 || key == 35 || key == 17)
 	{
-		fdf->img_ptr = mlx_new_image(fdf->mlx_ptr, fdf->map_info.width, fdf->map_info.depth);
+//		clear_image(fdf);
 		if (key == 35) //'P'
 			fdf->proj_map = parallel_projection(fdf->map, &fdf->map_info);
 		if (key == 34) //'I'
@@ -73,10 +74,8 @@ int		key_release(int key, t_fdf *fdf)
 		if (key == 17)
 			fdf->proj_map = top_projection(fdf->map, &fdf->map_info);
 		get_placement_info(fdf->proj_map, &fdf->map_info);
-		mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
-		draw(fdf, fdf->proj_map, fdf->map_info);
-		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
-		mlx_destroy_image(fdf->mlx_ptr, fdf->img_ptr);
+		draw_img(fdf, fdf->proj_map, fdf->map_info);
+		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 500, 500);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 19:03:06 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/24 19:34:13 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/25 12:27:26 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ t_point	**isometric_projection(int **map, t_map *map_info)
 		j = -1;
 		while (++j < WIDTH)
 		{
-			if ((res[i][j].x = (i + j) * cos(M_PI / 6) * WIDTH / 2) > XMAX)
+			if ((res[i][j].x = (i + j) * cos(M_PI / 6) * DEPTH / 2) > XMAX)
 				XMAX = res[i][j].x;
 			XMIN = (res[i][j].x < XMIN) ? res[i][j].x : XMIN;
-			if ((res[i][j].y = (i - j) * sin(M_PI / 6) * WIDTH / 2 + map[i][j] * WIDTH / 2) > YMAX)
+			if ((res[i][j].y = (i - j) * sin(M_PI / 6) * WIDTH / 2 - map[i][j] * WIDTH / 2) > YMAX)
 				YMAX = res[i][j].y;
 			YMIN = (res[i][j].y < YMIN) ? res[i][j].y : YMIN;
 		}

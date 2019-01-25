@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/25 14:30:28 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/25 17:34:02 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,15 @@ int		main(int ac, char **av)
 	fdf->win_ptr = mlx_new_window(fdf->mlx_ptr, WIN_HEIGHT, WIN_WIDTH, "FdF");
 	init_map_info(&fdf->map_info, av[1]);
 	fdf->map = reader(av[1], &fdf->map_info);
-	fdf->proj_map = parallel_projection(fdf->map, &fdf->map_info);
+	fdf->proj_map = isometric_projection(fdf->map, &fdf->map_info);
 	get_placement_info(fdf->proj_map, &fdf->map_info);
+	new_image(fdf);
+	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
 	draw_img(fdf, fdf->proj_map, fdf->map_info);
-//	draw(fdf, fdf->proj_map, fdf->map_info);
 	mlx_hook(fdf->win_ptr, 2, 0, key_press, fdf);
 	mlx_hook(fdf->win_ptr, 3, 0, key_release, fdf);
-//	mlx_mouse_hook(win.win_ptr, mouse_hook, (void *)0);
-/* On veut tracer une ligne avec les deux prochaines instructions             */
-	mlx_hook(fdf->win_ptr, 4, 0, mouse_press, (void *)0);
+	mlx_hook(fdf->win_ptr, 4, 0, mouse_press, fdf);
 	mlx_hook(fdf->win_ptr, 5, 0, mouse_release, (void *)0);
-/* ************************************************************************** */
 	mlx_hook(fdf->win_ptr, 17, 0, red_cross_closing, (void *)0);
 	mlx_loop(fdf->mlx_ptr);
 	return (0);

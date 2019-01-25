@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/25 14:55:24 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/25 17:18:23 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,21 @@ typedef struct	s_image
 
 typedef struct	s_fdf
 {
-	char	*addr;
+	unsigned int	*addr;
 	int		**map;
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*img_ptr;
 	t_point	**proj_map;
 	t_map	map_info;
-	t_image	*image;
+	t_image	image;
 }				t_fdf;
 
 void	fill_pixel(t_fdf *fdf, t_point p);
 void	new_image(t_fdf *fdf);
 void	draw_img(t_fdf *fdf, t_point **points, t_map map_info);
+t_image	delete_image(t_fdf *fdf, t_image *image);
+void	clear_image(t_fdf * fdf);
 
 void	error(char *str);
 void	draw_line(t_fdf *fdf, t_point p0, t_point p1, t_map map_info);
@@ -82,8 +84,8 @@ t_point **top_projection(int **map, t_map *map_info);
 void	get_placement_info(t_point **proj_map, t_map *map_info);
 
 int		red_cross_closing(void *param);
-int		mouse_press(int button, int x, int y, void *param);
-int		mouse_release(int button, int x, int y, void *param);
+int		mouse_press(int button, int x, int y, t_fdf *fdf);
+int		mouse_release(int button, int x, int y, t_fdf *fdf);
 int		key_press(int key, t_fdf *fdf);
 int		key_release(int key, t_fdf *fdf);
 
