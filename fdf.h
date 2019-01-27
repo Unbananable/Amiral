@@ -6,12 +6,14 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/27 17:49:33 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/27 17:57:25 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
+
+# include "keys.h"
 
 # define WIN_HEIGHT 1200
 # define WIN_WIDTH 1200

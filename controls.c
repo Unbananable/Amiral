@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/27 17:52:58 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/27 17:56:46 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,30 +37,33 @@ int		mouse_release(int button, int x, int y, t_fdf *fdf)
 
 int		key_press(int key, t_fdf *fdf)
 {
-	static int	i = 0;
-	static int	j = 0;
-
 	ft_printf("Key press: %d\n", key);
-	if (key == 53)
+	if (key == ESC)
 		exit(0);
-	if (key == 13 || key == 0 || key == 1 || key == 2)
-// peut etre macro KEY_W, KEY_A,... pour eviter les magic nbrs ?
+	if ((key >= LEFT_ARROW && key <= UP_ARROW) || key == SPACE)
 	{
-		mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
-		if (key == 0) // gauche
-			mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, --i, j);
-		else if (key == 2)// droite
-			mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, ++i, j);
-		else if (key == 1)// bas
-			mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, i, ++j);
-		else if (key == 13)// haut
-			mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, i, --j);
+		clear_image(fdf);
+		if (key == LEFT_ARROW)
+			fdf->map_info.x_offset--;
+		else if (key == RIGHT_ARROW)
+			fdf->map_info.x_offset++;
+		else if (key == DOWN_ARROW)
+			fdf->map_info.y_offset++;
+		else if (key == UP_ARROW)
+			fdf->map_info.y_offset--;
+		else if (key == SPACE)
+			get_placement_info(fdf->proj_map, &(fdf->map_info));
+		draw_img(fdf, fdf->proj_map, fdf->map_info);
+		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
 	}
-	if (key == 49)
+	if (key == PLUS || key == MINUS || key == NUMPAD_PLUS || key == NUMPAD_MINUS)
 	{
-		i = 0;
-		j = 0;
-		mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
+		clear_image(fdf);
+		if (key == PLUS || key == NUMPAD_PLUS)
+			fdf->map_info.scale *= 1.01;
+		if (key == MINUS || key == NUMPAD_MINUS)
+			fdf->map_info.scale *= 0.99;;
+		draw_img(fdf, fdf->proj_map, fdf->map_info);
 		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
 	}
 	if (key == 126 || key == 125) //ARROW_UP, ARROW_DOWN
@@ -86,17 +89,16 @@ int		key_press(int key, t_fdf *fdf)
 int		key_release(int key, t_fdf *fdf)
 {
 	ft_printf("Key release: %d\n", key);
-	if (key == 34 || key == 35 || key == 17)
+	if (key == P || key == I || key == T)
 	{
 		clear_image(fdf);
-		if (key == 35) //'P'
+		if (key == P) //'P'
 			fdf->proj_map = parallel_projection(fdf->map, &(fdf->map_info));
-		if (key == 34) //'I'
+		if (key == I) //'I'
 			fdf->proj_map = isometric_projection(fdf->map, &(fdf->map_info));
-		if (key == 17)
+		if (key == T)
 			fdf->proj_map = top_projection(fdf->map, &(fdf->map_info));
 		get_placement_info(fdf->proj_map, &(fdf->map_info));
-		printf("xmax: %f... xmin: %f... ymax: %f... ymin: :%f\n", fdf->map_info.xmax, fdf->map_info.xmin, fdf->map_info.ymax, fdf->map_info.ymin);
 		draw_img(fdf, fdf->proj_map, fdf->map_info);
 		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
 	}
