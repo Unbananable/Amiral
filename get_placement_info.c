@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:46 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/27 15:06:48 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/27 15:51:48 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 void	get_placement_info(t_point **proj_map, t_map *map_info)
 {
-	int		tmp;
+	double		tmp;
 
 	SCALE = (WIN_WIDTH - 2 * MARGIN) / (XMAX - XMIN);
 	tmp = (WIN_HEIGHT - 2 * MARGIN) / (YMAX - YMIN);

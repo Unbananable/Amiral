@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 18:17:01 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/27 15:37:08 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/27 15:49:55 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_point	**parallel_projection(int **map, t_map *map_info)
 	int		i;
 	int		j;
 
-	angle = 45.0;
+	angle = M_PI / 4;
 	ratio = 1.0;
 	XMAX = ratio *cos(angle) * DEPTH;
 	XMIN = XMAX;
