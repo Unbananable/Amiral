@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/27 15:40:34 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/27 17:52:58 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,17 @@ int		key_press(int key, t_fdf *fdf)
 	ft_printf("Key press: %d\n", key);
 	if (key == 53)
 		exit(0);
-	if (key >= 123 && key <= 126)
+	if (key == 13 || key == 0 || key == 1 || key == 2)
+// peut etre macro KEY_W, KEY_A,... pour eviter les magic nbrs ?
 	{
 		mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
-		if (key == 123) // gauche
+		if (key == 0) // gauche
 			mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, --i, j);
-		else if (key == 124)// droite
+		else if (key == 2)// droite
 			mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, ++i, j);
-		else if (key == 125)// bas
+		else if (key == 1)// bas
 			mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, i, ++j);
-		else if (key == 126)// haut
+		else if (key == 13)// haut
 			mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, i, --j);
 	}
 	if (key == 49)
@@ -60,6 +61,21 @@ int		key_press(int key, t_fdf *fdf)
 		i = 0;
 		j = 0;
 		mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
+		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
+	}
+	if (key == 126 || key == 125) //ARROW_UP, ARROW_DOWN
+	{
+		mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
+		clear_image(fdf);
+		if (key == 126)
+			fdf->map_info.alt_ratio *= 1.1;
+		else if (key == 125)
+			fdf->map_info.alt_ratio *= 0.9;
+		if (fdf->map_info.proj == ISOMETRIC)
+			fdf->proj_map = isometric_projection(fdf->map, &(fdf->map_info));
+		else if (fdf->map_info.proj == PARALLEL)
+			fdf->proj_map = parallel_projection(fdf->map, &(fdf->map_info));
+		draw_img(fdf, fdf->proj_map, fdf->map_info);
 		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/27 15:40:52 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/27 17:49:33 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@
 # define YMAX map_info->ymax
 # define SCALE map_info->scale
 
+typedef enum e_proj
+{
+	ISOMETRIC,
+	PARALLEL,
+	TOP
+}			t_proj;
 
 typedef struct	s_point
 {
@@ -47,6 +53,8 @@ typedef struct	s_map
 	int		y_offset;
 	double	zmax;
 	double	zmin;
+	double	alt_ratio;
+	t_proj	proj;
 }				t_map;
 
 typedef struct	s_image

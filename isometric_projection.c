@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 19:03:06 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/27 15:48:21 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/27 17:49:51 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_point	**isometric_projection(int **map, t_map *map_info)
 	XMIN = 0;
 	YMAX = -map[0][0] * WIDTH / 2;
 	YMIN = YMAX;
+	map_info->proj = ISOMETRIC;
 	if (!(res = (t_point **)malloc(sizeof(t_point *) * DEPTH)))
 		error("Askip c'est MALLOC TOUT PETE");
 	i = -1;
@@ -37,7 +38,7 @@ t_point	**isometric_projection(int **map, t_map *map_info)
 			if ((res[i][j].x = (i + j) * cos(M_PI / 6) * DEPTH / 2) > XMAX)
 				XMAX = res[i][j].x;
 			XMIN = (res[i][j].x < XMIN) ? res[i][j].x : XMIN;
-			if ((res[i][j].y = (i - j) * sin(M_PI / 6) * WIDTH / 2 - map[i][j] * WIDTH / 2) > YMAX)
+			if ((res[i][j].y = (i - j) * sin(M_PI / 6) * WIDTH / 2 - map[i][j] * WIDTH / 2 * map_info->alt_ratio) > YMAX)
 				YMAX = res[i][j].y;
 			YMIN = (res[i][j].y < YMIN) ? res[i][j].y : YMIN;
 		}

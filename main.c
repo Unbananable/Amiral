@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/27 15:44:04 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/27 17:33:23 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int		main(int ac, char **av)
 	fdf.mlx_ptr = mlx_init();
 	fdf.win_ptr = mlx_new_window(fdf.mlx_ptr, WIN_HEIGHT, WIN_WIDTH, "FdF");
 	init_map_info(&(fdf.map_info), av[1]);
+	fdf.map_info.alt_ratio = 1.0;
 	fdf.map = reader(av[1], &(fdf.map_info));
 	fdf.proj_map = isometric_projection(fdf.map, &(fdf.map_info));
 	get_placement_info(fdf.proj_map, &(fdf.map_info));

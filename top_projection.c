@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/27 11:57:34 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/27 17:50:12 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_point	**top_projection(int **map, t_map *map_info)
 	int		j;
 
 	map += 0;
+	map_info->proj = TOP;
 	if (!(res = (t_point **)malloc(sizeof(t_point *) * map_info->depth)))
 		error("MALLOC TU PUES");
 	i = -1;
