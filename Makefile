@@ -6,13 +6,13 @@
 #    By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 17:58:51 by dtrigalo          #+#    #+#              #
-#    Updated: 2019/01/18 12:40:47 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/01/27 13:47:47 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror 
 
 SRC1 = main.c draw.c
 
@@ -33,7 +33,7 @@ MLX = -I /usr/local/include -L /usr/local/lib/ -lmlx -framework OpenGL -framewor
 all: $(LIBFT) $(NAME)
 
 $(LIBFT):
-	@make -C libft re
+	@make -C libft
 
 $(OBJSFD):
 	@mkdir $@

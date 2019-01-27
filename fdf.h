@@ -6,16 +6,16 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/27 12:20:18 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/27 14:04:28 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# define WIN_HEIGHT 500
-# define WIN_WIDTH 500
-# define MARGIN 10
+# define WIN_HEIGHT 1200
+# define WIN_WIDTH 1200
+# define MARGIN 100
 # define BUFFER_SIZE 100
 
 # define WIDTH map_info->width
@@ -42,7 +42,7 @@ typedef struct	s_map
 	double	xmin;
 	double	ymax;
 	double	ymin;
-	int		scale;
+	double	scale;
 	int		x_offset;
 	int		y_offset;
 	double	zmax;
