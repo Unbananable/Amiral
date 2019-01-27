@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/27 15:00:46 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/27 15:41:37 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,11 @@ static void	init_map_info(t_map *map_info, char *file_name)
 {
 	int		fd;
 
-	if ((fd = open(file_name, O_RDONLY)) == -1)
-		error("FILE PAS BON");
-	map_info->width = 0;
-	map_info->depth = ft_filelinecount(fd);
-	map_info->xmax = 0;
-	map_info->xmin = 0;
-	map_info->ymax = 0;
-	map_info->ymin = 0;
-	map_info->scale = 1;
-	map_info->x_offset = 0;
-	map_info->y_offset = 0;
-	map_info->zmax = 0;
-	map_info->zmin = 0;
-	close(fd);
+		if ((fd = open(file_name, O_RDONLY)) == -1)
+			error("FILE PAS BON");
+		map_info->depth = ft_filelinecount(fd);
+		map_info->width = 0;
+		close(fd);
 }
 
 void	usage(void)
@@ -58,6 +49,7 @@ int		main(int ac, char **av)
 	fdf.map = reader(av[1], &(fdf.map_info));
 	fdf.proj_map = parallel_projection(fdf.map, &(fdf.map_info));
 	get_placement_info(fdf.proj_map, &(fdf.map_info));
+printf("xmax = %f // xmin = %f // ymax = %f // ymin = %f // scale = %f // x_offset = %d // y_offset = %d\n", fdf.map_info.xmax, fdf.map_info.xmin, fdf.map_info.ymax, fdf.map_info.ymin, fdf.map_info.scale, fdf.map_info.x_offset, fdf.map_info.y_offset);
 	new_image(&fdf);
 	mlx_put_image_to_window(fdf.mlx_ptr, fdf.win_ptr, fdf.img_ptr, 0, 0);
 	draw_img(&fdf, fdf.proj_map, fdf.map_info);

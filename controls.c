@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/27 12:12:01 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/27 15:40:34 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int		key_press(int key, t_fdf *fdf)
 	return (0);
 }
 
+#include <stdio.h>
+
 int		key_release(int key, t_fdf *fdf)
 {
 	ft_printf("Key release: %d\n", key);
@@ -72,12 +74,13 @@ int		key_release(int key, t_fdf *fdf)
 	{
 		clear_image(fdf);
 		if (key == 35) //'P'
-			fdf->proj_map = parallel_projection(fdf->map, &fdf->map_info);
+			fdf->proj_map = parallel_projection(fdf->map, &(fdf->map_info));
 		if (key == 34) //'I'
-			fdf->proj_map = isometric_projection(fdf->map, &fdf->map_info);
+			fdf->proj_map = isometric_projection(fdf->map, &(fdf->map_info));
 		if (key == 17)
-			fdf->proj_map = top_projection(fdf->map, &fdf->map_info);
-		get_placement_info(fdf->proj_map, &fdf->map_info);
+			fdf->proj_map = top_projection(fdf->map, &(fdf->map_info));
+		get_placement_info(fdf->proj_map, &(fdf->map_info));
+		printf("xmax: %f... xmin: %f... ymax: %f... ymin: :%f\n", fdf->map_info.xmax, fdf->map_info.xmin, fdf->map_info.ymax, fdf->map_info.ymin);
 		draw_img(fdf, fdf->proj_map, fdf->map_info);
 		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
 	}

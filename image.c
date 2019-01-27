@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 14:05:36 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/27 15:00:24 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/27 15:08:22 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	fill_pixel(t_fdf *fdf, t_point p)
 	int		x;
 	int		y;
 
-	x = p.x + fdf->map_info.x_offset;
-	y = p.y + fdf->map_info.y_offset;
+	x = p.x;
+	y = p.y;
 	if (x >= 0 && y >= 0 && x < WIN_WIDTH && y < WIN_HEIGHT)
 	{//on pourra mettre une couleur variable apres
 		fdf->addr[x + y * WIN_WIDTH] = 0xFF0000;

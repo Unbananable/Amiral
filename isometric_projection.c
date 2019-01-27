@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 19:03:06 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/25 20:44:41 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/27 15:38:36 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ t_point	**isometric_projection(int **map, t_map *map_info)
 	int		j;
 	t_point	**res;
 
+	XMAX = 0;
+	XMIN = 0;
+	YMAX = -map[0][0] * WIDTH / 2;
+	YMIN = YMAX;
 	if (!(res = (t_point **)malloc(sizeof(t_point *) * DEPTH)))
 		error("Askip c'est MALLOC TOUT PETE");
 	i = -1;

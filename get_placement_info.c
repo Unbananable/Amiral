@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:46 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/27 15:00:10 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/27 15:06:48 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ void	get_placement_info(t_point **proj_map, t_map *map_info)
 	tmp = (WIN_HEIGHT - 2 * MARGIN) / (YMAX - YMIN);
 	SCALE = (tmp < SCALE) ? tmp : SCALE;
 	map_info->x_offset = nearbyint((WIN_WIDTH - ((XMAX - XMIN) * SCALE)) / 2 - XMIN * SCALE);
-	map_info->y_offset = nearbyint((WIN_HEIGHT - ((YMAX - YMIN) * SCALE)) / 2 - YMIN* SCALE);
+	map_info->y_offset = nearbyint((WIN_HEIGHT - ((YMAX - YMIN) * SCALE)) / 2 - YMIN * SCALE);
 }

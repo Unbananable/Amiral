@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 18:17:01 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/27 12:29:15 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/27 15:37:08 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ t_point	**parallel_projection(int **map, t_map *map_info)
 
 	angle = 45.0;
 	ratio = 1.0;
+	XMAX = ratio *cos(angle) * DEPTH;
+	XMIN = XMAX;
+	YMAX = -(map[0][0]+ ratio * sin(angle) * DEPTH);
+	YMIN = YMAX;
 	if (!(res = (t_point **)malloc(sizeof(t_point *) * DEPTH)))
 		error("MALLOC TOUT PETE");
 	i = -1;
@@ -37,7 +41,7 @@ t_point	**parallel_projection(int **map, t_map *map_info)
 			if ((res[i][j].x = j + ratio * cos(angle) * (DEPTH - i)) > XMAX)
 				XMAX = res[i][j].x;
 			XMIN = (res[i][j].x < XMIN) ? res[i][j].x : XMIN;
-			if ((res[i][j].y = -map[i][j] + ratio * -sin(angle) * (DEPTH - i)) > YMAX)
+			if ((res[i][j].y = -(map[i][j] + ratio * sin(angle) * (DEPTH - i))) > YMAX)
 				YMAX = res[i][j].y;
 			YMIN = (res[i][j].y < YMIN) ? res[i][j].y : YMIN;
 		}
