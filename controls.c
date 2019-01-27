@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/27 17:56:46 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/27 18:23:59 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,56 @@ int		key_press(int key, t_fdf *fdf)
 	ft_printf("Key press: %d\n", key);
 	if (key == ESC)
 		exit(0);
-	if ((key >= LEFT_ARROW && key <= UP_ARROW) || key == SPACE)
+	if (key == W || key == A || key == S || key == D || key == Q || key == E || key == Z || key == X || key == SPACE)
 	{
 		clear_image(fdf);
-		if (key == LEFT_ARROW)
+		if (key == A)
 			fdf->map_info.x_offset--;
-		else if (key == RIGHT_ARROW)
+		else if (key == D)
 			fdf->map_info.x_offset++;
-		else if (key == DOWN_ARROW)
+		else if (key == S)
 			fdf->map_info.y_offset++;
-		else if (key == UP_ARROW)
+		else if (key == W)
 			fdf->map_info.y_offset--;
+		else if (key == Z)
+		{
+			fdf->map_info.x_offset--;
+			fdf->map_info.y_offset++;
+		}
+		else if (key == E)
+		{
+			fdf->map_info.x_offset++;
+			fdf->map_info.y_offset--;
+		}
+		else if (key == Q)
+		{
+			fdf->map_info.x_offset--;
+			fdf->map_info.y_offset--;
+		}
+		else if (key == X)
+		{
+			fdf->map_info.x_offset++;
+			fdf->map_info.y_offset++;
+		}
 		else if (key == SPACE)
+		{
+			if (fdf->map_info.proj == ISOMETRIC)
+				fdf->proj_map = isometric_projection(fdf->map, &(fdf->map_info));
+			else if (fdf->map_info.proj == PARALLEL)
+				fdf->proj_map = parallel_projection(fdf->map, &(fdf->map_info));
+			else if (fdf->map_info.proj == TOP)
+				fdf->proj_map = top_projection(fdf->map, &(fdf->map_info));
 			get_placement_info(fdf->proj_map, &(fdf->map_info));
+			fdf->map_info.alt_ratio = 1.0;
+/* Ici on a le choix... soit on laisse comme c'est là, et on a une feature
+ * supplémentaire qui fait que si on tape ESPACE une fois, on ajuste la figure
+ * entiere par rapport au changement d'altiude, donc on peut voir l'image étirée
+ * et entiere, et avec 2 tapes ESPACE on remet tout à neuf... ou sinon on met le
+ * alt_ratio = 1 AVANT get_placement_info, et à ce moment on remet tout à neuf
+ * en cliquant une seule fois sur ESPACE... je te laisse choisir (mais en vrai
+ * la feature avec les deux clic ESPACE est sympa je trouve (même si
+ * involontaire)*/
+		}
 		draw_img(fdf, fdf->proj_map, fdf->map_info);
 		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
 	}
@@ -61,18 +98,18 @@ int		key_press(int key, t_fdf *fdf)
 		clear_image(fdf);
 		if (key == PLUS || key == NUMPAD_PLUS)
 			fdf->map_info.scale *= 1.01;
-		if (key == MINUS || key == NUMPAD_MINUS)
-			fdf->map_info.scale *= 0.99;;
+		else if (key == MINUS || key == NUMPAD_MINUS)
+			fdf->map_info.scale *= 0.99;
 		draw_img(fdf, fdf->proj_map, fdf->map_info);
 		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
 	}
-	if (key == 126 || key == 125) //ARROW_UP, ARROW_DOWN
+	if (key == UP_ARROW || key == DOWN_ARROW)
 	{
 		mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
 		clear_image(fdf);
-		if (key == 126)
+		if (key == UP_ARROW)
 			fdf->map_info.alt_ratio *= 1.1;
-		else if (key == 125)
+		else if (key == DOWN_ARROW)
 			fdf->map_info.alt_ratio *= 0.9;
 		if (fdf->map_info.proj == ISOMETRIC)
 			fdf->proj_map = isometric_projection(fdf->map, &(fdf->map_info));
@@ -84,17 +121,15 @@ int		key_press(int key, t_fdf *fdf)
 	return (0);
 }
 
-#include <stdio.h>
-
 int		key_release(int key, t_fdf *fdf)
 {
 	ft_printf("Key release: %d\n", key);
 	if (key == P || key == I || key == T)
 	{
 		clear_image(fdf);
-		if (key == P) //'P'
+		if (key == P)
 			fdf->proj_map = parallel_projection(fdf->map, &(fdf->map_info));
-		if (key == I) //'I'
+		if (key == I)
 			fdf->proj_map = isometric_projection(fdf->map, &(fdf->map_info));
 		if (key == T)
 			fdf->proj_map = top_projection(fdf->map, &(fdf->map_info));

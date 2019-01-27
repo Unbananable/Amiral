@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 17:23:18 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/27 17:42:25 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/27 18:09:53 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,15 @@
 
 # define ESC 53
 
-# define LEFT_ARROW 123
-# define RIGHT_ARROW 124
+# define W 13
+# define A 0
+# define S 1
+# define D 2
+# define Q 12
+# define E 14
+# define Z 6
+# define X 7
+
 # define DOWN_ARROW 125
 # define UP_ARROW 126
 # define SPACE 49
