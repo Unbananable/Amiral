@@ -6,16 +6,16 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/25 20:51:54 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/27 12:20:18 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# define WIN_HEIGHT 1500
-# define WIN_WIDTH 1500
-# define MARGIN 20
+# define WIN_HEIGHT 500
+# define WIN_WIDTH 500
+# define MARGIN 10
 # define BUFFER_SIZE 100
 
 # define WIDTH map_info->width
