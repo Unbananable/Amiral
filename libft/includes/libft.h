@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 14:42:05 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/28 17:17:03 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/28 19:07:19 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
-typedef struct		s_file
+typedef struct	s_file
 {
 	int				fd;
 	unsigned char	buf[BUFF_SIZE + 1];
 	int				i;
-}					t_file;
+}				t_file;
 
 void			ft_bzero(void *s, size_t n);
 void			ft_memdel(void **ap);

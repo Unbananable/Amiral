@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/28 18:39:03 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/28 18:58:23 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	get_width(char *file_name)
 		}
 	}
 	ft_fclose(stream);
-	return (res);	
+	return (res);
 }
 
 static void	init_map_info(t_map *map_info, char *file_name)

@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:37:34 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/28 17:33:40 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/28 19:12:10 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		ft_fgetc(t_file *stream)
 
 	if (!stream)
 		return (-1);
-	if (!(stream->buf[0]))
+	if (!(stream->buf[stream->i]))
 	{
 		if ((ret = read(stream->fd, stream->buf, BUFF_SIZE)) <= 0)
 		{
@@ -33,5 +33,5 @@ int		ft_fgetc(t_file *stream)
 		stream->i = 0;
 	}
 	res = stream->buf[stream->i++];
-	return((int)res);
+	return ((int)res);
 }

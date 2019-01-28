@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:03:04 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/28 18:16:04 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/28 19:10:50 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "libft.h"
 #include "fdf.h"
 #include <fcntl.h>
+
+#include <stdio.h>
 
 static int	add_if_int(int *nb, int to_add, int sign)
 {
@@ -27,7 +29,7 @@ static int	add_if_int(int *nb, int to_add, int sign)
 	return (1);
 }
 
-static int	get_alt(int **map, int i, int j, t_file *stream, t_map *map_info)
+static int	get_alt(int *map, int j, t_file *stream, t_map *map_info)
 {
 	int		sign;
 	int		tmp;
@@ -38,21 +40,20 @@ static int	get_alt(int **map, int i, int j, t_file *stream, t_map *map_info)
 		tmp = ft_fgetc(stream);
 	while (tmp != '\n' && tmp != ' ' && tmp != '\t' && tmp != -1)
 	{
-		if (tmp == '-' && map[i][j] == 0 && sign == 1)
+		if (tmp == '-' && map[j] == 0 && sign == 1)
 			sign = -1;
 		else if (tmp >= '0' && tmp <= '9')
 		{
-			if (!add_if_int(&(map[i][j]), tmp - '0', sign))
+			if (!add_if_int(&(map[j]), tmp - '0', sign))
 				return (0);
 		}
 		else
 			return (0);
 		tmp = ft_fgetc(stream);
 	}
-	if ((tmp == '\n' && j != WIDTH - 1) || (j == WIDTH - 1 && tmp != '\n')
-			|| (tmp == -1 && j != WIDTH - 1 && i != DEPTH - 1))
+	if ((tmp == '\n' && j != WIDTH - 1) || (j == WIDTH - 1 && tmp != '\n'))
 		return (0);
-	map[i][j] = (map[i][j] > 0) ? map[i][j] * sign : map[i][j];
+	map[j] = (map[j] > 0) ? map[j] * sign : map[j];
 	return (1);
 }
 
@@ -73,13 +74,12 @@ int			**reader(char *file_name, t_map *map_info)
 		if (!(res[i] = (int *)malloc(sizeof(int) * WIDTH)))
 			error("MALLOC NUL");
 		j = -1;
-		while (++j < WIDTH)
-		{
-			res[i][j] = 0;
-			if (!get_alt(res, i, j, stream, map_info))
+		while (++j < WIDTH && !(res[i][j] = 0))
+			if (!get_alt(res[i], j, stream, map_info))
 				error("BAD MAP");
-		}
 	}
+	if (ft_fgetc(stream) != -1)
+		error("BAD MAP");
 	ft_fclose(stream);
 	return (res);
 }
