@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 09:18:47 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/28 17:30:41 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/28 20:24:24 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		ft_filelinecount(char *path)
 
 	if ((fd = open(path, O_RDONLY)) == -1)
 		return (-1);
-	nblines = 0;
+	nblines = 1;
 	while ((readchar = read(fd, buf, 4096)) > 0)
 	{
 		buf[readchar] = 0;
@@ -32,10 +32,13 @@ int		ft_filelinecount(char *path)
 		while (i < readchar)
 		{
 			if (buf[i] == '\n')
+			{
+				i = (i == readchar - 1) ? 2147483 : i;
 				nblines++;
+			}
 			i++;
 		}
 	}
 	close(fd);
-	return (nblines);
+	return ((i == 2147484) ? nblines - 1 : nblines);
 }
