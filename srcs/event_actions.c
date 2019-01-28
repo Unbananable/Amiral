@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 16:29:47 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/28 18:23:05 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/28 18:55:56 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,12 @@ void	event_adjust_alt(int key, t_map *map_info)
 		map_info->alt_ratio *= 1.1;
 	if (key == DOWN_ARROW)
 		map_info->alt_ratio *= 0.9;
+}
+
+void	event_reset(t_fdf *fdf)
+{
+	fdf->map_info.alt_ratio = 1;
+	fdf->proj_map = projection(fdf->map_info.proj, fdf->map,
+			&(fdf->map_info));
+	get_placement_info(&(fdf->map_info));
 }

@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/28 18:23:21 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/28 18:55:58 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	is_available(int key)
 	if (key == A || key == W || key == S || key == D || key == Q || key == E
 			|| key == Z || key == X || key == SPACE || key == PLUS
 			|| key == MINUS || key == NUMPAD_PLUS || key == NUMPAD_MINUS
-			|| key == UP_ARROW || key == DOWN_ARROW)
+			|| key == UP_ARROW || key == DOWN_ARROW || key == ESC)
 		return (1);
 	return (0);
 }
@@ -44,12 +44,16 @@ int			key_press(int key, t_fdf *fdf)
 			|| key == Z || key == X)
 		event_move(key, &(fdf->map_info));
 	else if (key == SPACE)
-		get_placement_info(&(fdf->map_info));
+		event_reset(fdf);
 	else if (key == PLUS || key == MINUS || key == NUMPAD_PLUS
 			|| key == NUMPAD_MINUS)
 		event_zoom(key, &(fdf->map_info));
 	if (key == UP_ARROW || key == DOWN_ARROW)
+	{
 		event_adjust_alt(key, &(fdf->map_info));
+		fdf->proj_map = projection(fdf->map_info.proj, fdf->map,
+				&(fdf->map_info));
+	}
 	draw_image(fdf);
 	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
 	return (0);

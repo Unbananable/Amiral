@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/28 18:24:15 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/28 18:56:00 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,6 @@ void			error(char *str);
 
 int				**reader(char *file_name, t_map *map_info);
 t_point			**projection(t_proj proj, int **map, t_map *map_info);
-t_point			**parallel_projection(int **map, t_map *map_info);
-t_point			**isometric_projection(int **map, t_map *map_info);
-t_point			**top_projection(int **map, t_map *map_info);
 void			get_placement_info(t_map *map_info);
 
 void			new_image(t_fdf *fdf);
@@ -91,6 +88,7 @@ int				key_press(int key, t_fdf *fdf);
 void			event_move(int key, t_map *map_info);
 void			event_zoom(int key, t_map *map_info);
 void			event_adjust_alt(int key, t_map *map_info);
+void			event_reset(t_fdf *fdf);
 int				key_release(int key, t_fdf *fdf);
 
 #endif

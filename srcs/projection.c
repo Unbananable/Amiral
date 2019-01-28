@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 13:23:29 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/28 18:18:57 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/28 18:46:09 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-t_point		**projection(t_proj proj, int **map, t_map *map_info)
-{
-	map_info->proj = proj;
-	if (proj == TOP)
-		return (top_projection(map, map_info));
-	else if (proj == ISOMETRIC)
-		return (isometric_projection(map, map_info));
-	else if (proj == PARALLEL)
-		return (parallel_projection(map, map_info));
-	return (NULL);
-}
-
-static void	init_minmax(t_map *map_info, int first_value)
+static void		init_minmax(t_map *map_info, int first_value)
 {
 	if (map_info->proj == TOP)
 	{
@@ -51,7 +39,7 @@ static void	init_minmax(t_map *map_info, int first_value)
 	}
 }
 
-t_point		**top_projection(int **map, t_map *map_info)
+static t_point	**top_projection(int **map, t_map *map_info)
 {
 	t_point	**res;
 	int		i;
@@ -76,7 +64,7 @@ t_point		**top_projection(int **map, t_map *map_info)
 	return (res);
 }
 
-t_point		**parallel_projection(int **map, t_map *map_info)
+static t_point	**parallel_projection(int **map, t_map *map_info)
 {
 	t_point	**res;
 	int		i;
@@ -105,7 +93,7 @@ t_point		**parallel_projection(int **map, t_map *map_info)
 	return (res);
 }
 
-t_point		**isometric_projection(int **map, t_map *map_info)
+static t_point	**isometric_projection(int **map, t_map *map_info)
 {
 	int		i;
 	int		j;
@@ -132,4 +120,16 @@ t_point		**isometric_projection(int **map, t_map *map_info)
 		}
 	}
 	return (res);
+}
+
+t_point			**projection(t_proj proj, int **map, t_map *map_info)
+{
+	map_info->proj = proj;
+	if (proj == TOP)
+		return (top_projection(map, map_info));
+	else if (proj == ISOMETRIC)
+		return (isometric_projection(map, map_info));
+	else if (proj == PARALLEL)
+		return (parallel_projection(map, map_info));
+	return (NULL);
 }
