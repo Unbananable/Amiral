@@ -6,11 +6,13 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 13:23:29 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/28 16:07:08 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/28 18:18:57 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <math.h>
+#include <stdlib.h>
 
 t_point		**projection(t_proj proj, int **map, t_map *map_info)
 {
@@ -24,7 +26,7 @@ t_point		**projection(t_proj proj, int **map, t_map *map_info)
 	return (NULL);
 }
 
-static void	init_minmax(t_map *map_info)
+static void	init_minmax(t_map *map_info, int first_value)
 {
 	if (map_info->proj == TOP)
 	{
@@ -37,14 +39,14 @@ static void	init_minmax(t_map *map_info)
 	{
 		XMAX = cos(M_PI / 4) * DEPTH;
 		XMIN = XMAX;
-		YMAX = -(map[0][0] + sin(M_PI / 4) * DEPTH);
+		YMAX = -(first_value + sin(M_PI / 4) * DEPTH);
 		YMIN = YMAX;
 	}
 	if (map_info->proj == ISOMETRIC)
 	{
 		XMAX = 0;
 		XMIN = 0;
-		YMAX = -map[0][0] * WIDTH / 2;
+		YMAX = -first_value * WIDTH / 2;
 		YMIN = YMAX;
 	}
 }
@@ -56,7 +58,7 @@ t_point		**top_projection(int **map, t_map *map_info)
 	int		j;
 
 	map += 0;
-	init_minmax(map_info);
+	init_minmax(map_info, map[0][0]);
 	if (!(res = (t_point **)malloc(sizeof(t_point *) * DEPTH)))
 		error("MALLOC TU PUES");
 	i = -1;
@@ -80,7 +82,7 @@ t_point		**parallel_projection(int **map, t_map *map_info)
 	int		i;
 	int		j;
 
-	init_minmax(map_info);
+	init_minmax(map_info, map[0][0]);
 	if (!(res = (t_point **)malloc(sizeof(t_point *) * DEPTH)))
 		error("MALLOC TOUT PETE");
 	i = -1;
@@ -109,7 +111,7 @@ t_point		**isometric_projection(int **map, t_map *map_info)
 	int		j;
 	t_point	**res;
 
-	init_minmax(map_info);
+	init_minmax(map_info, map[0][0]);
 	if (!(res = (t_point **)malloc(sizeof(t_point *) * DEPTH)))
 		error("Askip c'est MALLOC TOUT PETE");
 	i = -1;

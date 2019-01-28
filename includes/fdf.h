@@ -6,14 +6,12 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/28 17:12:28 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/28 18:24:15 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-
-# include "keys.h"
 
 # define WIN_HEIGHT 1200
 # define WIN_WIDTH 1200
@@ -83,7 +81,7 @@ t_point			**projection(t_proj proj, int **map, t_map *map_info);
 t_point			**parallel_projection(int **map, t_map *map_info);
 t_point			**isometric_projection(int **map, t_map *map_info);
 t_point			**top_projection(int **map, t_map *map_info);
-void			get_placement_info(t_point **proj_map, t_map *map_info);
+void			get_placement_info(t_map *map_info);
 
 void			new_image(t_fdf *fdf);
 void			draw_image(t_fdf *fdf);

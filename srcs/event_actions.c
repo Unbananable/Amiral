@@ -6,11 +6,12 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 16:29:47 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/28 16:50:06 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/28 18:23:05 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "keys.h"
 
 void	event_move(int key, t_map *map_info)
 {
@@ -36,6 +37,6 @@ void	event_adjust_alt(int key, t_map *map_info)
 {
 	if (key == UP_ARROW)
 		map_info->alt_ratio *= 1.1;
-	if (key == DOWN_ARRROW)
+	if (key == DOWN_ARROW)
 		map_info->alt_ratio *= 0.9;
 }

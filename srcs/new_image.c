@@ -6,9 +6,12 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 16:10:25 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/28 16:12:31 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/28 18:21:01 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "fdf.h"
+#include "mlx.h"
 
 void	new_image(t_fdf *fdf)
 {

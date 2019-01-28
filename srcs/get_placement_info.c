@@ -6,14 +6,14 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 16:08:38 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/28 16:39:24 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/28 18:19:09 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <math.h>
 
-void	get_placement_info(t_point **proj_map, t_map *map_info)
+void	get_placement_info(t_map *map_info)
 {
 	double		tmp;
 

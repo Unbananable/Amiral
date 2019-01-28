@@ -6,13 +6,15 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/28 17:10:20 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/28 18:23:21 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
 #include "fdf.h"
 #include <stdlib.h>
+#include "libft.h"
+#include "keys.h"
 
 static int	is_available(int key)
 {
@@ -42,13 +44,13 @@ int			key_press(int key, t_fdf *fdf)
 			|| key == Z || key == X)
 		event_move(key, &(fdf->map_info));
 	else if (key == SPACE)
-		get_placement_info(fdf->proj_map, &(fdf->map_info));
+		get_placement_info(&(fdf->map_info));
 	else if (key == PLUS || key == MINUS || key == NUMPAD_PLUS
 			|| key == NUMPAD_MINUS)
 		event_zoom(key, &(fdf->map_info));
 	if (key == UP_ARROW || key == DOWN_ARROW)
 		event_adjust_alt(key, &(fdf->map_info));
-	draw_img(fdf);
+	draw_image(fdf);
 	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
 	return (0);
 }
@@ -64,8 +66,8 @@ int			key_release(int key, t_fdf *fdf)
 			fdf->proj_map = projection(ISOMETRIC, fdf->map, &(fdf->map_info));
 		if (key == T)
 			fdf->proj_map = projection(TOP, fdf->map, &(fdf->map_info));
-		get_placement_info(fdf->proj_map, &(fdf->map_info));
-		draw_img(fdf);
+		get_placement_info(&(fdf->map_info));
+		draw_image(fdf);
 		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
 	}
 	return (0);

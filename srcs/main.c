@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/28 17:39:40 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/28 18:20:14 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int			main(int ac, char **av)
 	init_map_info(&(fdf.map_info), av[1]);
 	fdf.map = reader(av[1], &(fdf.map_info));
 	fdf.proj_map = projection(PARALLEL, fdf.map, &(fdf.map_info));
-	get_placement_info(fdf.proj_map, &(fdf.map_info));
+	get_placement_info(&(fdf.map_info));
 	new_image(&fdf);
 	mlx_put_image_to_window(fdf.mlx_ptr, fdf.win_ptr, fdf.img_ptr, 0, 0);
 	draw_image(&fdf);
