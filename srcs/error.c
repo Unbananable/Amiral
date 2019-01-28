@@ -6,11 +6,11 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 12:09:56 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/27 13:49:26 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/28 17:40:05 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/includes/libft.h"
+#include "libft.h"
 #include <stdlib.h>
 
 void	error(char *str)

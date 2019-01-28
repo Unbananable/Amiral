@@ -1,41 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_filelinecount.c                                 :+:      :+:    :+:   */
+/*   ft_fopen.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/19 09:18:47 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/28 17:30:41 by anleclab         ###   ########.fr       */
+/*   Created: 2019/01/23 15:03:31 by anleclab          #+#    #+#             */
+/*   Updated: 2019/01/28 17:31:24 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
+#include <stdlib.h>
 #include <fcntl.h>
 
-int		ft_filelinecount(char *path)
+t_file	*ft_fopen(const char *path)
 {
-	int		nblines;
-	int		readchar;
-	char	buf[4097];
-	int		i;
-	int		fd;
+	t_file	*stream;
 
-	if ((fd = open(path, O_RDONLY)) == -1)
-		return (-1);
-	nblines = 0;
-	while ((readchar = read(fd, buf, 4096)) > 0)
-	{
-		buf[readchar] = 0;
-		i = 0;
-		while (i < readchar)
-		{
-			if (buf[i] == '\n')
-				nblines++;
-			i++;
-		}
-	}
-	close(fd);
-	return (nblines);
+	if (!(stream = (t_file *)malloc(sizeof(t_file))))
+		return (NULL);
+	if ((stream->fd = open(path, O_RDONLY)) == -1)
+		return (NULL);
+	stream->buf[0] = 0;
+	stream->i = 0;
+	return (stream);
 }

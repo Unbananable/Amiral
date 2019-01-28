@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_error.c                                       :+:      :+:    :+:   */
+/*   new_image.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/06 10:00:21 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/11 12:10:35 by dtrigalo         ###   ########.fr       */
+/*   Created: 2019/01/28 16:10:25 by anleclab          #+#    #+#             */
+/*   Updated: 2019/01/28 16:12:31 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdarg.h>
-#include <unistd.h>
-#include "libft.h"
-
-void	exit_error(char *er_mess, int nbfree, ...)
+void	new_image(t_fdf *fdf)
 {
-	va_list		ap;
-
-	write(1, er_mess, ft_strlen(er_mess));
-	va_start(ap, nbfree);
-	while (nbfree--)
-		free(va_arg(ap, void *));
-	va_end(ap);
-	exit(0);
+	fdf->img_ptr = mlx_new_image(fdf->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
+	fdf->addr = (unsigned int *)mlx_get_data_addr(fdf->img_ptr,
+			&(fdf->image.bpp), &(fdf->image.size_line), &(fdf->image.endian));
 }

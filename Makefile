@@ -6,7 +6,7 @@
 #    By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 17:58:51 by dtrigalo          #+#    #+#              #
-#    Updated: 2019/01/27 13:47:47 by anleclab         ###   ########.fr        #
+#    Updated: 2019/01/28 17:43:57 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,16 +14,24 @@ NAME = fdf
 
 CFLAGS = -Wall -Wextra -Werror 
 
-SRC1 = main.c draw.c
-
 MAGENTA = \033[0;35m
 CYAN = \033[0;36m
 NC = \033[0m
 
-OBJSFD = objects
+SRC = main.c \
+	  error.c \
+	  reader.c \
+	  projection.c \
+	  get_placement_info.c \
+	  new_image.c \
+	  draw_image.c \
+	  events.c \
+	  event_actions.c
+SRCSFD = srcs/
+OBJSFD = objs/
+OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))
 
-OBJS = $(addprefix $(OBJSFD)/,$(SRC1:.c=.o))
-
+HDR = -I./includes
 LIBFT_HDR = -I./libft/includes
 LIB_BINARY = -L./libft -lft
 LIBFT= libft/libft.a
@@ -32,23 +40,22 @@ MLX = -I /usr/local/include -L /usr/local/lib/ -lmlx -framework OpenGL -framewor
 
 all: $(LIBFT) $(NAME)
 
+$(NAME): $(OBJSFD) $(LIBFT) $(OBJS)
+	@echo "$(CYAN)\nCompiling $@...$(NC)"
+	@gcc $(FLAGS) $(MLX) $(OBJS) $(LIB_BINARY) -o $@
+	@echo "$(CYAN)$@ is ready$(NC)"
+
 $(LIBFT):
 	@make -C libft
 
 $(OBJSFD):
 	@mkdir $@
 
-$(OBJSFD)/%.o: %.c | $(OBJSFD)
-	@gcc $(CFLAGS) $(LIBFT_HDR) -c $< -o $@
-
-$(NAME): $(OBJS) $(LIBFT)
-	@echo "$(CYAN)\nCompiling $@...$(NC)"
-	@gcc $(FLAGS) $(MLX) $(OBJS) $(LIB_BINARY) -o $@
-	@echo "$(CYAN)$@ is ready$(NC)"
+$(OBJSFD)%.o: $(SRCSFD)%.c
+	@gcc $(CFLAGS) $(HDR) $(LIBFT_HDR) -c $< -o $@
 
 clean:
 	@echo "$(MAGENTA)\nDeleting object files...$(NC)"
-	@/bin/rm -f $(OBJS)
 	@rm -rf $(OBJSFD)
 	@make -C ./libft clean
 

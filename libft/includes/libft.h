@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 14:42:05 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/21 16:11:30 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/28 17:17:03 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,21 @@
 # include <string.h>
 # include <wchar.h>
 
+# define BUFF_SIZE 4096
+
 typedef struct	s_list
 {
 	void			*content;
 	size_t			content_size;
 	struct s_list	*next;
 }				t_list;
+
+typedef struct		s_file
+{
+	int				fd;
+	unsigned char	buf[BUFF_SIZE + 1];
+	int				i;
+}					t_file;
 
 void			ft_bzero(void *s, size_t n);
 void			ft_memdel(void **ap);
@@ -109,6 +118,10 @@ void			ft_print_int_array(int *array, int arr_size);
 double			ft_double_power(double n, int pow);
 long double		ft_ldouble_power(long double n, int pow);
 
-int				ft_filelinecount(int fd);
+int				ft_filelinecount(char *path);
+
+t_file			*ft_fopen(const char *path);
+int				ft_fclose(t_file *stream);
+int				ft_fgetc(t_file *stream);
 
 #endif

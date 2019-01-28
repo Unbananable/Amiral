@@ -1,21 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   conv_functions_percentage.c                        :+:      :+:    :+:   */
+/*   ft_fgetc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/06 09:57:24 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/11 12:08:40 by dtrigalo         ###   ########.fr       */
+/*   Created: 2019/01/23 14:37:34 by anleclab          #+#    #+#             */
+/*   Updated: 2019/01/28 17:33:40 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdarg.h>
+#include <sys/types.h>
+#include <sys/uio.h>
+#include <unistd.h>
 
-char	*conv_percentage(va_list ap, char *mod)
+int		ft_fgetc(t_file *stream)
 {
-	ap += 0;
-	mod += 0;
-	return (ft_strdup("%"));
+	int				ret;
+	unsigned char	res;
+
+	if (!stream)
+		return (-1);
+	if (!(stream->buf[0]))
+	{
+		if ((ret = read(stream->fd, stream->buf, BUFF_SIZE)) <= 0)
+		{
+			stream->buf[0] = 0;
+			return (-1);
+		}
+		stream->buf[ret] = 0;
+		stream->i = 0;
+	}
+	res = stream->buf[stream->i++];
+	return((int)res);
 }

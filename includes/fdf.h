@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/27 17:57:25 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/01/28 17:12:28 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@
 # define YMAX map_info->ymax
 # define SCALE map_info->scale
 
-typedef enum e_proj
+typedef enum	e_proj
 {
 	ISOMETRIC,
 	PARALLEL,
 	TOP
-}			t_proj;
+}				t_proj;
 
 typedef struct	s_point
 {
@@ -53,8 +53,6 @@ typedef struct	s_map
 	double	scale;
 	int		x_offset;
 	int		y_offset;
-	double	zmax;
-	double	zmin;
 	double	alt_ratio;
 	t_proj	proj;
 }				t_map;
@@ -69,34 +67,32 @@ typedef struct	s_image
 typedef struct	s_fdf
 {
 	unsigned int	*addr;
-	int		**map;
-	void	*mlx_ptr;
-	void	*win_ptr;
-	void	*img_ptr;
-	t_point	**proj_map;
-	t_map	map_info;
-	t_image	image;
+	int				**map;
+	void			*mlx_ptr;
+	void			*win_ptr;
+	void			*img_ptr;
+	t_point			**proj_map;
+	t_map			map_info;
+	t_image			image;
 }				t_fdf;
 
-void	fill_pixel(t_fdf *fdf, t_point p);
-void	new_image(t_fdf *fdf);
-void	draw_img(t_fdf *fdf, t_point **points, t_map map_info);
-t_image	delete_image(t_fdf *fdf, t_image *image);
-void	clear_image(t_fdf * fdf);
+void			error(char *str);
 
-void	error(char *str);
-void	draw_line(t_fdf *fdf, t_point p0, t_point p1, t_map map_info);
-void	draw(t_fdf *fdf, t_point **points, t_map map_info);
-int		**reader(char *file_name, t_map *map_info);
-t_point	**parallel_projection(int**map, t_map *map_info);
-t_point	**isometric_projection(int **map, t_map *map_info);
-t_point **top_projection(int **map, t_map *map_info);
-void	get_placement_info(t_point **proj_map, t_map *map_info);
+int				**reader(char *file_name, t_map *map_info);
+t_point			**projection(t_proj proj, int **map, t_map *map_info);
+t_point			**parallel_projection(int **map, t_map *map_info);
+t_point			**isometric_projection(int **map, t_map *map_info);
+t_point			**top_projection(int **map, t_map *map_info);
+void			get_placement_info(t_point **proj_map, t_map *map_info);
 
-int		red_cross_closing(void *param);
-int		mouse_press(int button, int x, int y, t_fdf *fdf);
-int		mouse_release(int button, int x, int y, t_fdf *fdf);
-int		key_press(int key, t_fdf *fdf);
-int		key_release(int key, t_fdf *fdf);
+void			new_image(t_fdf *fdf);
+void			draw_image(t_fdf *fdf);
+
+int				red_cross_closing(void *param);
+int				key_press(int key, t_fdf *fdf);
+void			event_move(int key, t_map *map_info);
+void			event_zoom(int key, t_map *map_info);
+void			event_adjust_alt(int key, t_map *map_info);
+int				key_release(int key, t_fdf *fdf);
 
 #endif

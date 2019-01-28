@@ -6,7 +6,7 @@
 #    By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:24:35 by dtrigalo          #+#    #+#              #
-#    Updated: 2019/01/21 16:10:37 by anleclab         ###   ########.fr        #
+#    Updated: 2019/01/28 17:33:52 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,13 +18,7 @@ CYAN = \033[0;36m
 MAGENTA = \033[0;35m
 NC = \033[0m
 
-FT_PRINTF = accufield_functions.c color_functions.c conv_functions_binary.c \
-			conv_functions_char.c conv_functions_double.c conv_functions_int.c \
-			conv_functions_longdouble.c conv_functions_percentage.c \
-			exit_error.c flag_functions.c ft_printf.c parse_accufield.c \
-			parse_conv.c parse_flag.c tools.c
-
-LIBFT = 	ft_abs.c \
+SRCS =	 	ft_abs.c \
 			ft_print_int_array.c \
 			ft_itoa_base.c	\
 			ft_atoi.c		\
@@ -99,43 +93,35 @@ LIBFT = 	ft_abs.c \
 			ft_wchar_to_bytes.c \
 			ft_double_power.c	\
 			ft_ldouble_power.c \
-			get_next_line.c \
-			ft_filelinecount.c
-
-OBJSFD = objects
-
-FT_PRINTF_SRCS = $(addprefix srcs/ft_printf/,$(FT_PRINTF))
-
-LIBFT_SRCS = $(addprefix srcs/,$(LIBFT))
-
-SRCS = $(LIBFT_SRCS) $(FT_PRINTF_SRCS)
-
-OBJECTS = $(LIBFT:.c=.o) $(FT_PRINTF:.c=.o)
-
-OBJS = $(addprefix $(OBJSFD)/, $(OBJECTS))
-
-VPATH = srcs:srcs/ft_printf
+			ft_filelinecount.c \
+			ft_fopen.c \
+			ft_fclose.c \
+			ft_fgetc.c
+SRCSFD = srcs/
+SRCS_PATH = $(addprefix $(SRCSFD),$(SRCS))
+OBJS = $(SRCS:.c=.o)
+OBJSFD = objects/
+OBJS_PATH = $(addprefix $(OBJSFD), $(OBJS))
 
 HDR = -I./includes
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJSFD) $(OBJS_PATH)
 	@echo "$(CYAN)\nCompiling binary...$(NC)"
-	@ar src $@ $(OBJS)
-	@ranlib $@
+	@ar rc $(NAME) $(OBJS_PATH)
+	@ranlib $(NAME)
 	@echo "$(CYAN)libft.a is created$(NC)"
 
 $(OBJSFD):
 	@mkdir $@
 
-$(OBJSFD)/%.o: %.c | $(OBJSFD)
+$(OBJSFD)%.o: $(SRCSFD)%.c
 	@gcc $(FLAGS) $(HDR) -c $< -o $@
 
 clean:
 	@echo "$(MAGENTA)\nDeleting libft object files...$(NC)"
-	@/bin/rm -f $(OBJS)
-	@rm -rf $(OBJSFD)
+	@rm -Rf $(OBJSFD)
 
 fclean: clean
 	@echo "$(MAGENTA)\nDeleting the library...$(NC)"
