@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 13:23:29 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/28 18:46:09 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/29 10:23:18 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,16 @@ static t_point	**top_projection(int **map, t_map *map_info)
 	int		j;
 
 	map += 0;
-	init_minmax(map_info, map[0][0]);
 	if (!(res = (t_point **)malloc(sizeof(t_point *) * DEPTH)))
-		error("MALLOC TU PUES");
+		return (NULL);
 	i = -1;
 	while (++i < DEPTH)
 	{
 		if (!(res[i] = (t_point *)malloc(sizeof(t_point) * WIDTH)))
-			error("ET TU MALLOC");
+		{
+			free_array_array(&res, i);
+			return (NULL);
+		}
 		j = -1;
 		while (++j < WIDTH)
 		{
@@ -70,14 +72,16 @@ static t_point	**parallel_projection(int **map, t_map *map_info)
 	int		i;
 	int		j;
 
-	init_minmax(map_info, map[0][0]);
 	if (!(res = (t_point **)malloc(sizeof(t_point *) * DEPTH)))
-		error("MALLOC TOUT PETE");
+		return (NULL);
 	i = -1;
 	while (++i < DEPTH)
 	{
 		if (!(res[i] = (t_point *)malloc(sizeof(t_point) * WIDTH)))
-			error("SACRE MALLOC !");
+		{
+			free_array_array(&res, i);
+			return (NULL);
+		}
 		j = -1;
 		while (++j < WIDTH)
 		{
@@ -99,14 +103,16 @@ static t_point	**isometric_projection(int **map, t_map *map_info)
 	int		j;
 	t_point	**res;
 
-	init_minmax(map_info, map[0][0]);
 	if (!(res = (t_point **)malloc(sizeof(t_point *) * DEPTH)))
-		error("Askip c'est MALLOC TOUT PETE");
+		return (NULL);
 	i = -1;
 	while (++i < DEPTH)
 	{
 		if (!(res[i] = (t_point *)malloc(sizeof(t_point) * WIDTH)))
-			error("Askip c'est un SACRE MALLOC !");
+		{
+			free_array_array(&res, i);
+			return (NULL);
+		}
 		j = -1;
 		while (++j < WIDTH)
 		{
@@ -125,6 +131,7 @@ static t_point	**isometric_projection(int **map, t_map *map_info)
 t_point			**projection(t_proj proj, int **map, t_map *map_info)
 {
 	map_info->proj = proj;
+	init_minmax(map_info, map[0][0]);
 	if (proj == TOP)
 		return (top_projection(map, map_info));
 	else if (proj == ISOMETRIC)

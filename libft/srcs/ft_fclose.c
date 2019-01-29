@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 15:14:07 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/28 18:38:32 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/29 09:31:18 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@
 
 int		ft_fclose(t_file *stream)
 {
-	if (!stream)
-		return (0);
-	if (close(stream->fd) == -1)
-		return (-1);
-	ft_bzero(stream->buf, 4097);
+	if (stream)
+	{
+		if (close(stream->fd) == -1)
+			return (-1);
+		ft_bzero(stream->buf, 4097);
+	}
+	free(stream);
+	stream = NULL;
 	return (0);
 }

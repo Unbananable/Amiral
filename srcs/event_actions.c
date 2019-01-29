@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 16:29:47 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/28 18:55:56 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/29 10:38:06 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ void	event_adjust_alt(int key, t_map *map_info)
 void	event_reset(t_fdf *fdf)
 {
 	fdf->map_info.alt_ratio = 1;
-	fdf->proj_map = projection(fdf->map_info.proj, fdf->map,
-			&(fdf->map_info));
+	free_array_array(&(fdf->proj_map), fdf->map_info.depth);
+	if (!(fdf->proj_map = projection(fdf->map_info.proj, fdf->map,
+			&(fdf->map_info))))
+		error("error: failed to reset map", fdf);
 	get_placement_info(&(fdf->map_info));
 }

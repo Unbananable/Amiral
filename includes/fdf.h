@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/28 18:56:00 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/29 10:38:08 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,17 @@ typedef struct	s_fdf
 }				t_fdf;
 
 void			error(char *str);
+void			free_array_array(void ***arrarr, int len);
+void			clear_fdf(t_fdf *fdf);
 
 int				**reader(char *file_name, t_map *map_info);
 t_point			**projection(t_proj proj, int **map, t_map *map_info);
 void			get_placement_info(t_map *map_info);
 
-void			new_image(t_fdf *fdf);
+int				new_image(t_fdf *fdf);
 void			draw_image(t_fdf *fdf);
 
-int				red_cross_closing(void *param);
+int				red_cross_closing(t_fdf *fdf);
 int				key_press(int key, t_fdf *fdf);
 void			event_move(int key, t_map *map_info);
 void			event_zoom(int key, t_map *map_info);

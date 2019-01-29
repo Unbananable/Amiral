@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:03:04 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/28 20:20:01 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/29 10:17:44 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,23 +64,31 @@ int			**reader(char *file_name, t_map *map_info)
 	int		j;
 
 	if (!(stream = ft_fopen(file_name)))
-		error("BAD STREAM");
+		return (NULL);
 	if (!(res = (int **)malloc(sizeof(int *) * DEPTH)))
-		error("MALLOC FOIREUX");
+		return (NULL);
 	i = -1;
 	while (++i < DEPTH)
 	{
 		if (!(res[i] = (int *)malloc(sizeof(int) * WIDTH)))
-			error("MALLOC NUL");
+		{
+			free_array_array(&res, i);
+			ft_fclose(stream);
+			return (NULL);
+		}
 		j = -1;
 		while (++j < WIDTH && !(res[i][j] = 0))
 			if (!get_alt(&(res[i][j]), stream))
-				error("BAD MAP ici");
+			{
+				free_array_array(&res, i);
+				ft_fclose(stream);
+				return (NULL);
+			}
 	}
 	while ((i = ft_fgetc(stream)) == ' ' || i == '\t' || i == '\n')
 		;
 	if (i != -1)
-		error("BAD MAP la");
+		free_array_array(&res, DEPTH);
 	ft_fclose(stream);
 	return (res);
 }

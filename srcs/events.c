@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/28 18:55:58 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/29 10:38:10 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static int	is_available(int key)
 	return (0);
 }
 
-int			red_cross_closing(void *param)
+int			red_cross_closing(t_fdf *fdf)
 {
-	(void)param;
+	clear_fdf(fdf);
 	exit(0);
 	return (0);
 }
@@ -38,7 +38,10 @@ int			key_press(int key, t_fdf *fdf)
 	if (!is_available(key))
 		return (0);
 	if (key == ESC)
+	{
+		clear_fdf(fdf);
 		exit(0);
+	}
 	ft_bzero(fdf->addr, WIN_WIDTH * WIN_HEIGHT * 4);
 	if (key == A || key == W || key == S || key == D || key == Q || key == E
 			|| key == Z || key == X)
