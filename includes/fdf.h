@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/29 12:55:43 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/29 13:23:52 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,13 @@ typedef struct	s_fdf
 }				t_fdf;
 
 void			error(char *str, t_fdf *fdf);
-void			free_2D_int_tab(int ***tab, int len);
-void			free_2D_tpoint_tab(t_point ***tab, int len);
+void			free_2d_int_tab(int ***tab, int len);
+void			free_2d_tpoint_tab(t_point ***tab, int len);
 void			clear_fdf(t_fdf *fdf);
 
 int				**reader(char *file_name, t_map *map_info);
 t_point			**projection(t_proj proj, int **map, t_map *map_info);
+t_point			**initialize_proj_map(int width, int depth);
 void			get_placement_info(t_map *map_info);
 
 int				new_image(t_fdf *fdf);

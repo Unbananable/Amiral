@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 13:23:29 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/29 12:43:25 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/29 13:25:24 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static t_point	**top_projection(int **map, t_map *map_info)
 	{
 		if (!(res[i] = (t_point *)malloc(sizeof(t_point) * WIDTH)))
 		{
-			free_2D_tpoint_tab(&res, i);
+			free_2d_tpoint_tab(&res, i);
 			return (NULL);
 		}
 		j = -1;
@@ -72,16 +72,11 @@ static t_point	**parallel_projection(int **map, t_map *map_info)
 	int		i;
 	int		j;
 
-	if (!(res = (t_point **)malloc(sizeof(t_point *) * DEPTH)))
+	if (!(res = initialize_proj_map(WIDTH, DEPTH)))
 		return (NULL);
 	i = -1;
 	while (++i < DEPTH)
 	{
-		if (!(res[i] = (t_point *)malloc(sizeof(t_point) * WIDTH)))
-		{
-			free_2D_tpoint_tab(&res, i);
-			return (NULL);
-		}
 		j = -1;
 		while (++j < WIDTH)
 		{
@@ -103,16 +98,11 @@ static t_point	**isometric_projection(int **map, t_map *map_info)
 	int		j;
 	t_point	**res;
 
-	if (!(res = (t_point **)malloc(sizeof(t_point *) * DEPTH)))
+	if (!(res = initialize_proj_map(WIDTH, DEPTH)))
 		return (NULL);
 	i = -1;
 	while (++i < DEPTH)
 	{
-		if (!(res[i] = (t_point *)malloc(sizeof(t_point) * WIDTH)))
-		{
-			free_2D_tpoint_tab(&res, i);
-			return (NULL);
-		}
 		j = -1;
 		while (++j < WIDTH)
 		{

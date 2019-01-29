@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/29 12:45:03 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/29 13:05:39 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	get_width(char *file_name)
 	int		tmp;
 
 	if (!(stream = ft_fopen(file_name)))
-		return(-1);
+		return (-1);
 	res = 0;
 	tmp = ft_fgetc(stream);
 	while (tmp != -1 && tmp != '\n')
@@ -37,7 +37,7 @@ static int	get_width(char *file_name)
 					|| tmp > '9') && tmp != -1 && tmp != '\n')
 		{
 			ft_fclose(stream);
-			return(-1);
+			return (-1);
 		}
 	}
 	ft_fclose(stream);
@@ -87,7 +87,8 @@ int			main(int ac, char **av)
 	init_fdf(&fdf, av[1]);
 	if (!(fdf.mlx_ptr = mlx_init()))
 		error("error: failed to establish connection with the display", &fdf);
-	if (!(fdf.win_ptr = mlx_new_window(fdf.mlx_ptr, WIN_HEIGHT, WIN_WIDTH, "FdF")))
+	if (!(fdf.win_ptr = mlx_new_window(fdf.mlx_ptr, WIN_HEIGHT, WIN_WIDTH,
+					"FdF")))
 		error("error: failed to create window", &fdf);
 	if (!(fdf.map = reader(av[1], &(fdf.map_info))))
 		error("error: map error", &fdf);
