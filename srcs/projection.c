@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 13:23:29 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/29 13:25:24 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/29 16:45:39 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void		init_minmax(t_map *map_info, int first_value)
 	{
 		XMAX = WIDTH - 1;
 		XMIN = 0;
-		YMAX = WIDTH - 1;
+		YMAX = DEPTH - 1;
 		YMIN = 0;
 	}
 	if (map_info->proj == PARALLEL)

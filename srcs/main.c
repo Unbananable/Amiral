@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/29 13:05:39 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/29 17:05:38 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int			main(int ac, char **av)
 		error("error: failed to create window", &fdf);
 	if (!(fdf.map = reader(av[1], &(fdf.map_info))))
 		error("error: map error", &fdf);
-	if (!(fdf.proj_map = projection(PARALLEL, fdf.map, &(fdf.map_info))))
+	if (!(fdf.proj_map = projection(TOP, fdf.map, &(fdf.map_info))))
 		error("error: failed to create projection", &fdf);
 	get_placement_info(&(fdf.map_info));
 	if (!new_image(&fdf))
@@ -102,5 +102,7 @@ int			main(int ac, char **av)
 	mlx_hook(fdf.win_ptr, 3, 0, &key_release, &fdf);
 	mlx_hook(fdf.win_ptr, 17, 0, &red_cross_closing, &fdf);
 	mlx_loop(fdf.mlx_ptr);
+	while (1)
+		;
 	return (0);
 }

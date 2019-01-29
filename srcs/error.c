@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 12:09:56 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/29 13:03:21 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/29 17:41:16 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ void	clear_fdf(t_fdf *fdf)
 		fdf->img_ptr = NULL;
 	}
 	fdf->addr = NULL;
-	free(fdf->mlx_ptr);
-	free(fdf->win_ptr);
+	mlx_destroy_window(fdf->mlx_ptr, fdf->win_ptr);
 	free_2d_tpoint_tab(&(fdf->proj_map), fdf->map_info.depth);
 }
 

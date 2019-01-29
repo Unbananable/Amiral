@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/29 10:38:10 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/29 17:41:26 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int			key_press(int key, t_fdf *fdf)
 	if (key == UP_ARROW || key == DOWN_ARROW)
 	{
 		event_adjust_alt(key, &(fdf->map_info));
+		free_2d_tpoint_tab(&(fdf->proj_map), fdf->map_info.depth);
 		fdf->proj_map = projection(fdf->map_info.proj, fdf->map,
 				&(fdf->map_info));
 	}
@@ -67,6 +68,7 @@ int			key_release(int key, t_fdf *fdf)
 	if (key == P || key == I || key == T)
 	{
 		ft_bzero(fdf->addr, WIN_WIDTH * WIN_HEIGHT * 4);
+		free_2d_tpoint_tab(&(fdf->proj_map), fdf->map_info.depth);
 		if (key == P)
 			fdf->proj_map = projection(PARALLEL, fdf->map, &(fdf->map_info));
 		if (key == I)
