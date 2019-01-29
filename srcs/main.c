@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/29 10:38:12 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/29 12:45:03 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	get_width(char *file_name)
 	int		tmp;
 
 	if (!(stream = ft_fopen(file_name)))
-		return(-1)
+		return(-1);
 	res = 0;
 	tmp = ft_fgetc(stream);
 	while (tmp != -1 && tmp != '\n')
@@ -47,9 +47,9 @@ static int	get_width(char *file_name)
 static void	init_map_info(t_map *map_info, char *file_path)
 {
 	if ((DEPTH = ft_filelinecount(file_path)) == -1)
-		error("error: invalid file");
+		error("error: invalid file", NULL);
 	if ((WIDTH = get_width(file_path)) == -1)
-		error("error: invalid file");
+		error("error: invalid file", NULL);
 	if (DEPTH == 0 || WIDTH == 0)
 	{
 		ft_putstr("error: empty map");
@@ -60,13 +60,16 @@ static void	init_map_info(t_map *map_info, char *file_path)
 
 static void	init_fdf(t_fdf *fdf, char *file_path)
 {
-	fdf->addr = NULL;
-	fdf->map = NULL;
-	fdf->mlx_ptr = NULL;
-	fdf->win_ptr = NULL;
-	fdf->img_ptr = NULL;
-	t_point->proj_map = NULL;
-	init_map_info(&(fdf->map_info), file_path);
+	if (fdf)
+	{
+		fdf->addr = NULL;
+		fdf->map = NULL;
+		fdf->mlx_ptr = NULL;
+		fdf->win_ptr = NULL;
+		fdf->img_ptr = NULL;
+		fdf->proj_map = NULL;
+		init_map_info(&(fdf->map_info), file_path);
+	}
 }
 
 static void	usage(void)

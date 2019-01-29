@@ -6,40 +6,61 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 12:09:56 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/29 10:38:04 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/29 12:55:45 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 #include "mlx.h"
+#include "fdf.h"
 
-void	free_array_array(void ***arrarr, int len)
+void	free_2D_int_tab(int ***tab, int len)
 {
 	int		i;
 
-	if (*arrarr)
+	if (*tab)
 	{
 		i = -1;
 		while (++i < len)
 		{
-			free(*arrarr[i]);
-			*arrarr[i] = NULL;
+			free((*tab)[i]);
+			(*tab)[i] = NULL;
 		}
 	}
-	free(*arrarr);
-	*arrarr = NULL;
+	free(*tab);
+	*tab = NULL;
+}
+
+void	free_2D_tpoint_tab(t_point ***tab, int len)
+{
+	int		i;
+
+	if (*tab)
+	{
+		i = -1;
+		while (++i < len)
+		{
+			free((*tab)[i]);
+			(*tab)[i] = NULL;
+		}
+	}
+	free(*tab);
+	*tab = NULL;
 }
 
 void	clear_fdf(t_fdf *fdf)
 {
-	free(fdf->addr);
-	free_array_array(&(fdf->map), fdf->map_info.depth);
+	free_2D_int_tab(&(fdf->map), fdf->map_info.depth);
 	if (fdf->img_ptr)
-		mlx_destroy_image(fdf->mlx_ptr, fdf->image_ptr);
-	free(mlx_ptr);
-	free(win_ptr);
-	free_array_array(&(fdf->proj_map), fdf->map_info.depth);
+	{
+		mlx_destroy_image(fdf->mlx_ptr, fdf->img_ptr);
+		fdf->img_ptr = NULL;
+	}
+	fdf->addr = NULL;
+	free(fdf->mlx_ptr);
+	free(fdf->win_ptr);
+	free_2D_tpoint_tab(&(fdf->proj_map), fdf->map_info.depth);
 }
 
 void	error(char *str, t_fdf *fdf)

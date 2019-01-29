@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:03:04 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/29 10:17:44 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/29 12:44:44 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int			**reader(char *file_name, t_map *map_info)
 	{
 		if (!(res[i] = (int *)malloc(sizeof(int) * WIDTH)))
 		{
-			free_array_array(&res, i);
+			free_2D_int_tab(&res, i);
 			ft_fclose(stream);
 			return (NULL);
 		}
@@ -80,7 +80,7 @@ int			**reader(char *file_name, t_map *map_info)
 		while (++j < WIDTH && !(res[i][j] = 0))
 			if (!get_alt(&(res[i][j]), stream))
 			{
-				free_array_array(&res, i);
+				free_2D_int_tab(&res, i);
 				ft_fclose(stream);
 				return (NULL);
 			}
@@ -88,7 +88,7 @@ int			**reader(char *file_name, t_map *map_info)
 	while ((i = ft_fgetc(stream)) == ' ' || i == '\t' || i == '\n')
 		;
 	if (i != -1)
-		free_array_array(&res, DEPTH);
+		free_2D_int_tab(&res, DEPTH);
 	ft_fclose(stream);
 	return (res);
 }

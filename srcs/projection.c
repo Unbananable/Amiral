@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 13:23:29 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/29 10:23:18 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/29 12:43:25 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static t_point	**top_projection(int **map, t_map *map_info)
 	{
 		if (!(res[i] = (t_point *)malloc(sizeof(t_point) * WIDTH)))
 		{
-			free_array_array(&res, i);
+			free_2D_tpoint_tab(&res, i);
 			return (NULL);
 		}
 		j = -1;
@@ -79,7 +79,7 @@ static t_point	**parallel_projection(int **map, t_map *map_info)
 	{
 		if (!(res[i] = (t_point *)malloc(sizeof(t_point) * WIDTH)))
 		{
-			free_array_array(&res, i);
+			free_2D_tpoint_tab(&res, i);
 			return (NULL);
 		}
 		j = -1;
@@ -110,7 +110,7 @@ static t_point	**isometric_projection(int **map, t_map *map_info)
 	{
 		if (!(res[i] = (t_point *)malloc(sizeof(t_point) * WIDTH)))
 		{
-			free_array_array(&res, i);
+			free_2D_tpoint_tab(&res, i);
 			return (NULL);
 		}
 		j = -1;
