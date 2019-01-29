@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 16:29:47 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/29 13:03:38 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/29 18:05:40 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	event_move(int key, t_map *map_info)
 void	event_zoom(int key, t_map *map_info)
 {
 	if (key == PLUS || key == NUMPAD_PLUS)
-		SCALE *= 1.01;
+		map_info->scale *= 1.01;
 	if (key == MINUS || key == NUMPAD_MINUS)
-		SCALE *= 0.99;
+		map_info->scale *= 0.99;
 }
 
 void	event_adjust_alt(int key, t_map *map_info)
@@ -44,9 +44,8 @@ void	event_adjust_alt(int key, t_map *map_info)
 void	event_reset(t_fdf *fdf)
 {
 	fdf->map_info.alt_ratio = 1;
-	free_2d_tpoint_tab(&(fdf->proj_map), fdf->map_info.depth);
-	if (!(fdf->proj_map = projection(fdf->map_info.proj, fdf->map,
-			&(fdf->map_info))))
+	free_2d_tpoint_tab(&(fdf->proj_map), DEPTH);
+	if (!projection(fdf))
 		error("error: failed to reset map", fdf);
-	get_placement_info(&(fdf->map_info));
+	get_placement_info(fdf);
 }

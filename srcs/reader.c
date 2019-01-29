@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:03:04 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/29 13:23:08 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/29 17:30:40 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,47 +56,26 @@ static int	get_alt(int *alt, t_file *stream)
 	return (1);
 }
 
-static int	**initialize_map(int width, int depth)
-{
-	int		**res;
-	int		i;
-
-	if (!(res = (int **)malloc(sizeof(int *) * depth)))
-		return (NULL);
-	i = -1;
-	while (++i < depth)
-		if (!(res[i] = (int *)malloc(sizeof(int) * width)))
-		{
-			free_2d_int_tab(&res, i);
-			return (NULL);
-		}
-	return (res);
-}
-
-int			**reader(char *file_name, t_map *map_info)
+int			reader(char *file_name, t_fdf *fdf)
 {
 	t_file	*stream;
-	int		**res;
 	int		i;
 	int		j;
 
-	if (!(res = initialize_map(WIDTH, DEPTH)))
-		return (NULL);
 	if (!(stream = ft_fopen(file_name)))
-		return (NULL);
+		return (0);
 	i = -1;
-	while (++i < DEPTH && (j = -1))
-		while (++j < WIDTH && !(res[i][j] = 0))
-			if (!get_alt(&(res[i][j]), stream))
+	while (++i < fdf->map_info.depth && (j = -1))
+		while (++j < fdf->map_info.width && !(fdf->map[i][j] = 0))
+			if (!get_alt(&(fdf->map[i][j]), stream))
 			{
-				free_2d_int_tab(&res, i);
 				ft_fclose(stream);
-				return (NULL);
+				return (0);
 			}
 	while ((i = ft_fgetc(stream)) == ' ' || i == '\t' || i == '\n')
 		;
-	if (i != -1)
-		free_2d_int_tab(&res, DEPTH);
 	ft_fclose(stream);
-	return (res);
+	if (i != -1)
+		return (0);
+	return (1);
 }

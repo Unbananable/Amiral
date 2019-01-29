@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 13:23:29 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/29 13:25:24 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/29 17:32:18 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,119 +14,102 @@
 #include <math.h>
 #include <stdlib.h>
 
-static void		init_minmax(t_map *map_info, int first_value)
+static void		init_minmax(t_fdf *fdf)
 {
-	if (map_info->proj == TOP)
+	if (fdf->map_info.proj == TOP)
 	{
 		XMAX = WIDTH - 1;
 		XMIN = 0;
-		YMAX = WIDTH - 1;
+		YMAX = DEPTH - 1;
 		YMIN = 0;
 	}
-	if (map_info->proj == PARALLEL)
+	if (fdf->map_info.proj == PARALLEL)
 	{
 		XMAX = cos(M_PI / 4) * DEPTH;
 		XMIN = XMAX;
-		YMAX = -(first_value + sin(M_PI / 4) * DEPTH);
+		YMAX = -(fdf->map[0][0] + sin(M_PI / 4) * DEPTH);
 		YMIN = YMAX;
 	}
-	if (map_info->proj == ISOMETRIC)
+	if (fdf->map_info.proj == ISOMETRIC)
 	{
 		XMAX = 0;
 		XMIN = 0;
-		YMAX = -first_value * WIDTH / 2;
+		YMAX = -fdf->map[0][0] * WIDTH / 2;
 		YMIN = YMAX;
 	}
 }
 
-static t_point	**top_projection(int **map, t_map *map_info)
+static void	top_projection(t_fdf *fdf)
 {
-	t_point	**res;
 	int		i;
 	int		j;
 
-	map += 0;
-	if (!(res = (t_point **)malloc(sizeof(t_point *) * DEPTH)))
-		return (NULL);
 	i = -1;
 	while (++i < DEPTH)
 	{
-		if (!(res[i] = (t_point *)malloc(sizeof(t_point) * WIDTH)))
-		{
-			free_2d_tpoint_tab(&res, i);
-			return (NULL);
-		}
 		j = -1;
 		while (++j < WIDTH)
 		{
-			res[i][j].x = j;
-			res[i][j].y = i;
+			fdf->proj_map[i][j].x = j;
+			fdf->proj_map[i][j].y = i;
 		}
 	}
-	return (res);
 }
 
-static t_point	**parallel_projection(int **map, t_map *map_info)
+static void	parallel_projection(t_fdf *fdf)
 {
-	t_point	**res;
 	int		i;
 	int		j;
 
-	if (!(res = initialize_proj_map(WIDTH, DEPTH)))
-		return (NULL);
 	i = -1;
 	while (++i < DEPTH)
 	{
 		j = -1;
 		while (++j < WIDTH)
 		{
-			if ((res[i][j].x = j + cos(M_PI / 4) * (DEPTH - i)) > XMAX)
-				XMAX = res[i][j].x;
-			XMIN = (res[i][j].x < XMIN) ? res[i][j].x : XMIN;
-			if ((res[i][j].y = -(map[i][j] * map_info->alt_ratio + sin(M_PI / 4)
+			if ((fdf->proj_map[i][j].x = j + cos(M_PI / 4) * (DEPTH - i)) > XMAX)
+				XMAX = fdf->proj_map[i][j].x;
+			XMIN = (fdf->proj_map[i][j].x < XMIN) ? fdf->proj_map[i][j].x : XMIN;
+			if ((fdf->proj_map[i][j].y = -(fdf->map[i][j] * fdf->map_info.alt_ratio + sin(M_PI / 4)
 							* (DEPTH - i))) > YMAX)
-				YMAX = res[i][j].y;
-			YMIN = (res[i][j].y < YMIN) ? res[i][j].y : YMIN;
+				YMAX = fdf->proj_map[i][j].y;
+			YMIN = (fdf->proj_map[i][j].y < YMIN) ? fdf->proj_map[i][j].y : YMIN;
 		}
 	}
-	return (res);
 }
 
-static t_point	**isometric_projection(int **map, t_map *map_info)
+static void	isometric_projection(t_fdf *fdf)
 {
 	int		i;
 	int		j;
-	t_point	**res;
 
-	if (!(res = initialize_proj_map(WIDTH, DEPTH)))
-		return (NULL);
 	i = -1;
 	while (++i < DEPTH)
 	{
 		j = -1;
 		while (++j < WIDTH)
 		{
-			if ((res[i][j].x = (i + j) * cos(M_PI / 6) * DEPTH / 2) > XMAX)
-				XMAX = res[i][j].x;
-			XMIN = (res[i][j].x < XMIN) ? res[i][j].x : XMIN;
-			if ((res[i][j].y = (i - j) * sin(M_PI / 6) * WIDTH / 2 - map[i][j]
-						* WIDTH / 2 * map_info->alt_ratio) > YMAX)
-				YMAX = res[i][j].y;
-			YMIN = (res[i][j].y < YMIN) ? res[i][j].y : YMIN;
+			if ((fdf->proj_map[i][j].x = (i + j) * cos(M_PI / 6) * DEPTH / 2) > XMAX)
+				XMAX = fdf->proj_map[i][j].x;
+			XMIN = (fdf->proj_map[i][j].x < XMIN) ? fdf->proj_map[i][j].x : XMIN;
+			if ((fdf->proj_map[i][j].y = (i - j) * sin(M_PI / 6) * WIDTH / 2 - fdf->map[i][j]
+						* WIDTH / 2 * fdf->map_info.alt_ratio) > YMAX)
+				YMAX = fdf->proj_map[i][j].y;
+			YMIN = (fdf->proj_map[i][j].y < YMIN) ? fdf->proj_map[i][j].y : YMIN;
 		}
 	}
-	return (res);
 }
 
-t_point			**projection(t_proj proj, int **map, t_map *map_info)
+int			projection(t_fdf *fdf)
 {
-	map_info->proj = proj;
-	init_minmax(map_info, map[0][0]);
-	if (proj == TOP)
-		return (top_projection(map, map_info));
-	else if (proj == ISOMETRIC)
-		return (isometric_projection(map, map_info));
-	else if (proj == PARALLEL)
-		return (parallel_projection(map, map_info));
-	return (NULL);
+	init_minmax(fdf);
+	if (PROJ == TOP)
+		top_projection(fdf);
+	else if (PROJ == ISOMETRIC)
+		isometric_projection(fdf);
+	else if (PROJ == PARALLEL)
+		parallel_projection(fdf);
+	else
+		return (0);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/29 10:38:10 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/29 17:34:18 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,9 @@ int			key_press(int key, t_fdf *fdf)
 	if (key == UP_ARROW || key == DOWN_ARROW)
 	{
 		event_adjust_alt(key, &(fdf->map_info));
-		fdf->proj_map = projection(fdf->map_info.proj, fdf->map,
-				&(fdf->map_info));
+		free_2d_tpoint_tab(&fdf->proj_map, DEPTH);
+		if(!(projection(fdf)))
+			error("error: failed to update projection", fdf);
 	}
 	draw_image(fdf);
 	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
@@ -67,13 +68,16 @@ int			key_release(int key, t_fdf *fdf)
 	if (key == P || key == I || key == T)
 	{
 		ft_bzero(fdf->addr, WIN_WIDTH * WIN_HEIGHT * 4);
+		free_2d_tpoint_tab(&fdf->proj_map, DEPTH);
 		if (key == P)
-			fdf->proj_map = projection(PARALLEL, fdf->map, &(fdf->map_info));
+			PROJ = PARALLEL;
 		if (key == I)
-			fdf->proj_map = projection(ISOMETRIC, fdf->map, &(fdf->map_info));
+			PROJ = ISOMETRIC;
 		if (key == T)
-			fdf->proj_map = projection(TOP, fdf->map, &(fdf->map_info));
-		get_placement_info(&(fdf->map_info));
+			PROJ = TOP;
+		if (!projection(fdf))
+			error("error: failed to update projection", fdf);
+		get_placement_info(fdf);
 		draw_image(fdf);
 		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
 	}

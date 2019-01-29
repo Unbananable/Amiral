@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/29 13:23:52 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/29 17:30:37 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@
 # define MARGIN 100
 # define BUFFER_SIZE 100
 
-# define WIDTH map_info->width
-# define DEPTH map_info->depth
-# define XMIN map_info->xmin
-# define XMAX map_info->xmax
-# define YMIN map_info->ymin
-# define YMAX map_info->ymax
-# define SCALE map_info->scale
+# define WIDTH fdf->map_info.width
+# define DEPTH fdf->map_info.depth
+# define XMIN fdf->map_info.xmin
+# define XMAX fdf->map_info.xmax
+# define YMIN fdf->map_info.ymin
+# define YMAX fdf->map_info.ymax
+# define SCALE fdf->map_info.scale
+# define PROJ fdf->map_info.proj
 
 typedef enum	e_proj
 {
@@ -79,10 +80,9 @@ void			free_2d_int_tab(int ***tab, int len);
 void			free_2d_tpoint_tab(t_point ***tab, int len);
 void			clear_fdf(t_fdf *fdf);
 
-int				**reader(char *file_name, t_map *map_info);
-t_point			**projection(t_proj proj, int **map, t_map *map_info);
-t_point			**initialize_proj_map(int width, int depth);
-void			get_placement_info(t_map *map_info);
+int				reader(char *file_name, t_fdf *fdf);
+int				projection(t_fdf *fdf);
+void			get_placement_info(t_fdf *fdf);
 
 int				new_image(t_fdf *fdf);
 void			draw_image(t_fdf *fdf);
