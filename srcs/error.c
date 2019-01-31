@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 12:09:56 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/29 18:05:42 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/31 14:39:05 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include <stdlib.h>
 #include "mlx.h"
 #include "fdf.h"
-
-#include <stdio.h>
 
 void	free_2d_int_tab(int ***tab, int len)
 {
@@ -38,13 +36,11 @@ void	free_2d_tpoint_tab(t_point ***tab, int len)
 {
 	int		i;
 
-printf("len = %d\n", len);
 	if (*tab)
 	{
 		i = -1;
 		while (++i < len)
 		{
-printf("i = %d\n", i);
 			free((*tab)[i]);
 			(*tab)[i] = NULL;
 		}

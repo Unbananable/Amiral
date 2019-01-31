@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 16:29:47 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/29 18:05:40 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/31 14:38:34 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	event_adjust_alt(int key, t_map *map_info)
 void	event_reset(t_fdf *fdf)
 {
 	fdf->map_info.alt_ratio = 1;
-	free_2d_tpoint_tab(&(fdf->proj_map), DEPTH);
 	if (!projection(fdf))
 		error("error: failed to reset map", fdf);
 	get_placement_info(fdf);

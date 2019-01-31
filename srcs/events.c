@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   controls.c                                         :+:      :+:    :+:   */
+/*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/29 17:34:18 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/01/31 14:39:17 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int			key_press(int key, t_fdf *fdf)
 	if (key == UP_ARROW || key == DOWN_ARROW)
 	{
 		event_adjust_alt(key, &(fdf->map_info));
-		free_2d_tpoint_tab(&fdf->proj_map, DEPTH);
 		if(!(projection(fdf)))
 			error("error: failed to update projection", fdf);
 	}
@@ -68,7 +67,6 @@ int			key_release(int key, t_fdf *fdf)
 	if (key == P || key == I || key == T)
 	{
 		ft_bzero(fdf->addr, WIN_WIDTH * WIN_HEIGHT * 4);
-		free_2d_tpoint_tab(&fdf->proj_map, DEPTH);
 		if (key == P)
 			PROJ = PARALLEL;
 		if (key == I)
