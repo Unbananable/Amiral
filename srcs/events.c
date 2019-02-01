@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/01 14:51:57 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/01 15:30:07 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int			key_press(int key, t_fdf *fdf)
 		event_rainbow(fdf);
 	draw_image(fdf);
 	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
+	command_menu(*fdf);
 	return (0);
 }
 
@@ -99,6 +100,7 @@ int			key_release(int key, t_fdf *fdf)
 		}
 		draw_image(fdf);
 		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
+		command_menu(*fdf);
 	}
 	return (0);
 }

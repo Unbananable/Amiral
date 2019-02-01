@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/01 14:57:47 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/01 15:16:47 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void			rotate_y(double *x, double *z, double beta);
 void			rotate_z(double *x, double *y, double gamma);
 void			calc_iso(t_fdf *fdf, int i, int j);
 void			calc_para(t_fdf *fdf, int i, int j);
+void			calc_top(t_fdf *fdf, int i, int j);
 
 void			error(char *str, t_fdf *fdf);
 void			free_2d_int_tab(int ***tab, int len);

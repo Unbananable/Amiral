@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 16:29:47 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/01 14:53:00 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/01 16:16:19 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ void	event_move(int key, t_map *map_info)
 {
 	if (key == NUMPAD_4)
 		map_info->beta -= 0.1;
-	if (key == NUMPAD_2)
+	if (key == NUMPAD_8)
 		map_info->alpha += 0.1;
 	if (key == NUMPAD_6)
 		map_info->beta += 0.1;
-	if (key == NUMPAD_8)
+	if (key == NUMPAD_2)
 		map_info->alpha -= 0.1;
-	if (key == NUMPAD_3 || key == NUMPAD_1)
-		map_info->gamma += 0.1;
 	if (key == NUMPAD_7 || key == NUMPAD_9)
+		map_info->gamma += 0.1;
+	if (key == NUMPAD_1 || key == NUMPAD_3)
 		map_info->gamma -= 0.1;
 	if (key == A || key == Z || key == Q)
 		map_info->x_offset -= 5;
@@ -84,20 +84,20 @@ void	event_rainbow(t_fdf *fdf)
 			else if (fdf->proj_map[i][j].color & 0xFF0000
 					&& !(fdf->proj_map[i][j].color & 0x0000FF))
 			{
-				fdf->proj_map[i][j].color -= 0x050000;
-				fdf->proj_map[i][j].color += 0x000500;
+				fdf->proj_map[i][j].color -= 0x0f0000;
+				fdf->proj_map[i][j].color += 0x000f00;
 			}
 			else if (fdf->proj_map[i][j].color & 0x00FF00
 					&& !(fdf->proj_map[i][j].color & 0xFF0000))
 			{
-				fdf->proj_map[i][j].color -= 0x000500;
-				fdf->proj_map[i][j].color += 0x000005;
+				fdf->proj_map[i][j].color -= 0x000f00;
+				fdf->proj_map[i][j].color += 0x00000f;
 			}
 			else if (fdf->proj_map[i][j].color & 0x0000FF
 					&& !(fdf->proj_map[i][j].color & 0x00FF00))
 			{
-				fdf->proj_map[i][j].color -= 0x000005;
-				fdf->proj_map[i][j].color += 0x050000;
+				fdf->proj_map[i][j].color -= 0x00000f;
+				fdf->proj_map[i][j].color += 0x0f0000;
 			}
 		}
 	}
