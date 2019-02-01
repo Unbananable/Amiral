@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/29 17:30:37 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/01 10:44:15 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ typedef struct	s_point
 {
 	double	x;
 	double	y;
-	int		colour;
+	double	z;
+	int		color;
 }				t_point;
 
 typedef struct	s_map
@@ -54,6 +55,9 @@ typedef struct	s_map
 	int		y_offset;
 	double	alt_ratio;
 	t_proj	proj;
+	double	alpha;
+	double	beta;
+	double	gamma;
 }				t_map;
 
 typedef struct	s_image
@@ -74,6 +78,10 @@ typedef struct	s_fdf
 	t_map			map_info;
 	t_image			image;
 }				t_fdf;
+
+void			rotate_x(double *y, double *z, double alpha);
+void			rotate_y(double *x, double *z, double beta);
+void			rotate_z(double *x, double *y, double gamma);
 
 void			error(char *str, t_fdf *fdf);
 void			free_2d_int_tab(int ***tab, int len);

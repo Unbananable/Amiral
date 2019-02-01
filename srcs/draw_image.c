@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 14:05:36 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/31 14:39:29 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/01 10:49:12 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,18 @@ static void	fill_pixel(t_fdf *fdf, t_point p)
 {
 	int		x;
 	int		y;
+//	int		i;
 
 	x = p.x;
 	y = p.y;
 	if (x >= 0 && y >= 0 && x < WIN_WIDTH && y < WIN_HEIGHT)
-		fdf->addr[x + y * WIN_WIDTH] = 0xFF0000;
+		fdf->addr[x + y * WIN_WIDTH] = 0xFF9900;
+/*	{
+		i = x + y * WIN_WIDTH;
+		fdf->addr[i] = p.color;
+		fdf->addr[++i] = p.color >> 8;
+		fdf->addr[++i] = p.color >> 16;
+	}*/
 }
 
 static void	low_line(t_fdf *fdf, t_point p0, t_point p1, t_map map_info)

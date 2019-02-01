@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/31 14:39:17 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/01 12:01:44 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@
 
 static int	is_available(int key)
 {
-	if (key == A || key == W || key == S || key == D || key == Q || key == E
+	if (key == NUMPAD_1 || key == NUMPAD_2 || key == NUMPAD_3
+			|| key == NUMPAD_4 || key == NUMPAD_6 || key == NUMPAD_7
+			|| key == NUMPAD_8 || key == NUMPAD_9 || key == A || key == W
+			|| key == S || key == D || key == Q || key == E
 			|| key == Z || key == X || key == SPACE || key == PLUS
 			|| key == MINUS || key == NUMPAD_PLUS || key == NUMPAD_MINUS
 			|| key == UP_ARROW || key == DOWN_ARROW || key == ESC)
@@ -51,9 +54,15 @@ int			key_press(int key, t_fdf *fdf)
 	else if (key == PLUS || key == MINUS || key == NUMPAD_PLUS
 			|| key == NUMPAD_MINUS)
 		event_zoom(key, &(fdf->map_info));
-	if (key == UP_ARROW || key == DOWN_ARROW)
+	if (key == UP_ARROW || key == DOWN_ARROW || key == NUMPAD_1
+			|| key == NUMPAD_2 || key == NUMPAD_3 || key == NUMPAD_4
+			|| key == NUMPAD_6 || key == NUMPAD_7 || key == NUMPAD_8
+			|| key == NUMPAD_9)
 	{
-		event_adjust_alt(key, &(fdf->map_info));
+		if (key == UP_ARROW || key == DOWN_ARROW)
+			event_adjust_alt(key, &(fdf->map_info));
+		else
+			event_move(key, &(fdf->map_info));
 		if(!(projection(fdf)))
 			error("error: failed to update projection", fdf);
 	}

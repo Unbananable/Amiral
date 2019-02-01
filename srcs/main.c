@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/31 14:40:50 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/01 10:19:23 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	init_map_info(t_map *map_info, char *file_path)
 		exit(0);
 	}
 	map_info->alt_ratio = 1;
-	map_info->proj = PARALLEL;
+	map_info->proj = ISOMETRIC;
 }
 
 static int	init_fdf(t_fdf *fdf, char *file_path)

@@ -6,23 +6,37 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 16:29:47 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/31 18:24:41 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/01 12:04:00 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "keys.h"
 
+#include <stdio.h>
+
 void	event_move(int key, t_map *map_info)
 {
+	if (key == NUMPAD_4)
+		map_info->beta -= 0.1;
+	if (key == NUMPAD_2)
+		map_info->alpha += 0.1;
+	if (key == NUMPAD_6)
+		map_info->beta += 0.1;
+	if (key == NUMPAD_8)
+		map_info->alpha -= 0.1;
+	if (key == NUMPAD_3 || key == NUMPAD_1)
+		map_info->gamma += 0.1;
+	if (key == NUMPAD_7 || key == NUMPAD_9)
+		map_info->gamma -= 0.1;
 	if (key == A || key == Z || key == Q)
-		map_info->x_offset -= 3;
+		map_info->x_offset -= 5;
 	if (key == D || key == E || key == X)
-		map_info->x_offset += 3;
+		map_info->x_offset += 5;
 	if (key == S || key == Z || key == X)
-		map_info->y_offset += 3;
+		map_info->y_offset += 5;
 	if (key == W || key == E || key == Q)
-		map_info->y_offset -= 3;
+		map_info->y_offset -= 5;
 }
 
 void	event_zoom(int key, t_map *map_info)
@@ -44,6 +58,9 @@ void	event_adjust_alt(int key, t_map *map_info)
 void	event_reset(t_fdf *fdf)
 {
 	fdf->map_info.alt_ratio = 1;
+	fdf->map_info.alpha = 0;
+	fdf->map_info.beta = 0;
+	fdf->map_info.gamma = 0;
 	if (!projection(fdf))
 		error("error: failed to reset map", fdf);
 	get_placement_info(fdf);

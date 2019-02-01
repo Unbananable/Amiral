@@ -6,7 +6,7 @@
 #    By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 17:58:51 by dtrigalo          #+#    #+#              #
-#    Updated: 2019/01/29 17:26:30 by anleclab         ###   ########.fr        #
+#    Updated: 2019/02/01 10:25:08 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ MAGENTA = \033[0;35m
 CYAN = \033[0;36m
 NC = \033[0m
 
-SRC = main.c \
+SRC= rotate.c \
+	main.c \
 	  error.c \
 	  reader.c \
 	  projection.c \
