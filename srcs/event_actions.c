@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 16:29:47 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/01 14:53:00 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/01 15:36:17 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void	event_move(int key, t_map *map_info)
 	if (key == NUMPAD_7 || key == NUMPAD_9)
 		map_info->gamma -= 0.1;
 	if (key == A || key == Z || key == Q)
-		map_info->x_offset -= 5;
+		map_info->x_offset -= DIR_INCR;
 	if (key == D || key == E || key == X)
-		map_info->x_offset += 5;
+		map_info->x_offset += DIR_INCR;
 	if (key == S || key == Z || key == X)
-		map_info->y_offset += 5;
+		map_info->y_offset += DIR_INCR;
 	if (key == W || key == E || key == Q)
-		map_info->y_offset -= 5;
+		map_info->y_offset -= DIR_INCR;
 }
 
 void	event_zoom(int key, t_map *map_info)
