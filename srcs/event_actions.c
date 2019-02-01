@@ -6,14 +6,12 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 16:29:47 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/01 15:36:17 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/01 18:33:23 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "keys.h"
-
-#include <stdio.h>
 
 void	event_move(int key, t_map *map_info)
 {
@@ -66,6 +64,17 @@ void	event_reset(t_fdf *fdf)
 	get_placement_info(fdf);
 }
 
+static int	is_rainbow_color(int color)
+{
+	if (!(color & 0xFF0000))
+		return (((color >> 8) & 0xFF) == 255 - (color & 0xFF));
+	if (!(color & 0x00FF00))
+		return (((color >> 16) & 0xFF) == 255 - (color & 0xFF));
+	if (!(color & 0x0000FF))
+		return (((color >> 8) & 0xFF) == 255 - ((color >> 16) & 0xFF));
+	return (0);
+}
+
 void	event_rainbow(t_fdf *fdf)
 {
 	int		i;
@@ -77,9 +86,7 @@ void	event_rainbow(t_fdf *fdf)
 		j = -1;
 		while (++j < WIDTH)
 		{
-			if (fdf->proj_map[i][j].color & 0xFF0000
-					&& fdf->proj_map[i][j].color & 0x00FF00
-					&& fdf->proj_map[i][j].color & 0x0000FF)
+			if (!is_rainbow_color(fdf->proj_map[i][j].color))
 				fdf->proj_map[i][j].color = 0xFF0000;
 			else if (fdf->proj_map[i][j].color & 0xFF0000
 					&& !(fdf->proj_map[i][j].color & 0x0000FF))
