@@ -6,7 +6,7 @@
 #    By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 17:58:51 by dtrigalo          #+#    #+#              #
-#    Updated: 2019/02/01 14:54:53 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/02/01 16:37:19 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ rotate.c \
 	  draw_image.c \
 	  events.c \
 	  event_actions.c \
-	  apply_colors.c
+	  apply_colors.c \
+	  gradient.c
 SRCSFD = srcs/
 OBJSFD = objs/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))

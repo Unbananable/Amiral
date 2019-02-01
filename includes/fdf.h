@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/01 15:36:09 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/01 16:38:12 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef enum	e_color
 {
 	ALTITUDE,
 	MAP,
+	RAINBOW,
 	MONO
 }				t_color;
 
@@ -114,6 +115,7 @@ int				reader(char *file_name, t_fdf *fdf);
 int				projection(t_fdf *fdf);
 void			get_placement_info(t_fdf *fdf);
 void			apply_colors(t_fdf *fdf);
+int				gradient(t_fdf *fdf, t_point p, t_point p1, t_point p2);
 
 int				new_image(t_fdf *fdf);
 void			draw_image(t_fdf *fdf);

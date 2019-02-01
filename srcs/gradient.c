@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:11:03 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/01 15:32:07 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/01 16:40:45 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ static double	percent(int current, double start, double end)
 	from_start = current - start;
 	to_end = end - current;
 	return ((to_end == 0) ? 1.0 : from_start / to_end);
+}
+
+static int		color_lvl(int start, int end, double ratio)
+{
+	return ((int)((1 - ratio) * start + ratio * end));
 }
 
 int		gradient(t_fdf *fdf, t_point p, t_point p1, t_point p2)

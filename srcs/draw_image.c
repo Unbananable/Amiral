@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 14:05:36 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/01 14:57:06 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/01 16:58:52 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	fill_pixel(t_fdf *fdf, t_point p, int color)
 {
 	int		x;
 	int		y;
-//	int		i;
 
 	x = p.x;
 	y = p.y;
@@ -45,7 +44,11 @@ static void	low_line(t_fdf *fdf, int i1, int j1, int i2, int j2)
 	p.x = fdf->proj_map[i1][j1].x * SCALE + fdf->map_info.x_offset;
 	while (p.x <= fdf->proj_map[i2][j2].x * SCALE + fdf->map_info.x_offset)
 	{
-		fill_pixel(fdf, p, fdf->proj_map[i1][j1].color);
+		if (fdf->map_info.color_scheme == MONO)
+			fill_pixel(fdf, p, fdf->proj_map[i1][j1].color);
+		else
+			fill_pixel(fdf, p, gradient(fdf, p, fdf->proj_map[i1][j1],
+						fdf->proj_map[i2][j2]));
 		if (delta > 0)
 		{
 			p.y = p.y + yi;
@@ -73,7 +76,11 @@ static void	high_line(t_fdf *fdf, int i1, int j1, int i2, int j2)
 	p.x = fdf->proj_map[i1][j1].x * SCALE + fdf->map_info.x_offset;
 	while (p.y <= fdf->proj_map[i2][j2].y * SCALE + fdf->map_info.y_offset)
 	{
-		fill_pixel(fdf, p, fdf->proj_map[i1][j1].color);
+		if (fdf->map_info.color_scheme == MONO)
+			fill_pixel(fdf, p, fdf->proj_map[i1][j1].color);
+		else
+			fill_pixel(fdf, p, gradient(fdf, p, fdf->proj_map[i1][j1],
+						fdf->proj_map[i2][j2]));
 		if (delta > 0)
 		{
 			p.x = p.x + xi;

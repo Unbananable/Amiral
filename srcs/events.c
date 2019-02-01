@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/01 14:51:57 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/01 16:52:28 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int			key_press(int key, t_fdf *fdf)
 
 int			key_release(int key, t_fdf *fdf)
 {
-	if (key == P || key == I || key == T || key == L)
+	if (key == P || key == I || key == T || key == L || key == K)
 	{
 		ft_bzero(fdf->addr, WIN_WIDTH * WIN_HEIGHT * 4);
 		if (key == P)
@@ -86,9 +86,9 @@ int			key_release(int key, t_fdf *fdf)
 			PROJ = ISOMETRIC;
 		if (key == T)
 			PROJ = TOP;
-		if (key == L)
+		if (key == L || key == K)
 		{
-			fdf->map_info.color_scheme = ALTITUDE;
+			fdf->map_info.color_scheme = (key == L) ? ALTITUDE : RAINBOW;
 			apply_colors(fdf);
 		}
 		else

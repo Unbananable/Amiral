@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 12:09:56 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/31 14:39:05 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/01 17:00:55 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	free_2d_tpoint_tab(t_point ***tab, int len)
 
 void	clear_fdf(t_fdf *fdf)
 {
+	if (!fdf)
+		return ;
 	free_2d_int_tab(&(fdf->map), fdf->map_info.depth);
 	if (fdf->img_ptr)
 	{
