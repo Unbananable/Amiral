@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:03:04 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/01 14:34:59 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/01 14:56:41 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	get_color(t_fdf *fdf, int x, int y, t_file *stream)
 	while (++i < 6)
 		if ((hex_color[i] = ft_fgetc(stream)) == -1)
 			return (0);
-	if ((fdf->proj_map[y][x].colour = ft_atoi_base(hex_color, 16)) == -1)
+	if ((fdf->proj_map[y][x].color = ft_atoi_base(hex_color, 16)) == -1)
 		return (0);
 	return (1);
 }
@@ -78,7 +78,7 @@ static int	get_alt(t_fdf *fdf, int x, int y, t_file *stream)
 		tmp = ft_fgetc(stream);
 	}
 	else
-		fdf->proj_map[y][x].colour = 0xFFFFFF;
+		fdf->proj_map[y][x].color = 0xFFFFFF;
 	if (tmp != ' ' && tmp != '\t' && tmp != '\n' && tmp != -1)
 		return (0);
 	fdf->map[y][x] *= sign;

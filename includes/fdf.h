@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/01 14:53:43 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/01 14:57:47 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void			clear_fdf(t_fdf *fdf);
 int				reader(char *file_name, t_fdf *fdf);
 int				projection(t_fdf *fdf);
 void			get_placement_info(t_fdf *fdf);
+void			apply_colors(t_fdf *fdf);
 
 int				new_image(t_fdf *fdf);
 void			draw_image(t_fdf *fdf);
