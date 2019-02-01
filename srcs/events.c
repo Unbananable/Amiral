@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/31 14:39:17 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/01 12:07:18 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	is_available(int key)
 	if (key == A || key == W || key == S || key == D || key == Q || key == E
 			|| key == Z || key == X || key == SPACE || key == PLUS
 			|| key == MINUS || key == NUMPAD_PLUS || key == NUMPAD_MINUS
-			|| key == UP_ARROW || key == DOWN_ARROW || key == ESC)
+			|| key == UP_ARROW || key == DOWN_ARROW || key == ESC || key == C)
 		return (1);
 	return (0);
 }
@@ -51,12 +51,14 @@ int			key_press(int key, t_fdf *fdf)
 	else if (key == PLUS || key == MINUS || key == NUMPAD_PLUS
 			|| key == NUMPAD_MINUS)
 		event_zoom(key, &(fdf->map_info));
-	if (key == UP_ARROW || key == DOWN_ARROW)
+	else if (key == UP_ARROW || key == DOWN_ARROW)
 	{
 		event_adjust_alt(key, &(fdf->map_info));
 		if(!(projection(fdf)))
 			error("error: failed to update projection", fdf);
 	}
+	else if (key == C)
+		event_rainbow(fdf);
 	draw_image(fdf);
 	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
 	return (0);

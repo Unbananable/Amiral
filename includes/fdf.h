@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/29 17:30:37 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/01 12:07:37 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ void			event_move(int key, t_map *map_info);
 void			event_zoom(int key, t_map *map_info);
 void			event_adjust_alt(int key, t_map *map_info);
 void			event_reset(t_fdf *fdf);
+void			event_rainbow(t_fdf *fdf);
 int				key_release(int key, t_fdf *fdf);
+
 
 #endif
