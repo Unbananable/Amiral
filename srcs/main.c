@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/31 14:40:50 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/01 11:17:22 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ static int	get_width(char *file_name)
 			tmp = ft_fgetc(stream);
 		if (tmp == '-' || (tmp >= '0' && tmp <= '9'))
 			res++;
-		while (tmp == '-' || (tmp >= '0' && tmp <= '9'))
+		while (tmp == '-' || (tmp >= '0' && tmp <= '9') || tmp == ','
+				|| tmp == 'x')
 			tmp = ft_fgetc(stream);
 		if (tmp != '-' && tmp != ' ' && tmp != '\t' && (tmp < '0'
 					|| tmp > '9') && tmp != -1 && tmp != '\n')
