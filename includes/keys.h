@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 17:23:18 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/01 14:04:21 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/01 14:54:27 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 # define KEYS_H
 
 # define ESC 53
+
+# define NUMPAD_1 83
+# define NUMPAD_2 84
+# define NUMPAD_3 85
+# define NUMPAD_4 86
+# define NUMPAD_6 88
+# define NUMPAD_7 89
+# define NUMPAD_8 91
+# define NUMPAD_9 92
 
 # define W 13
 # define A 0

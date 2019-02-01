@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 14:05:36 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/01 11:17:24 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/01 14:54:09 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	fill_pixel(t_fdf *fdf, t_point p, int color)
 {
 	int		x;
 	int		y;
+//	int		i;
 
 	x = p.x;
 	y = p.y;

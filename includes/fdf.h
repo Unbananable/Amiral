@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/01 14:03:32 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/01 14:53:43 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # define WIN_WIDTH 1200
 # define MARGIN 100
 # define BUFFER_SIZE 100
+
+# define MENU_COLOR 0xDDDDDD
 
 # define WIDTH fdf->map_info.width
 # define DEPTH fdf->map_info.depth
@@ -47,7 +49,8 @@ typedef struct	s_point
 {
 	double	x;
 	double	y;
-	int		colour;
+	double	z;
+	int		color;
 }				t_point;
 
 typedef struct	s_map
@@ -66,6 +69,9 @@ typedef struct	s_map
 	double	alt_ratio;
 	t_proj	proj;
 	t_color	color_scheme;
+	double	alpha;
+	double	beta;
+	double	gamma;
 }				t_map;
 
 typedef struct	s_image
@@ -86,6 +92,14 @@ typedef struct	s_fdf
 	t_map			map_info;
 	t_image			image;
 }				t_fdf;
+
+void			command_menu(t_fdf fdf);
+
+void			rotate_x(double *y, double *z, double alpha);
+void			rotate_y(double *x, double *z, double beta);
+void			rotate_z(double *x, double *y, double gamma);
+void			calc_iso(t_fdf *fdf, int i, int j);
+void			calc_para(t_fdf *fdf, int i, int j);
 
 void			error(char *str, t_fdf *fdf);
 void			free_2d_int_tab(int ***tab, int len);

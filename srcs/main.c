@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/01 14:35:01 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/01 14:51:27 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int			main(int ac, char **av)
 	if (!new_image(&fdf))
 		error("error: failed to create image", &fdf);
 	draw_image(&fdf);
+	command_menu(fdf);
 	mlx_hook(fdf.win_ptr, 2, 0, &key_press, &fdf);
 	mlx_hook(fdf.win_ptr, 3, 0, &key_release, &fdf);
 	mlx_hook(fdf.win_ptr, 17, 0, &red_cross_closing, &fdf);
