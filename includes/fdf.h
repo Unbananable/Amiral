@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/01 10:44:15 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/01 14:44:26 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # define WIN_WIDTH 1200
 # define MARGIN 100
 # define BUFFER_SIZE 100
+
+# define MENU_COLOR 0xDDDDDD
 
 # define WIDTH fdf->map_info.width
 # define DEPTH fdf->map_info.depth
@@ -79,9 +81,13 @@ typedef struct	s_fdf
 	t_image			image;
 }				t_fdf;
 
+void			command_menu(t_fdf fdf);
+
 void			rotate_x(double *y, double *z, double alpha);
 void			rotate_y(double *x, double *z, double beta);
 void			rotate_z(double *x, double *y, double gamma);
+void			calc_iso(t_fdf *fdf, int i, int j);
+void			calc_para(t_fdf *fdf, int i, int j);
 
 void			error(char *str, t_fdf *fdf);
 void			free_2d_int_tab(int ***tab, int len);
