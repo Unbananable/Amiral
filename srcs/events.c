@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/01 12:07:18 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/01 14:34:57 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <stdlib.h>
 #include "libft.h"
 #include "keys.h"
+
+#include <stdio.h>
 
 static int	is_available(int key)
 {
@@ -66,7 +68,8 @@ int			key_press(int key, t_fdf *fdf)
 
 int			key_release(int key, t_fdf *fdf)
 {
-	if (key == P || key == I || key == T)
+printf("key = %d\n", key);
+	if (key == P || key == I || key == T || key == L)
 	{
 		ft_bzero(fdf->addr, WIN_WIDTH * WIN_HEIGHT * 4);
 		if (key == P)
@@ -75,9 +78,17 @@ int			key_release(int key, t_fdf *fdf)
 			PROJ = ISOMETRIC;
 		if (key == T)
 			PROJ = TOP;
-		if (!projection(fdf))
-			error("error: failed to update projection", fdf);
-		get_placement_info(fdf);
+		if (key == L)
+		{
+			fdf->map_info.color_scheme = ALTITUDE;
+			apply_colors(fdf);
+		}
+		else
+		{
+			if (!projection(fdf))
+				error("error: failed to update projection", fdf);
+			get_placement_info(fdf);
+		}
 		draw_image(fdf);
 		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
 	}

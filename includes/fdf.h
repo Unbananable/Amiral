@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/01 12:07:37 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/01 14:03:32 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define YMAX fdf->map_info.ymax
 # define SCALE fdf->map_info.scale
 # define PROJ fdf->map_info.proj
+# define ZMAX fdf->map_info.zmax
+# define ZMIN fdf->map_info.zmin
 
 typedef enum	e_proj
 {
@@ -33,6 +35,13 @@ typedef enum	e_proj
 	PARALLEL,
 	TOP
 }				t_proj;
+
+typedef enum	e_color
+{
+	ALTITUDE,
+	MAP,
+	MONO
+}				t_color;
 
 typedef struct	s_point
 {
@@ -49,11 +58,14 @@ typedef struct	s_map
 	double	xmin;
 	double	ymax;
 	double	ymin;
+	int		zmax;
+	int		zmin;
 	double	scale;
 	int		x_offset;
 	int		y_offset;
 	double	alt_ratio;
 	t_proj	proj;
+	t_color	color_scheme;
 }				t_map;
 
 typedef struct	s_image

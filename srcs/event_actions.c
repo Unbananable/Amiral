@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 16:29:47 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/31 18:30:35 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/01 14:12:40 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,41 @@ void	event_reset(t_fdf *fdf)
 	if (!projection(fdf))
 		error("error: failed to reset map", fdf);
 	get_placement_info(fdf);
+}
+
+void	event_rainbow(t_fdf *fdf)
+{
+	int		i;
+	int		j;
+
+	i = -1;
+	while (++i < DEPTH)
+	{
+		j = -1;
+		while (++j < WIDTH)
+		{
+			if (fdf->proj_map[i][j].colour & 0xFF0000
+					&& fdf->proj_map[i][j].colour & 0x00FF00
+					&& fdf->proj_map[i][j].colour & 0x0000FF)
+				fdf->proj_map[i][j].colour = 0xFF0000;
+			else if (fdf->proj_map[i][j].colour & 0xFF0000
+					&& !(fdf->proj_map[i][j].colour & 0x0000FF))
+			{
+				fdf->proj_map[i][j].colour -= 0x050000;
+				fdf->proj_map[i][j].colour += 0x000500;
+			}
+			else if (fdf->proj_map[i][j].colour & 0x00FF00
+					&& !(fdf->proj_map[i][j].colour & 0xFF0000))
+			{
+				fdf->proj_map[i][j].colour -= 0x000500;
+				fdf->proj_map[i][j].colour += 0x000005;
+			}
+			else if (fdf->proj_map[i][j].colour & 0x0000FF
+					&& !(fdf->proj_map[i][j].colour & 0x00FF00))
+			{
+				fdf->proj_map[i][j].colour -= 0x000005;
+				fdf->proj_map[i][j].colour += 0x050000;
+			}
+		}
+	}
 }

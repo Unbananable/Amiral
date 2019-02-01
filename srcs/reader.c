@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:03:04 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/01 11:17:18 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/01 14:34:59 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static int	get_color(t_fdf *fdf, int x, int y, t_file *stream)
 	char 	hex_color[7];
 	int		i;
 
+	fdf->map_info.color_scheme = MAP;
 	hex_color[6] = 0;
 	if(ft_fgetc(stream) != '0' || ft_fgetc(stream) != 'x')
 		return (0);
@@ -77,7 +78,7 @@ static int	get_alt(t_fdf *fdf, int x, int y, t_file *stream)
 		tmp = ft_fgetc(stream);
 	}
 	else
-		fdf->proj_map[y][x].colour = 0xFFF168;
+		fdf->proj_map[y][x].colour = 0xFFFFFF;
 	if (tmp != ' ' && tmp != '\t' && tmp != '\n' && tmp != -1)
 		return (0);
 	fdf->map[y][x] *= sign;
@@ -95,11 +96,23 @@ int			reader(char *file_name, t_fdf *fdf)
 	i = -1;
 	while (++i < DEPTH && (j = -1))
 		while (++j < WIDTH && !(fdf->map[i][j] = 0))
+		{
 			if (!get_alt(fdf, j, i, stream))
 			{
 				ft_fclose(stream);
 				return (0);
 			}
+			if (i == 0 && j == 0)
+			{
+				ZMAX = fdf->map[i][j];
+				ZMIN = ZMAX;
+			}
+			else
+			{
+				ZMAX = (fdf->map[i][j] > ZMAX) ? fdf->map[i][j] : ZMAX;
+				ZMIN = (fdf->map[i][j] < ZMIN) ? fdf->map[i][j] : ZMIN;
+			}
+		}
 	while ((i = ft_fgetc(stream)) == ' ' || i == '\t' || i == '\n')
 		;
 	ft_fclose(stream);

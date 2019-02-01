@@ -6,7 +6,7 @@
 #    By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 17:58:51 by dtrigalo          #+#    #+#              #
-#    Updated: 2019/02/01 12:07:57 by anleclab         ###   ########.fr        #
+#    Updated: 2019/02/01 14:13:06 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRC = main.c \
 	  draw_image.c \
 	  events.c \
 	  event_actions.c \
-	  colors.c
+	  apply_colors.c
 SRCSFD = srcs/
 OBJSFD = objs/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))

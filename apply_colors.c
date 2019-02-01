@@ -1,43 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keys.h                                             :+:      :+:    :+:   */
+/*   apply_colors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/27 17:23:18 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/01 14:04:21 by anleclab         ###   ########.fr       */
+/*   Created: 2019/02/01 14:13:13 by anleclab          #+#    #+#             */
+/*   Updated: 2019/02/01 14:34:54 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef KEYS_H
-# define KEYS_H
+#include "fdf.h"
 
-# define ESC 53
+static void	altitude_colors(fdf)
+{
+	return ;
+}
 
-# define W 13
-# define A 0
-# define S 1
-# define D 2
-# define Q 12
-# define E 14
-# define Z 6
-# define X 7
-
-# define DOWN_ARROW 125
-# define UP_ARROW 126
-# define SPACE 49
-
-# define PLUS 24
-# define NUMPAD_PLUS 69
-# define MINUS 27
-# define NUMPAD_MINUS 78
-
-# define P 35
-# define I 34
-# define T 17
-
-# define C 8
-# define L 37
-
-#endif
+void		apply_colors(t_fdf *fdf)
+{
+	if (fdf->map_info.color_scheme == MONO)
+		;
+	else if (fdf->map_info.color_scheme == MAP)
+		;
+	else_if (fdf->map_info.color_scheme == ALTITUDE)
+		altitude_colors(fdf);
+}
