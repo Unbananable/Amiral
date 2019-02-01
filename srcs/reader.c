@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:03:04 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/29 17:30:40 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/01 10:55:55 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,39 @@
 #include "fdf.h"
 #include <fcntl.h>
 
-static int	add_if_int(int *nb, int to_add, int sign)
+static int	add_if_int(int *nb, int to_add, int *sign)
 {
 	if (*nb > 214748364 || (*nb == 214748364
-				&& (to_add > 8 || (to_add == 8 && sign == 1))))
+				&& (to_add > 8 || (to_add == 8 && *sign == 1))))
 		return (0);
-	else if (*nb == 214748364 && to_add == 8 && sign == -1)
+	else if (*nb == 214748364 && to_add == 8 && *sign == -1)
+	{
 		*nb = -(*nb) * 10 - to_add;
+		*sign = 1;
+	}
 	else
 		*nb = *nb * 10 + to_add;
 	return (1);
 }
 
-static int	get_alt(int *alt, t_file *stream)
+static int	get_color(t_fdf *fdf, int x, int y, t_file *stream)
+{
+	char 	hex_color[7];
+	int		i;
+
+	hex_color[6] = 0;
+	if(ft_fgetc(stream) != '0' || ft_fgetc(stream) != 'x')
+		return (0);
+	i = -1;
+	while (++i < 6)
+		if ((hex_color[i] = ft_fgetc(stream) == -1))
+			return (0);
+	if ((fdf->proj_map[y][x].colour = ft_atoi_base(hex_color, 16)) == -1)
+		return (0);
+	return (1);
+}
+
+static int	get_alt(t_fdf *fdf, int x, int y, t_file *stream)
 {
 	int		sign;
 	int		tmp;
@@ -41,18 +61,26 @@ static int	get_alt(int *alt, t_file *stream)
 		nl = (tmp == '\n') ? 1 : 0;
 		tmp = ft_fgetc(stream);
 	}
-	if (tmp == '-' && *alt == 0 && sign == 1 && (sign = -1))
+	if (tmp == '-' && fdf->map[y][x] == 0 && sign == 1 && (sign = -1))
 		if ((tmp = ft_fgetc(stream)) > '9' || tmp < '0')
 			return (0);
 	while (tmp >= '0' && tmp <= '9')
 	{
-		if (!add_if_int(alt, tmp - '0', sign))
+		if (!add_if_int(&fdf->map[y][x], tmp - '0', &sign))
 			return (0);
 		tmp = ft_fgetc(stream);
 	}
+	if (tmp == ',')
+	{
+		if (!get_color(fdf, x, y, stream))
+			return (0);
+		tmp = ft_fgetc(stream);
+	}
+	else
+		fdf->proj_map[y][x].colour = 0xFFF168;
 	if (tmp != ' ' && tmp != '\t' && tmp != '\n' && tmp != -1)
 		return (0);
-	*alt = (*alt > 0) ? *alt * sign : *alt;
+	fdf->map[y][x] *= sign;
 	return (1);
 }
 
@@ -65,9 +93,9 @@ int			reader(char *file_name, t_fdf *fdf)
 	if (!(stream = ft_fopen(file_name)))
 		return (0);
 	i = -1;
-	while (++i < fdf->map_info.depth && (j = -1))
-		while (++j < fdf->map_info.width && !(fdf->map[i][j] = 0))
-			if (!get_alt(&(fdf->map[i][j]), stream))
+	while (++i < DEPTH && (j = -1))
+		while (++j < WIDTH && !(fdf->map[i][j] = 0))
+			if (!get_alt(fdf, j, i, stream))
 			{
 				ft_fclose(stream);
 				return (0);

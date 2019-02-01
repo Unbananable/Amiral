@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 14:05:36 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/31 14:39:29 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/01 11:07:38 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include "libft.h"
 
-static void	fill_pixel(t_fdf *fdf, t_point p)
+static void	fill_pixel(t_fdf *fdf, t_point p, int color)
 {
 	int		x;
 	int		y;
@@ -24,10 +24,10 @@ static void	fill_pixel(t_fdf *fdf, t_point p)
 	x = p.x;
 	y = p.y;
 	if (x >= 0 && y >= 0 && x < WIN_WIDTH && y < WIN_HEIGHT)
-		fdf->addr[x + y * WIN_WIDTH] = 0xFF0000;
+		fdf->addr[x + y * WIN_WIDTH] = color;
 }
 
-static void	low_line(t_fdf *fdf, t_point p0, t_point p1, t_map map_info)
+static void	low_line(t_fdf *fdf, int i1, int j1, int i2, int j2)
 {
 	t_point p;
 	int		dx;
@@ -35,16 +35,16 @@ static void	low_line(t_fdf *fdf, t_point p0, t_point p1, t_map map_info)
 	int		yi;
 	int		delta;
 
-	dx = (p1.x - p0.x) * map_info.scale;
-	dy = (p1.y - p0.y) * map_info.scale;
+	dx = (fdf->proj_map[i2][j2].x - fdf->proj_map[i1][j1].x) * SCALE;
+	dy = (fdf->proj_map[i2][j2].y - fdf->proj_map[i1][j1].y) * SCALE;
 	yi = (dy < 0) ? -1 : 1;
 	dy = (dy < 0) ? -dy : dy;
 	delta = 2 * dy - dx;
-	p.y = p0.y * map_info.scale + map_info.y_offset;
-	p.x = p0.x * map_info.scale + map_info.x_offset;
-	while (p.x <= p1.x * map_info.scale + map_info.x_offset)
+	p.y = fdf->proj_map[i1][j1].y * SCALE + fdf->map_info.y_offset;
+	p.x = fdf->proj_map[i1][j1].x * SCALE + fdf->map_info.x_offset;
+	while (p.x <= fdf->proj_map[i2][j2].x * SCALE + fdf->map_info.x_offset)
 	{
-		fill_pixel(fdf, p);
+		fill_pixel(fdf, p, fdf->proj_map[i1][j1].colour);
 		if (delta > 0)
 		{
 			p.y = p.y + yi;
@@ -55,7 +55,7 @@ static void	low_line(t_fdf *fdf, t_point p0, t_point p1, t_map map_info)
 	}
 }
 
-static void	high_line(t_fdf *fdf, t_point p0, t_point p1, t_map map_info)
+static void	high_line(t_fdf *fdf, int i1, int j1, int i2, int j2)
 {
 	t_point p;
 	int		dx;
@@ -63,16 +63,16 @@ static void	high_line(t_fdf *fdf, t_point p0, t_point p1, t_map map_info)
 	int		xi;
 	int		delta;
 
-	dx = (p1.x - p0.x) * map_info.scale;
-	dy = (p1.y - p0.y) * map_info.scale;
+	dx = (fdf->proj_map[i2][j2].x - fdf->proj_map[i1][j1].x) * SCALE;
+	dy = (fdf->proj_map[i2][j2].y - fdf->proj_map[i1][j1].y) * SCALE;
 	xi = (dx < 0) ? -1 : 1;
 	dx = (dx < 0) ? -dx : dx;
 	delta = 2 * dx - dy;
-	p.y = p0.y * map_info.scale + map_info.y_offset;
-	p.x = p0.x * map_info.scale + map_info.x_offset;
-	while (p.y <= p1.y * map_info.scale + map_info.y_offset)
+	p.y = fdf->proj_map[i1][j1].y * SCALE + fdf->map_info.y_offset;
+	p.x = fdf->proj_map[i1][j1].x * SCALE + fdf->map_info.x_offset;
+	while (p.y <= fdf->proj_map[i2][j2].y * SCALE + fdf->map_info.y_offset)
 	{
-		fill_pixel(fdf, p);
+		fill_pixel(fdf, p, fdf->proj_map[i1][j1].colour);
 		if (delta > 0)
 		{
 			p.x = p.x + xi;
@@ -83,21 +83,22 @@ static void	high_line(t_fdf *fdf, t_point p0, t_point p1, t_map map_info)
 	}
 }
 
-static void	draw_line(t_fdf *fdf, t_point p0, t_point p1, t_map map_info)
+static void	draw_line(t_fdf *fdf, int i1, int j1, int i2, int j2)
 {
-	if (fabs(p1.y - p0.y) < fabs(p1.x - p0.x))
+	if (fabs(fdf->proj_map[i2][j2].y - fdf->proj_map[i1][j1].y)
+			< fabs(fdf->proj_map[i2][j2].x - fdf->proj_map[i1][j1].x))
 	{
-		if (p0.x > p1.x)
-			low_line(fdf, p1, p0, map_info);
+		if (fdf->proj_map[i1][j1].x > fdf->proj_map[i2][j2].x)
+			low_line(fdf, i2, j2, i1, j1);
 		else
-			low_line(fdf, p0, p1, map_info);
+			low_line(fdf, i1, j1, i2, j2);
 	}
 	else
 	{
-		if (p0.y > p1.y)
-			high_line(fdf, p1, p0, map_info);
+		if (fdf->proj_map[i1][j1].y > fdf->proj_map[i2][j2].y)
+			high_line(fdf, i2, j2, i1, j1);
 		else
-			high_line(fdf, p0, p1, map_info);
+			high_line(fdf, i1, j1, i2, j2);
 	}
 }
 
@@ -107,17 +108,15 @@ void		draw_image(t_fdf *fdf)
 	int		j;
 
 	i = 0;
-	while (i < fdf->map_info.depth)
+	while (i < DEPTH)
 	{
 		j = 0;
-		while (j < fdf->map_info.width)
+		while (j < WIDTH)
 		{
-			if (i != fdf->map_info.depth - 1)
-				draw_line(fdf, fdf->proj_map[i][j], fdf->proj_map[i + 1][j],
-						fdf->map_info);
-			if (j != fdf->map_info.width - 1)
-				draw_line(fdf, fdf->proj_map[i][j], fdf->proj_map[i][j + 1],
-						fdf->map_info);
+			if (i != DEPTH - 1)
+				draw_line(fdf, i, j, i + 1, j);
+			if (j != WIDTH - 1)
+				draw_line(fdf, i, j, i, j + 1);
 			j++;
 		}
 		i++;

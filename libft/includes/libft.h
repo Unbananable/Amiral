@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 14:42:05 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/01/28 19:07:19 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/01 10:32:52 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int				ft_fact(int n);
 
 long long		ft_atoi(const char *str);
 long long		ft_abs(long long nbr);
+int				ft_atoi_base(char *nbr, int base);
 
 size_t			ft_strlen(const char *s);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);
