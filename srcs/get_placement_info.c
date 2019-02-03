@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 16:08:38 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/01 10:59:14 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/01 17:51:46 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,4 @@ void	get_placement_info(t_fdf *fdf)
 			- XMIN * SCALE);
 	fdf->map_info.y_offset = nearbyint((WIN_HEIGHT - ((YMAX - YMIN) * SCALE)) / 2
 			- YMIN * SCALE);
-	fdf->map_info.alt_ratio = 1.0;
 }

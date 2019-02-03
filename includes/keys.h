@@ -6,12 +6,16 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 17:23:18 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/01 14:54:27 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/01 18:31:22 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEYS_H
 # define KEYS_H
+
+# define MOUSE_SCROLL_UP 4
+# define MOUSE_SCROLL_DOWN 5
+# define MOUSE_LEFT_CLICK 1
 
 # define ESC 53
 
@@ -46,6 +50,7 @@
 # define I 34
 # define T 17
 
+# define M 46
 # define C 8
 # define L 37
 

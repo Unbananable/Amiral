@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/01 14:51:27 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/01 19:12:15 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	init_map_info(t_map *map_info, char *file_path)
 		ft_putstr("error: empty map");
 		exit(0);
 	}
-	map_info->alt_ratio = 1;
+	map_info->alt_ratio = 1.0;
 	map_info->proj = PARALLEL;
 	map_info->color_scheme = MONO;
 }
@@ -89,6 +89,8 @@ static int	init_fdf(t_fdf *fdf, char *file_path)
 			free_2d_tpoint_tab(&(fdf->proj_map), i);
 			return (0);
 		}
+	if (!(fdf->mouse = (t_mouse *)malloc(sizeof(t_mouse) * 1)))
+		return (0);
 	return (1);
 }
 
@@ -122,6 +124,9 @@ int			main(int ac, char **av)
 	command_menu(fdf);
 	mlx_hook(fdf.win_ptr, 2, 0, &key_press, &fdf);
 	mlx_hook(fdf.win_ptr, 3, 0, &key_release, &fdf);
+	mlx_hook(fdf.win_ptr, 4, 0, &mouse_press, &fdf);
+	mlx_hook(fdf.win_ptr, 5, 0, &mouse_release, &fdf);
+	mlx_hook(fdf.win_ptr, 6, 0, &mouse_move, &fdf);
 	mlx_hook(fdf.win_ptr, 17, 0, &red_cross_closing, &fdf);
 	mlx_loop(fdf.mlx_ptr);
 	return (0);

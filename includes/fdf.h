@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/01 15:16:47 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/01 19:11:20 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 
 # define WIN_HEIGHT 1200
 # define WIN_WIDTH 1200
-# define MARGIN 100
-# define BUFFER_SIZE 100
+# define MARGIN 200
+# define BUFFER_SIZE 4096
 
 # define MENU_COLOR 0xDDDDDD
+# define MOUSE_ROTATION_COEF 0.05
 
 # define WIDTH fdf->map_info.width
 # define DEPTH fdf->map_info.depth
@@ -44,6 +45,16 @@ typedef enum	e_color
 	MAP,
 	MONO
 }				t_color;
+
+typedef struct	s_mouse
+{
+	int	pressed;
+	int	last_x;
+	int	last_y;
+	int	x;
+	int	y;
+
+}				t_mouse;
 
 typedef struct	s_point
 {
@@ -89,6 +100,7 @@ typedef struct	s_fdf
 	void			*win_ptr;
 	void			*img_ptr;
 	t_point			**proj_map;
+	t_mouse			*mouse;
 	t_map			map_info;
 	t_image			image;
 }				t_fdf;
@@ -123,6 +135,9 @@ void			event_adjust_alt(int key, t_map *map_info);
 void			event_reset(t_fdf *fdf);
 void			event_rainbow(t_fdf *fdf);
 int				key_release(int key, t_fdf *fdf);
+int				mouse_press(int button, int x, int y, t_fdf *fdf);
+int				mouse_release(int button, int x, int y, t_fdf *fdf);
+int				mouse_move(int x, int y, t_fdf *fdf);
 
 
 #endif
