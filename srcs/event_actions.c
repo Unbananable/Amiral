@@ -6,27 +6,31 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 16:29:47 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/01 18:33:23 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/03 19:36:57 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "keys.h"
 
-void	event_move(int key, t_map *map_info)
+void	event_rotate(int key, t_map *map_info)
 {
 	if (key == NUMPAD_4)
 		map_info->beta -= 0.1;
-	if (key == NUMPAD_2)
+	else if (key == NUMPAD_2)
 		map_info->alpha += 0.1;
-	if (key == NUMPAD_6)
+	else if (key == NUMPAD_6)
 		map_info->beta += 0.1;
-	if (key == NUMPAD_8)
+	else if (key == NUMPAD_8)
 		map_info->alpha -= 0.1;
-	if (key == NUMPAD_3 || key == NUMPAD_1)
+	else if (key == NUMPAD_3 || key == NUMPAD_1)
 		map_info->gamma += 0.1;
-	if (key == NUMPAD_7 || key == NUMPAD_9)
+	else if (key == NUMPAD_7 || key == NUMPAD_9)
 		map_info->gamma -= 0.1;
+}
+
+void	event_move(int key, t_map *map_info)
+{
 	if (key == A || key == Z || key == Q)
 		map_info->x_offset -= DIR_INCR;
 	if (key == D || key == E || key == X)
@@ -41,7 +45,7 @@ void	event_zoom(int key, t_map *map_info)
 {
 	if (key == PLUS || key == NUMPAD_PLUS)
 		map_info->scale *= 1.02;
-	if (key == MINUS || key == NUMPAD_MINUS)
+	else if (key == MINUS || key == NUMPAD_MINUS)
 		map_info->scale *= 0.98;
 }
 
@@ -49,7 +53,7 @@ void	event_adjust_alt(int key, t_map *map_info)
 {
 	if (key == UP_ARROW)
 		map_info->alt_ratio *= 1.1;
-	if (key == DOWN_ARROW)
+	else if (key == DOWN_ARROW)
 		map_info->alt_ratio *= 0.9;
 }
 

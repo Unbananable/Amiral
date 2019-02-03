@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:11:03 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/03 18:45:03 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/03 19:24:57 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		gradient(t_fdf *fdf, t_point p, t_point p1, t_point p2)
 	int		green;
 	int		blue;
 
-	ratio = (p2.x - p1.x > p2.y - p1.y) ? 
+	ratio = (p2.x - p1.x > p2.y - p1.y) ?
 		percent(p.x, p1.x * SCALE + X_OFFSET, p2.x * SCALE + X_OFFSET)
 		: percent(p.y, p1.y * SCALE + Y_OFFSET, p2.y * SCALE + Y_OFFSET);
 	red = color_lvl((p1.color >> 16) & 0xFF, (p2.color >> 16) & 0xFF, ratio);

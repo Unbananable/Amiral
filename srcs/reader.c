@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:03:04 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/01 17:08:41 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/03 19:15:12 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,21 @@ static int	add_if_int(int *nb, int to_add, int *sign)
 static int	get_color(t_fdf *fdf, int x, int y, t_file *stream)
 {
 	char 	hex_color[7];
+	int		tmp;
 	int		i;
 
 	fdf->map_info.color_scheme = MAP;
-	hex_color[6] = 0;
 	if(ft_fgetc(stream) != '0' || ft_fgetc(stream) != 'x')
 		return (0);
 	i = -1;
-	while (++i < 6)
-		if ((hex_color[i] = ft_fgetc(stream)) == -1)
-			return (0);
+	while (++i < 6 && (((tmp = ft_fgetc(stream)) >= '0' && tmp <= '9')
+				|| (tmp >= 'A' && tmp <= 'F') || (tmp >= 'a' && tmp <= 'f')))
+		hex_color[i] = tmp;
+	if (i == 6)
+		tmp = ft_fgetc(stream);
+	if (tmp != ' ' && tmp != -1 && tmp != '\n' && tmp != '\t')
+		return (0);
+	hex_color[i] = 0;
 	if ((fdf->proj_map[y][x].color = ft_atoi_base(hex_color, 16)) == -1)
 		return (0);
 	return (1);
@@ -75,12 +80,9 @@ static int	get_alt(t_fdf *fdf, int x, int y, t_file *stream)
 	{
 		if (!get_color(fdf, x, y, stream))
 			return (0);
-		tmp = ft_fgetc(stream);
 	}
 	else
 		fdf->proj_map[y][x].color = 0xFFFFFF;
-	if (tmp != ' ' && tmp != '\t' && tmp != '\n' && tmp != -1)
-		return (0);
 	fdf->map[y][x] *= sign;
 	return (1);
 }

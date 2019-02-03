@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/03 18:15:58 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/03 19:38:16 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,16 @@ static int	is_available(int key)
 	return (0);
 }
 
+static int	is_altrotate_key(int key)
+{
+	if (key == UP_ARROW || key == DOWN_ARROW || key == NUMPAD_1
+			|| key == NUMPAD_2 || key == NUMPAD_3 || key == NUMPAD_4
+			|| key == NUMPAD_6 || key == NUMPAD_7 || key == NUMPAD_8
+			|| key == NUMPAD_9)
+		return (1);
+	return (0);
+}
+
 int			red_cross_closing(t_fdf *fdf)
 {
 	clear_fdf(fdf);
@@ -43,10 +53,7 @@ int			key_press(int key, t_fdf *fdf)
 	if (!is_available(key))
 		return (0);
 	if (key == ESC)
-	{
-		clear_fdf(fdf);
-		exit(0);
-	}
+		red_cross_closing(fdf);
 	ft_bzero(fdf->addr, WIN_WIDTH * WIN_HEIGHT * 4);
 	if (key == A || key == W || key == S || key == D || key == Q || key == E
 			|| key == Z || key == X)
@@ -56,16 +63,13 @@ int			key_press(int key, t_fdf *fdf)
 	else if (key == PLUS || key == MINUS || key == NUMPAD_PLUS
 			|| key == NUMPAD_MINUS)
 		event_zoom(key, &(fdf->map_info));
-	if (key == UP_ARROW || key == DOWN_ARROW || key == NUMPAD_1
-			|| key == NUMPAD_2 || key == NUMPAD_3 || key == NUMPAD_4
-			|| key == NUMPAD_6 || key == NUMPAD_7 || key == NUMPAD_8
-			|| key == NUMPAD_9)
+	else if (is_altrotate_key(key))
 	{
 		if (key == UP_ARROW || key == DOWN_ARROW)
 			event_adjust_alt(key, &(fdf->map_info));
 		else
-			event_move(key, &(fdf->map_info));
-		if(!(projection(fdf)))
+			event_rotate(key, &(fdf->map_info));
+		if (!(projection(fdf)))
 			error("error: failed to update projection", fdf);
 	}
 	else if (key == C)
