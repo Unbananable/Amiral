@@ -6,45 +6,43 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:13:13 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/01 18:17:31 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/03 16:50:17 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "colors.h"
 
-static double	percent(double current, double start, double end)
+static int	z_gradient(int z, int z1, int z2, int start_col, int end_col)
 {
-	return ((current - start) / (end - start));
-}
-
-static int		color_lvl(int start, int end, double ratio)
-{
-	return ((int)((1 - ratio) * start + ratio * end));
-}
-
-static int		p_gradient(t_point p, t_point p1, t_point p2)
-{
-	double	ratio;
+	int		ratio;
 	int		red;
 	int		green;
 	int		blue;
 
-	ratio = (p2.x - p1.x > p2.y - p1.y) ? percent(p.x, p1.x, p2.x)
-			: percent(p.y, p1.y, p2.y);
-	red = 0;
-	green = color_lvl((p1.color >> 8) & 0xFF, (p2.color >> 8) & 0xFF, ratio);
-	blue = 0;
-	if (!((p2.color >> 16) & 0xFF))
-		blue = 255 - green;
-	else if (!(p1.color & 0xFF))
-		red = 255 - green;
+	ratio = percent(z, z1, z2);
+	red = color_lvl((start_col >> 16) & 0xFF, (end_col >> 16) & 0xFF, ratio);
+	green = color_lvl((start_col >> 8) & 0xFF, (end_col >> 8) & 0xFF, ratio);
+	blue = color_lvl(start_col & 0xFF, end_col & 0xFF, ratio);
 	return ((red << 16) | (green << 8) | blue);
 }
 
 static void	altitude_colors(t_fdf *fdf)
 {
-	fdf += 0;
-	return ;
+	int		i;
+	int		j;
+
+	i = -1;
+	while (++i < DEPTH && (j = -1))
+		while (++j < WIDTH)
+		{
+			if (fdf->map[i][j] > ZMAX / 2)
+				fdf->proj_map[i][j].color = z_gradient(fdf->map[i][j], ZMAX / 2, ZMAX, MEDIUM, HIGH);
+			else if (fdf->map[i][j] >= 0)
+				fdf->proj_map[i][j].color = z_gradient(fdf->map[i][j], 0 , 0.5 * ZMAX, LOW, MEDIUM);
+			else
+				fdf->proj_map[i][j].color = z_gradient(fdf->map[i][j], ZMIN, 0, SEA, SHORE);
+		}
 }
 
 static void rainbow_color(t_fdf *fdf)
@@ -70,10 +68,10 @@ static void rainbow_color(t_fdf *fdf)
 		{
 			if (fdf->proj_map[i][j].y >= p_moy.y)
 				fdf->proj_map[i][j].color
-					= p_gradient(fdf->proj_map[i][j], p_moy, p_max);
+					= gradient(fdf, fdf->proj_map[i][j], p_moy, p_max);
 			else
 				fdf->proj_map[i][j].color
-					= p_gradient(fdf->proj_map[i][j], p_min, p_moy);
+					= gradient(fdf, fdf->proj_map[i][j], p_min, p_moy);
 		}
 }
 

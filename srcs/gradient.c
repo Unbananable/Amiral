@@ -6,18 +6,18 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:11:03 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/01 18:06:52 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/03 15:42:14 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static double	percent(double current, double start, double end)
+double	percent(double current, double start, double end)
 {
 	return ((current - start) / (end - start));
 }
 
-static int		color_lvl(int start, int end, double ratio)
+int		color_lvl(int start, int end, double ratio)
 {
 	return ((int)((1 - ratio) * start + ratio * end));
 }
