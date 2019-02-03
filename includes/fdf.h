@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/03 16:50:53 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/03 17:47:48 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void			apply_colors(t_fdf *fdf);
 int				gradient(t_fdf *fdf, t_point p, t_point p1, t_point p2);
 double			percent(double current, double start, double end);
 int				color_lvl(int start, int end, double ratio);
+int				altitude_color(t_fdf *fdf, double z);
 
 int				new_image(t_fdf *fdf);
 void			draw_image(t_fdf *fdf);

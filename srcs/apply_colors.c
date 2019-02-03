@@ -6,16 +6,16 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:13:13 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/03 16:50:17 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/03 18:44:56 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "colors.h"
 
-static int	z_gradient(int z, int z1, int z2, int start_col, int end_col)
+static int	z_gradient(double z, double z1, double z2, int start_col, int end_col)
 {
-	int		ratio;
+	double	ratio;
 	int		red;
 	int		green;
 	int		blue;
@@ -27,22 +27,14 @@ static int	z_gradient(int z, int z1, int z2, int start_col, int end_col)
 	return ((red << 16) | (green << 8) | blue);
 }
 
-static void	altitude_colors(t_fdf *fdf)
+int		altitude_color(t_fdf *fdf, double z)
 {
-	int		i;
-	int		j;
-
-	i = -1;
-	while (++i < DEPTH && (j = -1))
-		while (++j < WIDTH)
-		{
-			if (fdf->map[i][j] > ZMAX / 2)
-				fdf->proj_map[i][j].color = z_gradient(fdf->map[i][j], ZMAX / 2, ZMAX, MEDIUM, HIGH);
-			else if (fdf->map[i][j] >= 0)
-				fdf->proj_map[i][j].color = z_gradient(fdf->map[i][j], 0 , 0.5 * ZMAX, LOW, MEDIUM);
-			else
-				fdf->proj_map[i][j].color = z_gradient(fdf->map[i][j], ZMIN, 0, SEA, SHORE);
-		}
+	if (z > ZMAX / 2)
+		return(z_gradient(z, ZMAX / 2, ZMAX, MEDIUM, HIGH));
+	else if (z >= 0)
+		return(z_gradient(z, 0 , ZMAX / 2, LOW, MEDIUM));
+	else
+		return(z_gradient(z, ZMIN, 0, SEA, SHORE));
 }
 
 static void rainbow_color(t_fdf *fdf)
@@ -77,12 +69,6 @@ static void rainbow_color(t_fdf *fdf)
 
 void		apply_colors(t_fdf *fdf)
 {
-	if (fdf->map_info.color_scheme == MONO)
-		;
-	else if (fdf->map_info.color_scheme == MAP)
-		;
-	else if (fdf->map_info.color_scheme == ALTITUDE)
-		altitude_colors(fdf);
-	else if (fdf->map_info.color_scheme == RAINBOW)
+	if (fdf->map_info.color_scheme == RAINBOW)
 		rainbow_color(fdf);
 }
