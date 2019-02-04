@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:03:04 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/03 19:15:12 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/04 18:28:41 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,10 @@ static int	get_alt(t_fdf *fdf, int x, int y, t_file *stream)
 		if (!get_color(fdf, x, y, stream))
 			return (0);
 	}
-	else
+	else if (tmp == ' ' || tmp == '\n' || tmp == -1 || tmp == '\t')
 		fdf->proj_map[y][x].color = 0xFFFFFF;
+	else
+		return (0);
 	fdf->map[y][x] *= sign;
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/03 19:32:17 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/04 18:24:14 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	init_map_info(t_map *map_info, char *file_path)
 		error("error: invalid file", NULL);
 	if (map_info->depth == 0 || map_info->width == 0)
 	{
-		ft_putstr("error: empty map");
+		ft_putstr("error: empty map\n");
 		exit(0);
 	}
 	map_info->alt_ratio = 1;
@@ -107,13 +107,13 @@ int			main(int ac, char **av)
 		usage();
 	if (!(init_fdf(&fdf, av[1])))
 		error("error: failed to initialize", &fdf);
+	if (!reader(av[1], &fdf))
+		error("error: map error", &fdf);
 	if (!(fdf.mlx_ptr = mlx_init()))
 		error("error: failed to establish connection with the display", &fdf);
 	if (!(fdf.win_ptr = mlx_new_window(fdf.mlx_ptr, WIN_HEIGHT, WIN_WIDTH,
 					"FdF")))
 		error("error: failed to create window", &fdf);
-	if (!reader(av[1], &fdf))
-		error("error: map error", &fdf);
 	if (!projection(&fdf))
 		error("error: failed to create projection", &fdf);
 	get_placement_info(&fdf);

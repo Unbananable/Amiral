@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 12:09:56 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/01 17:00:55 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/04 18:24:11 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,17 @@ void	clear_fdf(t_fdf *fdf)
 	if (!fdf)
 		return ;
 	free_2d_int_tab(&(fdf->map), fdf->map_info.depth);
-	if (fdf->img_ptr)
+	if (fdf->mlx_ptr && fdf->img_ptr)
 	{
 		mlx_destroy_image(fdf->mlx_ptr, fdf->img_ptr);
 		fdf->img_ptr = NULL;
 	}
 	fdf->addr = NULL;
-	mlx_destroy_window(fdf->mlx_ptr, fdf->win_ptr);
+	if (fdf->mlx_ptr && fdf->win_ptr)
+	{
+		mlx_destroy_window(fdf->mlx_ptr, fdf->win_ptr);
+		fdf->win_ptr = NULL;
+	}
 	free_2d_tpoint_tab(&(fdf->proj_map), fdf->map_info.depth);
 }
 
