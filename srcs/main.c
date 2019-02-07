@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/07 16:50:52 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/07 17:13:09 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ static int	init_fdf(t_fdf *fdf, char *file_path)
 	fdf->img_ptr = NULL;
 	fdf->proj_map = NULL;
 	fdf->rainbow = 0xFF0000;
+	fdf->printed = 0;
 	if (!(fdf->map = (int **)malloc(sizeof(int *) * DEPTH)))
 		return (0);
 	i = -1;
@@ -91,8 +92,6 @@ static int	init_fdf(t_fdf *fdf, char *file_path)
 			free_2d_tpoint_tab(&(fdf->proj_map), i);
 			return (0);
 		}
-	if (!(fdf->mouse = (t_mouse *)malloc(sizeof(t_mouse) * 1)))
-		return (0);
 	return (1);
 }
 
@@ -123,7 +122,7 @@ int			main(int ac, char **av)
 	if (!new_image(&fdf))
 		error("error: failed to create image", &fdf);
 	draw_image(&fdf);
-	command_menu(fdf);
+	print_command_menu(fdf);
 	mlx_hook(fdf.win_ptr, 2, 0, &key_press, &fdf);
 	mlx_hook(fdf.win_ptr, 3, 0, &key_release, &fdf);
 	mlx_hook(fdf.win_ptr, 4, 0, &mouse_press, &fdf);

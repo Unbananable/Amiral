@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 16:29:47 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/07 16:51:22 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/07 17:11:37 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	event_move(int key, t_fdf *fdf)
 			fdf->map_info.gamma += ANGLE_INCR;
 		else if (key == PAD_1 || key == PAD_3)
 			fdf->map_info.gamma -= ANGLE_INCR;
-		get_placement_info(fdf);
 	}
 	if (key == A || key == Z || key == Q)
 		fdf->map_info.x_offset -= OFFSET_INCR;
@@ -60,6 +59,7 @@ void	event_adjust_alt(int key, t_map *map_info)
 
 void	event_reset(t_fdf *fdf)
 {
+	reset_color(fdf);
 	fdf->map_info.alt_ratio = 1;
 	fdf->map_info.alpha = 0;
 	fdf->map_info.beta = 0;

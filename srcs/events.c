@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/07 16:56:43 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/07 17:12:46 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int			red_cross_closing(t_fdf *fdf)
 
 int			key_press(int key, t_fdf *fdf)
 {
-	static int	printed = 0;
-
 	if (!is_available(key))
 		return (0);
 	if (key == ESC)
@@ -71,18 +69,7 @@ int			key_press(int key, t_fdf *fdf)
 	draw_image(fdf);
 	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
 	if (key == M)
-	{
-		if (printed == 0)
-		{
-			printed = 1;
-			command_menu(*fdf);
-		}
-		else
-		{
-			printed = 0;
-			mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
-		}
-	}
+		print_command_menu(*fdf);
 	return (0);
 }
 
@@ -91,7 +78,6 @@ int			key_release(int key, t_fdf *fdf)
 	if (key == P || key == I || key == T || key == C)
 	{
 		ft_bzero(fdf->addr, WIN_WIDTH * WIN_HEIGHT * 4);
-//		event_reset(fdf);
 		if (key == P)
 			PROJ = PARALLEL;
 		if (key == I)

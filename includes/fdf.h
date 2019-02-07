@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/07 17:09:48 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/07 17:10:51 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@
 # define X_OFFSET fdf->map_info.x_offset
 # define Y_OFFSET fdf->map_info.y_offset
 # define COLOR_SCHEME fdf->map_info.color_scheme
-
-# define DIR_INCR 20
 
 typedef enum	e_proj
 {
@@ -111,14 +109,16 @@ typedef struct	s_fdf
 	void			*win_ptr;
 	void			*img_ptr;
 	t_point			**proj_map;
-	t_mouse			*mouse;
+	t_mouse			mouse;
 	t_map			map_info;
 	t_image			image;
 	int				rainbow;
+	int				printed;
 }				t_fdf;
 
-void			command_menu(t_fdf fdf);
+void			print_command_menu(t_fdf fdf);
 
+void			reset_color(t_fdf *fdf);
 void			rotate_x(double *y, double *z, double alpha);
 void			rotate_y(double *x, double *z, double beta);
 void			rotate_z(double *x, double *y, double gamma);
