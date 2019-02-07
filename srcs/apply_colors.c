@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:13:13 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/07 17:09:51 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/07 17:45:46 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ static int	y_gradient(t_point p, t_point p1, t_point p2)
 
 int			altitude_color(t_fdf *fdf, double z)
 {
-	if (z > ZMAX / 2)
+	if (ZMAX == ZMIN)
+		return((z >= 0) ? LOW : SEA);
+	else if (z > ZMAX / 2)
 		return (z_gradient(percent(z, ZMAX / 2, ZMAX), MEDIUM, HIGH));
 	else if (z >= 0)
 		return (z_gradient(percent(z, 0, ZMAX / 2), LOW, MEDIUM));
