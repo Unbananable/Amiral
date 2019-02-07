@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/07 14:30:02 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/07 14:36:20 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@
 # define ZMIN fdf->map_info.zmin
 # define X_OFFSET fdf->map_info.x_offset
 # define Y_OFFSET fdf->map_info.y_offset
-
-# define DIR_INCR 20
 
 typedef enum	e_proj
 {

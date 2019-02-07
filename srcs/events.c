@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/07 14:34:10 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/07 14:36:40 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,6 @@ static int	is_available(int key)
 			|| key == PLUS || key == MINUS || key == PAD_PLUS
 			|| key == PAD_MINUS || key == UP_ARROW || key == DOWN_ARROW
 			|| key == ESC || key == C)
-		return (1);
-	return (0);
-}
-
-static int	is_altrotate_key(int key)
-{
-	if (key == UP_ARROW || key == DOWN_ARROW || key == NUMPAD_1
-			|| key == NUMPAD_2 || key == NUMPAD_3 || key == NUMPAD_4
-			|| key == NUMPAD_6 || key == NUMPAD_7 || key == NUMPAD_8
-			|| key == NUMPAD_9)
 		return (1);
 	return (0);
 }
