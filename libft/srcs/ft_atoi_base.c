@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 10:20:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/07 16:52:43 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/07 17:37:14 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 static int	is_right_base(int base)
 {
 	if (base < 2 || base > 16)
-		return (-1);
-	return (0);
+		return (0);
+	return (1);
 }
 
-int		ft_atoi_base(char *nbr, int base)
+int			ft_atoi_base(char *nbr, int base)
 {
 	int		res;
 	int		i;
@@ -39,7 +39,7 @@ int		ft_atoi_base(char *nbr, int base)
 			tmp = nbr[i] - 'a' + 10;
 		else
 			return (-1);
-		if (tmp >= base || is_right_base(base))
+		if (tmp >= base || !is_right_base(base))
 			return (-1);
 		res += tmp * pow;
 		pow *= base;

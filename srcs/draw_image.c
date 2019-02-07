@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 14:05:36 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/07 17:22:53 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/07 17:45:45 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,11 +142,13 @@ void		draw_image(t_fdf *fdf)
 		if (COLOR_SCHEME == MONO)
 			p.color = 0xFFFFFF;
 		else if (COLOR_SCHEME == ALTITUDE)
-			p.color = (fdf->map[0][0] < 0) ? SEA : HIGH;
+			p.color = (fdf->map[0][0] < 0) ? SEA : LOW;
 		else if (COLOR_SCHEME == MAP)
 			p.color = fdf->proj_map[0][0].color;
 		else if (COLOR_SCHEME == RAINBOW)
 			p.color = 0xFF0000;
+		else if (COLOR_SCHEME == FANCY_RAINBOW)
+			p.color = fdf->rainbow;
 		fill_pixel(fdf, p);
 	}
 	i = 0;
