@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:29:32 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/01 19:11:51 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/07 10:30:33 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int		mouse_release(int button, int x, int y, t_fdf *fdf)
 	return (0);
 }
 
-#include <stdio.h>
 int		mouse_move(int x, int y, t_fdf *fdf)
 {
 	fdf->mouse->last_x = fdf->mouse->x;

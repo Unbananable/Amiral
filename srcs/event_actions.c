@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 16:29:47 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/01 17:57:39 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/07 11:23:01 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,53 +14,57 @@
 #include "keys.h"
 
 #include <stdio.h>
-
-void	event_move(int key, t_map *map_info)
+void	event_move(int key, t_fdf *fdf)
 {
-	if (key == NUMPAD_4)
-		map_info->beta -= 0.1;
-	if (key == NUMPAD_8)
-		map_info->alpha += 0.1;
-	if (key == NUMPAD_6)
-		map_info->beta += 0.1;
-	if (key == NUMPAD_2)
-		map_info->alpha -= 0.1;
-	if (key == NUMPAD_7 || key == NUMPAD_9)
-		map_info->gamma += 0.1;
-	if (key == NUMPAD_1 || key == NUMPAD_3)
-		map_info->gamma -= 0.1;
+	if (key == PAD_1 || key == PAD_2 || key == PAD_3 || key == PAD_4
+			|| key == PAD_6 || key == PAD_7 || key == PAD_8 || key == PAD_9)
+	{
+		if (key == PAD_4)
+			fdf->map_info.beta -= ANGLE_INCR;
+		else if (key == PAD_8)
+			fdf->map_info.alpha += ANGLE_INCR;
+		else if (key == PAD_6)
+			fdf->map_info.beta += ANGLE_INCR;
+		else if (key == PAD_2)
+			fdf->map_info.alpha -= ANGLE_INCR;
+		else if (key == PAD_7 || key == PAD_9)
+			fdf->map_info.gamma += ANGLE_INCR;
+		else if (key == PAD_1 || key == PAD_3)
+			fdf->map_info.gamma -= ANGLE_INCR;
+		get_placement_info(fdf);
+	}
 	if (key == A || key == Z || key == Q)
-		map_info->x_offset -= 5;
+		fdf->map_info.x_offset -= OFFSET_INCR;
 	if (key == D || key == E || key == X)
-		map_info->x_offset += 5;
+		fdf->map_info.x_offset += OFFSET_INCR;
 	if (key == S || key == Z || key == X)
-		map_info->y_offset += 5;
+		fdf->map_info.y_offset += OFFSET_INCR;
 	if (key == W || key == E || key == Q)
-		map_info->y_offset -= 5;
+		fdf->map_info.y_offset -= OFFSET_INCR;
 }
 
 void	event_zoom(int key, t_map *map_info)
 {
-	if (key == PLUS || key == NUMPAD_PLUS || key == MOUSE_SCROLL_UP)
-		map_info->scale *= 1.02;
-	if (key == MINUS || key == NUMPAD_MINUS || key == MOUSE_SCROLL_DOWN)
-		map_info->scale *= 0.98;
+	if (key == PLUS || key == PAD_PLUS || key == MOUSE_SCROLL_UP)
+		map_info->scale *= 1 + ZOOM_INCR;
+	else if (key == MINUS || key == PAD_MINUS || key == MOUSE_SCROLL_DOWN)
+		map_info->scale *= 1 - ZOOM_INCR;
 }
 
 void	event_adjust_alt(int key, t_map *map_info)
 {
 	if (key == UP_ARROW)
-		map_info->alt_ratio *= 1.1;
-	if (key == DOWN_ARROW)
-		map_info->alt_ratio *= 0.9;
+		map_info->alt_ratio *= 1 + ALT_INCR;
+	else if (key == DOWN_ARROW)
+		map_info->alt_ratio *= 1 - ALT_INCR;
 }
 
 void	event_reset(t_fdf *fdf)
 {
-		fdf->map_info.alt_ratio = 1;
-		fdf->map_info.alpha = 0;
-		fdf->map_info.beta = 0;
-		fdf->map_info.gamma = 0;
+	fdf->map_info.alt_ratio = 1;
+	fdf->map_info.alpha = 0;
+	fdf->map_info.beta = 0;
+	fdf->map_info.gamma = 0;
 	if (!projection(fdf))
 		error("error: failed to reset map", fdf);
 	get_placement_info(fdf);

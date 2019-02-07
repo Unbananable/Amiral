@@ -6,14 +6,14 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:38:14 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/01 15:47:01 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/07 10:29:09 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <math.h>
 
-void	calc_iso(t_fdf *fdf, int i, int j)
+void	calc_para(t_fdf *fdf, int i, int j)
 {
 	double	x;
 	double	y;
@@ -35,7 +35,7 @@ void	calc_iso(t_fdf *fdf, int i, int j)
 	YMIN = (fdf->proj_map[i][j].y < YMIN) ? fdf->proj_map[i][j].y : YMIN;
 }
 
-void	calc_para(t_fdf *fdf, int i, int j)
+void	calc_iso(t_fdf *fdf, int i, int j)
 {
 	double	x;
 	double	y;

@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/01 19:11:20 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/07 11:15:29 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@
 # define BUFFER_SIZE 4096
 
 # define MENU_COLOR 0xDDDDDD
-# define MOUSE_ROTATION_COEF 0.05
+# define MOUSE_ROTATION_COEF 0.005
+# define ANGLE_INCR 0.02
+# define OFFSET_INCR 10
+# define ZOOM_INCR 0.2
+# define ALT_INCR 0.1
 
 # define WIDTH fdf->map_info.width
 # define DEPTH fdf->map_info.depth
@@ -129,7 +133,7 @@ void			draw_image(t_fdf *fdf);
 
 int				red_cross_closing(t_fdf *fdf);
 int				key_press(int key, t_fdf *fdf);
-void			event_move(int key, t_map *map_info);
+void			event_move(int key, t_fdf *fdf);
 void			event_zoom(int key, t_map *map_info);
 void			event_adjust_alt(int key, t_map *map_info);
 void			event_reset(t_fdf *fdf);

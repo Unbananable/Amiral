@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/01 19:13:41 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/07 11:24:23 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 
 static int	is_available(int key)
 {
-	if (key == NUMPAD_1 || key == NUMPAD_2 || key == NUMPAD_3
-			|| key == NUMPAD_4 || key == NUMPAD_6 || key == NUMPAD_7
-			|| key == NUMPAD_8 || key == NUMPAD_9 || key == A || key == W
-			|| key == S || key == D || key == Q || key == E || key == M
-			|| key == Z || key == X || key == SPACE || key == PLUS
-			|| key == MINUS || key == NUMPAD_PLUS || key == NUMPAD_MINUS
-			|| key == UP_ARROW || key == DOWN_ARROW || key == ESC || key == C)
+	if (key == PAD_1 || key == PAD_2 || key == PAD_3 || key == PAD_4
+			|| key == PAD_6 || key == PAD_7 || key == PAD_8 || key == PAD_9
+			|| key == A || key == W || key == S || key == D || key == Q
+			|| key == E || key == M || key == Z || key == X || key == SPACE
+			|| key == PLUS || key == MINUS || key == PAD_PLUS
+			|| key == PAD_MINUS || key == UP_ARROW || key == DOWN_ARROW
+			|| key == ESC || key == C)
 		return (1);
 	return (0);
 }
@@ -50,21 +50,19 @@ int			key_press(int key, t_fdf *fdf)
 	ft_bzero(fdf->addr, WIN_WIDTH * WIN_HEIGHT * 4);
 	if (key == A || key == W || key == S || key == D || key == Q || key == E
 			|| key == Z || key == X)
-		event_move(key, &(fdf->map_info));
+		event_move(key, fdf);
 	else if (key == SPACE)
 		event_reset(fdf);
-	else if (key == PLUS || key == MINUS || key == NUMPAD_PLUS
-			|| key == NUMPAD_MINUS)
+	else if (key == PLUS || key == MINUS || key == PAD_PLUS || key == PAD_MINUS)
 		event_zoom(key, &(fdf->map_info));
-	else if (key == UP_ARROW || key == DOWN_ARROW || key == NUMPAD_1
-			|| key == NUMPAD_2 || key == NUMPAD_3 || key == NUMPAD_4
-			|| key == NUMPAD_6 || key == NUMPAD_7 || key == NUMPAD_8
-			|| key == NUMPAD_9)
+	else if (key == UP_ARROW || key == DOWN_ARROW || key == PAD_1
+			|| key == PAD_2 || key == PAD_3 || key == PAD_4 || key == PAD_6
+			|| key == PAD_7 || key == PAD_8 || key == PAD_9)
 	{
 		if (key == UP_ARROW || key == DOWN_ARROW)
 			event_adjust_alt(key, &(fdf->map_info));
 		else
-			event_move(key, &(fdf->map_info));
+			event_move(key, fdf);
 		if(!(projection(fdf)))
 			error("error: failed to update projection", fdf);
 	}
@@ -93,7 +91,7 @@ int			key_release(int key, t_fdf *fdf)
 	if (key == P || key == I || key == T || key == L)
 	{
 		ft_bzero(fdf->addr, WIN_WIDTH * WIN_HEIGHT * 4);
-		event_reset(fdf);
+//		event_reset(fdf);
 		if (key == P)
 			PROJ = PARALLEL;
 		if (key == I)
