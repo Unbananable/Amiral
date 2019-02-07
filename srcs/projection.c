@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 13:23:29 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/01 14:45:11 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/01 15:47:38 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ static void	top_projection(t_fdf *fdf)
 	{
 		j = -1;
 		while (++j < WIDTH)
-		{
-			fdf->proj_map[i][j].x = j;
-			fdf->proj_map[i][j].y = i;
-		}
+			calc_top(fdf, i, j);
 	}
 }
 
@@ -66,16 +63,7 @@ static void	parallel_projection(t_fdf *fdf)
 	{
 		j = -1;
 		while (++j < WIDTH)
-		{
 			calc_para(fdf, i, j);
-/*			if ((fdf->proj_map[i][j].x = j + cos(M_PI / 4) * (DEPTH - i)) > XMAX)
-				XMAX = fdf->proj_map[i][j].x;
-			XMIN = (fdf->proj_map[i][j].x < XMIN) ? fdf->proj_map[i][j].x : XMIN;
-			if ((fdf->proj_map[i][j].y = -(fdf->map[i][j] * fdf->map_info.alt_ratio + sin(M_PI / 4)
-							* (DEPTH - i))) > YMAX)
-				YMAX = fdf->proj_map[i][j].y;
-			YMIN = (fdf->proj_map[i][j].y < YMIN) ? fdf->proj_map[i][j].y : YMIN;*/
-		}
 	}
 }
 
@@ -83,32 +71,13 @@ static void	isometric_projection(t_fdf *fdf)
 {
 	int		i;
 	int		j;
-//	double	x;
-//	double	y;
-//	double	z;
 
 	i = -1;
 	while (++i < DEPTH)
 	{
 		j = -1;
 		while (++j < WIDTH)
-		{
 			calc_iso(fdf, i, j);
-/*			x = i;
-			y = j;
-			z = fdf->map[i][j];
-			fdf->proj_map[i][j].z = fdf->map[i][j];
-			rotate_x(&x, &z, fdf->map_info.alpha);
-			rotate_y(&x, &z, fdf->map_info.beta);
-			rotate_z(&x, &y, fdf->map_info.gamma);
-			if ((fdf->proj_map[i][j].x = (x + y) * cos(M_PI / 6) * DEPTH / 2) > XMAX)
-				XMAX = fdf->proj_map[i][j].x;
-			XMIN = (fdf->proj_map[i][j].x < XMIN) ? fdf->proj_map[i][j].x : XMIN;
-			if ((fdf->proj_map[i][j].y = (x - y) * sin(M_PI / 6) * WIDTH / 2 - z
-						* WIDTH / 2 * fdf->map_info.alt_ratio) > YMAX)
-				YMAX = fdf->proj_map[i][j].y;
-			YMIN = (fdf->proj_map[i][j].y < YMIN) ? fdf->proj_map[i][j].y : YMIN;*/
-		}
 	}
 }
 

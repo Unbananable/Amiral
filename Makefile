@@ -6,7 +6,7 @@
 #    By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 17:58:51 by dtrigalo          #+#    #+#              #
-#    Updated: 2019/02/01 16:37:19 by anleclab         ###   ########.fr        #
+#    Updated: 2019/02/07 14:29:21 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,20 +18,22 @@ MAGENTA = \033[0;35m
 CYAN = \033[0;36m
 NC = \033[0m
 
-SRC= projection_calculus.c \
-command_menu.c \
-rotate.c \
-	main.c \
-	  error.c \
-	  reader.c \
-	  projection.c \
-	  get_placement_info.c \
-	  new_image.c \
-	  draw_image.c \
-	  events.c \
-	  event_actions.c \
-	  apply_colors.c \
-	  gradient.c
+SRC = 	gradient.c \
+		mouse.c \
+		projection_calculus.c \
+		command_menu.c \
+		rotate.c \
+		main.c \
+		error.c \
+		reader.c \
+		projection.c \
+		get_placement_info.c \
+		new_image.c \
+		draw_image.c \
+		events.c \
+		event_actions.c \
+		apply_colors.c
+
 SRCSFD = srcs/
 OBJSFD = objs/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))

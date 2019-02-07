@@ -6,55 +6,56 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 16:29:47 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/03 19:36:57 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/07 14:33:40 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "keys.h"
 
-void	event_rotate(int key, t_map *map_info)
+void	event_move(int key, t_fdf *fdf)
 {
-	if (key == NUMPAD_4)
-		map_info->beta -= 0.1;
-	else if (key == NUMPAD_2)
-		map_info->alpha += 0.1;
-	else if (key == NUMPAD_6)
-		map_info->beta += 0.1;
-	else if (key == NUMPAD_8)
-		map_info->alpha -= 0.1;
-	else if (key == NUMPAD_3 || key == NUMPAD_1)
-		map_info->gamma += 0.1;
-	else if (key == NUMPAD_7 || key == NUMPAD_9)
-		map_info->gamma -= 0.1;
-}
-
-void	event_move(int key, t_map *map_info)
-{
+	if (key == PAD_1 || key == PAD_2 || key == PAD_3 || key == PAD_4
+			|| key == PAD_6 || key == PAD_7 || key == PAD_8 || key == PAD_9)
+	{
+		if (key == PAD_4)
+			fdf->map_info.beta -= ANGLE_INCR;
+		else if (key == PAD_8)
+			fdf->map_info.alpha += ANGLE_INCR;
+		else if (key == PAD_6)
+			fdf->map_info.beta += ANGLE_INCR;
+		else if (key == PAD_2)
+			fdf->map_info.alpha -= ANGLE_INCR;
+		else if (key == PAD_7 || key == PAD_9)
+			fdf->map_info.gamma += ANGLE_INCR;
+		else if (key == PAD_1 || key == PAD_3)
+			fdf->map_info.gamma -= ANGLE_INCR;
+		get_placement_info(fdf);
+	}
 	if (key == A || key == Z || key == Q)
-		map_info->x_offset -= DIR_INCR;
+		fdf->map_info.x_offset -= OFFSET_INCR;
 	if (key == D || key == E || key == X)
-		map_info->x_offset += DIR_INCR;
+		fdf->map_info.x_offset += OFFSET_INCR;
 	if (key == S || key == Z || key == X)
-		map_info->y_offset += DIR_INCR;
+		fdf->map_info.y_offset += OFFSET_INCR;
 	if (key == W || key == E || key == Q)
-		map_info->y_offset -= DIR_INCR;
+		fdf->map_info.y_offset -= OFFSET_INCR;
 }
 
 void	event_zoom(int key, t_map *map_info)
 {
-	if (key == PLUS || key == NUMPAD_PLUS)
-		map_info->scale *= 1.02;
-	else if (key == MINUS || key == NUMPAD_MINUS)
-		map_info->scale *= 0.98;
+	if (key == PLUS || key == PAD_PLUS || key == MOUSE_SCROLL_UP)
+		map_info->scale *= 1 + ZOOM_INCR;
+	else if (key == MINUS || key == PAD_MINUS || key == MOUSE_SCROLL_DOWN)
+		map_info->scale *= 1 - ZOOM_INCR;
 }
 
 void	event_adjust_alt(int key, t_map *map_info)
 {
 	if (key == UP_ARROW)
-		map_info->alt_ratio *= 1.1;
+		map_info->alt_ratio *= 1 + ALT_INCR;
 	else if (key == DOWN_ARROW)
-		map_info->alt_ratio *= 0.9;
+		map_info->alt_ratio *= 1 - ALT_INCR;
 }
 
 void	event_reset(t_fdf *fdf)
@@ -95,20 +96,20 @@ void	event_rainbow(t_fdf *fdf)
 			else if (fdf->proj_map[i][j].color & 0xFF0000
 					&& !(fdf->proj_map[i][j].color & 0x0000FF))
 			{
-				fdf->proj_map[i][j].color -= 0x050000;
-				fdf->proj_map[i][j].color += 0x000500;
+				fdf->proj_map[i][j].color -= 0x0f0000;
+				fdf->proj_map[i][j].color += 0x000f00;
 			}
 			else if (fdf->proj_map[i][j].color & 0x00FF00
 					&& !(fdf->proj_map[i][j].color & 0xFF0000))
 			{
-				fdf->proj_map[i][j].color -= 0x000500;
-				fdf->proj_map[i][j].color += 0x000005;
+				fdf->proj_map[i][j].color -= 0x000f00;
+				fdf->proj_map[i][j].color += 0x00000f;
 			}
 			else if (fdf->proj_map[i][j].color & 0x0000FF
 					&& !(fdf->proj_map[i][j].color & 0x00FF00))
 			{
-				fdf->proj_map[i][j].color -= 0x000005;
-				fdf->proj_map[i][j].color += 0x050000;
+				fdf->proj_map[i][j].color -= 0x00000f;
+				fdf->proj_map[i][j].color += 0x0f0000;
 			}
 		}
 	}
