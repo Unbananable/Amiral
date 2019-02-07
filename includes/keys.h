@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 17:23:18 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/07 14:29:46 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/07 16:15:36 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@
 # define T 17
 
 # define M 46
+
 # define C 8
-# define L 37
-# define K 40
+# define R 15
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/07 14:34:40 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/07 16:50:52 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ static int	init_fdf(t_fdf *fdf, char *file_path)
 	fdf->win_ptr = NULL;
 	fdf->img_ptr = NULL;
 	fdf->proj_map = NULL;
+	fdf->rainbow = 0xFF0000;
 	if (!(fdf->map = (int **)malloc(sizeof(int *) * DEPTH)))
 		return (0);
 	i = -1;

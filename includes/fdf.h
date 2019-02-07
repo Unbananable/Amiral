@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/07 14:30:02 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/07 17:09:48 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define ZMIN fdf->map_info.zmin
 # define X_OFFSET fdf->map_info.x_offset
 # define Y_OFFSET fdf->map_info.y_offset
+# define COLOR_SCHEME fdf->map_info.color_scheme
 
 # define DIR_INCR 20
 
@@ -52,6 +53,7 @@ typedef enum	e_color
 	ALTITUDE,
 	MAP,
 	RAINBOW,
+	FANCY_RAINBOW,
 	MONO
 }				t_color;
 
@@ -112,6 +114,7 @@ typedef struct	s_fdf
 	t_mouse			*mouse;
 	t_map			map_info;
 	t_image			image;
+	int				rainbow;
 }				t_fdf;
 
 void			command_menu(t_fdf fdf);
@@ -131,12 +134,12 @@ void			clear_fdf(t_fdf *fdf);
 int				reader(char *file_name, t_fdf *fdf);
 int				projection(t_fdf *fdf);
 void			get_placement_info(t_fdf *fdf);
-void			apply_colors(t_fdf *fdf);
 
 int				gradient(t_fdf *fdf, t_point p, t_point p1, t_point p2);
 double			percent(double current, double start, double end);
 int				color_lvl(int start, int end, double ratio);
 int				altitude_color(t_fdf *fdf, double z);
+int				rainbow_color(t_fdf *fdf, t_point p);
 
 int				new_image(t_fdf *fdf);
 void			draw_image(t_fdf *fdf);

@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 16:29:47 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/07 14:33:40 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/07 16:51:22 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,48 +69,24 @@ void	event_reset(t_fdf *fdf)
 	get_placement_info(fdf);
 }
 
-static int	is_rainbow_color(int color)
-{
-	if (!(color & 0xFF0000))
-		return (((color >> 8) & 0xFF) == 255 - (color & 0xFF));
-	if (!(color & 0x00FF00))
-		return (((color >> 16) & 0xFF) == 255 - (color & 0xFF));
-	if (!(color & 0x0000FF))
-		return (((color >> 8) & 0xFF) == 255 - ((color >> 16) & 0xFF));
-	return (0);
-}
-
 void	event_rainbow(t_fdf *fdf)
 {
-	int		i;
-	int		j;
-
-	i = -1;
-	while (++i < DEPTH)
+	if (fdf->rainbow & 0xFF0000
+			&& !(fdf->rainbow & 0x0000FF))
 	{
-		j = -1;
-		while (++j < WIDTH)
-		{
-			if (!is_rainbow_color(fdf->proj_map[i][j].color))
-				fdf->proj_map[i][j].color = 0xFF0000;
-			else if (fdf->proj_map[i][j].color & 0xFF0000
-					&& !(fdf->proj_map[i][j].color & 0x0000FF))
-			{
-				fdf->proj_map[i][j].color -= 0x0f0000;
-				fdf->proj_map[i][j].color += 0x000f00;
-			}
-			else if (fdf->proj_map[i][j].color & 0x00FF00
-					&& !(fdf->proj_map[i][j].color & 0xFF0000))
-			{
-				fdf->proj_map[i][j].color -= 0x000f00;
-				fdf->proj_map[i][j].color += 0x00000f;
-			}
-			else if (fdf->proj_map[i][j].color & 0x0000FF
-					&& !(fdf->proj_map[i][j].color & 0x00FF00))
-			{
-				fdf->proj_map[i][j].color -= 0x00000f;
-				fdf->proj_map[i][j].color += 0x0f0000;
-			}
-		}
+		fdf->rainbow -= 0x0f0000;
+		fdf->rainbow += 0x000f00;
+	}
+	else if (fdf->rainbow & 0x00FF00
+			&& !(fdf->rainbow & 0xFF0000))
+	{
+		fdf->rainbow -= 0x000f00;
+		fdf->rainbow += 0x00000f;
+	}
+	else if (fdf->rainbow & 0x0000FF
+			&& !(fdf->rainbow & 0x00FF00))
+	{
+		fdf->rainbow -= 0x00000f;
+		fdf->rainbow += 0x0f0000;
 	}
 }
