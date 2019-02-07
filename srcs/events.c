@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/07 17:09:24 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/07 17:27:20 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	is_available(int key)
 	if (DIR_KEYS || PAD_NBRS || key == M || key == SPACE
 			|| key == PLUS || key == MINUS || key == PAD_PLUS
 			|| key == PAD_MINUS || key == UP_ARROW || key == DOWN_ARROW
-			|| key == ESC || key == C)
+			|| key == ESC || key == R)
 		return (1);
 	return (0);
 }
@@ -61,8 +61,11 @@ int			key_press(int key, t_fdf *fdf)
 		if (!(projection(fdf)))
 			error("error: failed to update projection", fdf);
 	}
-	else if (key == C)
+	else if (key == R)
+	{
+		COLOR_SCHEME = FANCY_RAINBOW;
 		event_rainbow(fdf);
+	}
 	draw_image(fdf);
 	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
 	menu_and_escape(key, fdf);
@@ -71,7 +74,7 @@ int			key_press(int key, t_fdf *fdf)
 
 int			key_release(int key, t_fdf *fdf)
 {
-	if (key == P || key == I || key == T || key == L || key == K)
+	if (key == P || key == I || key == T || key == C)
 	{
 		ft_bzero(fdf->addr, WIN_WIDTH * WIN_HEIGHT * 4);
 		if (key == P)
@@ -80,10 +83,10 @@ int			key_release(int key, t_fdf *fdf)
 			PROJ = ISOMETRIC;
 		if (key == T)
 			PROJ = TOP;
-		if (key == L || key == K)
+		if (key == C)
 		{
-			fdf->map_info.color_scheme = (key == L) ? ALTITUDE : RAINBOW;
-			apply_colors(fdf);
+			COLOR_SCHEME = (COLOR_SCHEME == MONO) ? ALTITUDE : COLOR_SCHEME + 1;
+			COLOR_SCHEME += (COLOR_SCHEME == FANCY_RAINBOW) ? 1 : 0;
 		}
 		else
 		{
