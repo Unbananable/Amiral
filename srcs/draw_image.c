@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 14:05:36 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/03 18:45:01 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/07 17:12:29 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 #include <math.h>
 #include <stdlib.h>
 #include "libft.h"
-
-#include <stdio.h>
 
 static void	fill_pixel(t_fdf *fdf, t_point p, int color)
 {
@@ -50,8 +48,8 @@ static void	low_line(t_fdf *fdf, int i1, int j1, int i2, int j2)
 			fill_pixel(fdf, p, fdf->proj_map[i1][j1].color);
 		else if (fdf->map_info.color_scheme == ALTITUDE)
 			fill_pixel(fdf, p, altitude_color(fdf, fdf->map[i1][j1]
-						+ percent(p.x, 	fdf->proj_map[i1][j1].x * SCALE
-						+ X_OFFSET,	fdf->proj_map[i2][j2].x * SCALE + X_OFFSET)
+						+ percent(p.x, fdf->proj_map[i1][j1].x * SCALE
+						+ X_OFFSET, fdf->proj_map[i2][j2].x * SCALE + X_OFFSET)
 						* (fdf->map[i2][j2] - fdf->map[i1][j1])));
 		else
 			fill_pixel(fdf, p, gradient(fdf, p, fdf->proj_map[i1][j1],
@@ -87,8 +85,8 @@ static void	high_line(t_fdf *fdf, int i1, int j1, int i2, int j2)
 			fill_pixel(fdf, p, fdf->proj_map[i1][j1].color);
 		else if (fdf->map_info.color_scheme == ALTITUDE)
 			fill_pixel(fdf, p, altitude_color(fdf, fdf->map[i1][j1]
-						+ percent(p.y, 	fdf->proj_map[i1][j1].y * SCALE
-						+ Y_OFFSET,	fdf->proj_map[i2][j2].y * SCALE + Y_OFFSET)
+						+ percent(p.y, fdf->proj_map[i1][j1].y * SCALE
+						+ Y_OFFSET, fdf->proj_map[i2][j2].y * SCALE + Y_OFFSET)
 						* (fdf->map[i2][j2] - fdf->map[i1][j1])));
 		else
 			fill_pixel(fdf, p, gradient(fdf, p, fdf->proj_map[i1][j1],

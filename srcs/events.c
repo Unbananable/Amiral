@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/07 16:16:24 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/07 17:09:24 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@
 
 static int	is_available(int key)
 {
-	if (key == PAD_1 || key == PAD_2 || key == PAD_3 || key == PAD_4
-			|| key == PAD_6 || key == PAD_7 || key == PAD_8 || key == PAD_9
-			|| key == A || key == W || key == S || key == D || key == Q
-			|| key == E || key == M || key == Z || key == X || key == SPACE
+	if (DIR_KEYS || PAD_NBRS || key == M || key == SPACE
 			|| key == PLUS || key == MINUS || key == PAD_PLUS
 			|| key == PAD_MINUS || key == UP_ARROW || key == DOWN_ARROW
 			|| key == ESC || key == C)
@@ -36,37 +33,39 @@ int			red_cross_closing(t_fdf *fdf)
 	return (0);
 }
 
+static void	menu_and_escape(int key, t_fdf *fdf)
+{
+	if (key == M)
+		print_command_menu(*fdf);
+	if (key == ESC)
+		red_cross_closing(fdf);
+}
+
 int			key_press(int key, t_fdf *fdf)
 {
 	if (!is_available(key))
 		return (0);
-	if (key == ESC)
-		red_cross_closing(fdf);
 	ft_bzero(fdf->addr, WIN_WIDTH * WIN_HEIGHT * 4);
-	if (key == A || key == W || key == S || key == D || key == Q || key == E
-			|| key == Z || key == X)
+	if (DIR_KEYS)
 		event_move(key, fdf);
 	else if (key == SPACE)
 		event_reset(fdf);
 	else if (key == PLUS || key == MINUS || key == PAD_PLUS || key == PAD_MINUS)
 		event_zoom(key, &(fdf->map_info));
-	else if (key == UP_ARROW || key == DOWN_ARROW || key == PAD_1
-			|| key == PAD_2 || key == PAD_3 || key == PAD_4 || key == PAD_6
-			|| key == PAD_7 || key == PAD_8 || key == PAD_9)
+	else if (key == UP_ARROW || key == DOWN_ARROW || PAD_NBRS)
 	{
 		if (key == UP_ARROW || key == DOWN_ARROW)
 			event_adjust_alt(key, &(fdf->map_info));
 		else
 			event_move(key, fdf);
-		if(!(projection(fdf)))
+		if (!(projection(fdf)))
 			error("error: failed to update projection", fdf);
 	}
 	else if (key == C)
 		event_rainbow(fdf);
 	draw_image(fdf);
 	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
-	if (key == M)
-		print_command_menu(*fdf);
+	menu_and_escape(key, fdf);
 	return (0);
 }
 

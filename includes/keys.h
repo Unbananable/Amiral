@@ -6,12 +6,19 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 17:23:18 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/07 14:29:46 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/07 17:06:42 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEYS_H
 # define KEYS_H
+
+# define PAD_NBRS key == PAD_1 || key == PAD_2 || key == PAD_3 || key == PAD_4 \
+					|| key == PAD_6 || key == PAD_7 || key == PAD_8 \
+					|| key == PAD_9
+
+# define DIR_KEYS key == A || key == W || key == S || key == D || key == Q \
+					|| key == E || key == Z || key == X
 
 # define MOUSE_SCROLL_UP 4
 # define MOUSE_SCROLL_DOWN 5

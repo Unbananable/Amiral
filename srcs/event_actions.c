@@ -6,14 +6,14 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 16:29:47 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/07 16:21:39 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/07 17:10:41 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "keys.h"
 
-void	event_move(int key, t_fdf *fdf)
+void		event_move(int key, t_fdf *fdf)
 {
 	if (key == PAD_1 || key == PAD_2 || key == PAD_3 || key == PAD_4
 			|| key == PAD_6 || key == PAD_7 || key == PAD_8 || key == PAD_9)
@@ -41,7 +41,7 @@ void	event_move(int key, t_fdf *fdf)
 		fdf->map_info.y_offset -= OFFSET_INCR;
 }
 
-void	event_zoom(int key, t_map *map_info)
+void		event_zoom(int key, t_map *map_info)
 {
 	if (key == PLUS || key == PAD_PLUS || key == MOUSE_SCROLL_UP)
 		map_info->scale *= 1 + ZOOM_INCR;
@@ -49,7 +49,7 @@ void	event_zoom(int key, t_map *map_info)
 		map_info->scale *= 1 - ZOOM_INCR;
 }
 
-void	event_adjust_alt(int key, t_map *map_info)
+void		event_adjust_alt(int key, t_map *map_info)
 {
 	if (key == UP_ARROW)
 		map_info->alt_ratio *= 1 + ALT_INCR;
@@ -57,7 +57,7 @@ void	event_adjust_alt(int key, t_map *map_info)
 		map_info->alt_ratio *= 1 - ALT_INCR;
 }
 
-void	event_reset(t_fdf *fdf)
+void		event_reset(t_fdf *fdf)
 {
 	reset_color(fdf);
 	fdf->map_info.alt_ratio = 1;
@@ -79,7 +79,7 @@ static int	is_rainbow_color(int color)
 		return (((color >> 8) & 0xFF) == 255 - ((color >> 16) & 0xFF));
 	return (0);
 }
-void	reset_color(t_fdf *fdf)
+void		reset_color(t_fdf *fdf)
 {
 	int	i;
 	int	j;
@@ -95,7 +95,7 @@ void	reset_color(t_fdf *fdf)
 	}
 }
 
-void	event_rainbow(t_fdf *fdf)
+void		event_rainbow(t_fdf *fdf)
 {
 	int		i;
 	int		j;
