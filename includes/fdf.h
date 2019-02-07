@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/07 14:36:20 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/07 16:15:15 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,12 @@ typedef struct	s_fdf
 	t_mouse			*mouse;
 	t_map			map_info;
 	t_image			image;
+	int				printed;
 }				t_fdf;
 
-void			command_menu(t_fdf fdf);
+void			print_command_menu(t_fdf fdf);
 
+void			reset_color(t_fdf *fdf);
 void			rotate_x(double *y, double *z, double alpha);
 void			rotate_y(double *x, double *z, double beta);
 void			rotate_z(double *x, double *y, double gamma);

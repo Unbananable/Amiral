@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 16:29:47 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/07 14:33:40 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/07 16:21:39 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	event_move(int key, t_fdf *fdf)
 			fdf->map_info.gamma += ANGLE_INCR;
 		else if (key == PAD_1 || key == PAD_3)
 			fdf->map_info.gamma -= ANGLE_INCR;
-		get_placement_info(fdf);
 	}
 	if (key == A || key == Z || key == Q)
 		fdf->map_info.x_offset -= OFFSET_INCR;
@@ -60,6 +59,7 @@ void	event_adjust_alt(int key, t_map *map_info)
 
 void	event_reset(t_fdf *fdf)
 {
+	reset_color(fdf);
 	fdf->map_info.alt_ratio = 1;
 	fdf->map_info.alpha = 0;
 	fdf->map_info.beta = 0;
@@ -78,6 +78,21 @@ static int	is_rainbow_color(int color)
 	if (!(color & 0x0000FF))
 		return (((color >> 8) & 0xFF) == 255 - ((color >> 16) & 0xFF));
 	return (0);
+}
+void	reset_color(t_fdf *fdf)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while(++i < DEPTH)
+	{
+		j = -1;
+		while (++j < WIDTH)
+		{
+			fdf->proj_map[i][j].color = 0xFFFFFF;
+		}
+	}
 }
 
 void	event_rainbow(t_fdf *fdf)
