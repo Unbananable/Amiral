@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/07 16:14:51 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/07 16:30:47 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,6 @@ static int	init_fdf(t_fdf *fdf, char *file_path)
 			free_2d_tpoint_tab(&(fdf->proj_map), i);
 			return (0);
 		}
-	if (!(fdf->mouse = (t_mouse *)malloc(sizeof(t_mouse) * 1)))
-		return (0);
 	return (1);
 }
 

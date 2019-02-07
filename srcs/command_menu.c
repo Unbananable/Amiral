@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 12:23:19 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/07 16:17:12 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/07 16:42:46 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	print_command_menu(t_fdf fdf)
 	mlx_string_put(fdf.mlx_ptr, fdf.win_ptr, 10, y += 20, MENU_COLOR, "|        Top: T                      |");
 	mlx_string_put(fdf.mlx_ptr, fdf.win_ptr, 10, y += 20, MENU_COLOR, "|        Isometric: I                |");
 	mlx_string_put(fdf.mlx_ptr, fdf.win_ptr, 10, y += 20, MENU_COLOR, "|        Parallel: P                 |");
+	mlx_string_put(fdf.mlx_ptr, fdf.win_ptr, 10, y += 20, MENU_COLOR, "| - Change color scheme: C           |");
+	mlx_string_put(fdf.mlx_ptr, fdf.win_ptr, 10, y += 20, MENU_COLOR, "| - Rainbow Unicorn mode: R          |");
 	mlx_string_put(fdf.mlx_ptr, fdf.win_ptr, 10, y += 20, MENU_COLOR, "|------------------------------------|");
 	mlx_string_put(fdf.mlx_ptr, fdf.win_ptr, 10, y += 20, MENU_COLOR, "| Press M to open the Menu           |");
 	mlx_string_put(fdf.mlx_ptr, fdf.win_ptr, 10, y += 10, MENU_COLOR, "|____________________________________|");

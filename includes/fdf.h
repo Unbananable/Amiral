@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/07 16:15:15 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/07 16:28:36 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ typedef struct	s_fdf
 	void			*win_ptr;
 	void			*img_ptr;
 	t_point			**proj_map;
-	t_mouse			*mouse;
+	t_mouse			mouse;
 	t_map			map_info;
 	t_image			image;
 	int				printed;
