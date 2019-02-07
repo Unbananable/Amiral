@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 16:29:47 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/07 17:11:37 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/07 17:14:54 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	event_adjust_alt(int key, t_map *map_info)
 
 void	event_reset(t_fdf *fdf)
 {
-	reset_color(fdf);
+	COLOR_SCHEME = MAP;
 	fdf->map_info.alt_ratio = 1;
 	fdf->map_info.alpha = 0;
 	fdf->map_info.beta = 0;
