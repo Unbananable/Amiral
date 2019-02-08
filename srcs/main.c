@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/08 14:22:27 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 16:00:37 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	init_map_info_extra(t_fdf *fdf, char *file_path)
 		error("error: invalid file", NULL);
 	if (fdf->depth == 0 || fdf->width == 0)
 	{
-		ft_putstr("error: empty map\n");
+		ft_putstr("error: map error\n");
 		exit(0);
 	}
 	fdf->alt_ratio = 1.0;

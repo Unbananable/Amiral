@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:03:04 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/08 14:05:41 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 15:32:56 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "libft.h"
 #include "fdf.h"
 #include <fcntl.h>
+
+#include <stdio.h>
 
 static int	add_if_int(int *nb, int to_add, int *sign)
 {
@@ -37,7 +39,8 @@ static int	get_color(t_fdf *fdf, int x, int y, t_file *stream)
 	int		i;
 
 	fdf->color_scheme = MAP;
-	if (ft_fgetc(stream) != '0' || ft_fgetc(stream) != 'x')
+	if ((tmp = ft_fgetc(stream)) != '0'
+			|| ((tmp = ft_fgetc(stream)) != 'x' && tmp != 'X'))
 		return (0);
 	i = -1;
 	while (++i < 6 && (((tmp = ft_fgetc(stream)) >= '0' && tmp <= '9')
@@ -75,8 +78,10 @@ static int	get_alt(t_fdf *fdf, int x, int y, t_file *stream)
 			return (0);
 		else
 			tmp = ft_fgetc(stream);
-	if ((tmp == ',' && !get_color(fdf, x, y, stream)) || (tmp != ' '
-				&& tmp != '\n' && tmp != -1 && tmp != '\t'))
+	if (tmp == ',' && !get_color(fdf, x, y, stream))
+		return (0);
+	else if (tmp != ',' && tmp != ' ' && tmp != -1 && tmp != '\n'
+			&& tmp != '\t')
 		return (0);
 	fdf->map[y][x] *= sign;
 	return (1);
@@ -90,8 +95,6 @@ int			reader(char *file_name, t_fdf *fdf)
 
 	if (!(stream = ft_fopen(file_name)))
 		return (0);
-	fdf->zmax = fdf->map[0][0];
-	fdf->zmin = fdf->zmax;
 	i = -1;
 	while (++i < fdf->depth && (j = -1))
 		while (++j < fdf->width && !(fdf->map[i][j] = 0))
@@ -101,6 +104,11 @@ int			reader(char *file_name, t_fdf *fdf)
 			{
 				ft_fclose(stream);
 				return (0);
+			}
+			if (i == 0 && j == 0)
+			{
+				fdf->zmax = fdf->map[0][0];
+				fdf->zmin = fdf->zmax;
 			}
 			fdf->zmax = fdf->map[i][j] > fdf->zmax ? fdf->map[i][j] : fdf->zmax;
 			fdf->zmin = fdf->map[i][j] < fdf->zmin ? fdf->map[i][j] : fdf->zmin;

@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 15:03:31 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/29 09:30:12 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/08 16:00:58 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ t_file	*ft_fopen(const char *path)
 	if (!(stream = (t_file *)malloc(sizeof(t_file))))
 		return (NULL);
 	if ((stream->fd = open(path, O_RDONLY)) == -1)
+	{
+		free(stream);
 		return (NULL);
+	}
 	stream->buf[0] = 0;
 	stream->i = 0;
 	return (stream);
