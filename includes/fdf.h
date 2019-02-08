@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/08 12:25:15 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:43:28 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ typedef enum	e_color
 	FANCY_RAINBOW,
 	MONO
 }				t_color;
+
+typedef struct	s_ipos
+{
+	int		i;
+	int		j;
+}				t_ipos;
 
 typedef struct	s_mouse
 {
@@ -140,5 +146,6 @@ int				mouse_release(int button, int x, int y, t_fdf *fdf);
 int				mouse_move(int x, int y, t_fdf *fdf);
 
 int				is_valid_mapchar(char c);
+t_ipos			get_ipos(int i, int j);
 
 #endif

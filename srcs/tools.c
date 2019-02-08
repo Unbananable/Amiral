@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 11:54:06 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/08 12:10:19 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:42:54 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,4 +17,13 @@ int		is_valid_mapchar(char c)
 			|| c == ' ' || c == '\t')
 		return (1);
 	return (0);
+}
+
+t_ipos	get_ipos(int i, int j)
+{
+	t_pos	res;
+
+	res.i = i;
+	res.j = j;
+	return (res);
 }
