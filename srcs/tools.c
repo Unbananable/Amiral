@@ -6,9 +6,11 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 11:54:06 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/08 13:47:15 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/08 14:11:43 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "fdf.h"
 
 int		is_valid_mapchar(char c)
 {
@@ -21,7 +23,7 @@ int		is_valid_mapchar(char c)
 
 t_ipos	get_ipos(int i, int j)
 {
-	t_pos	res;
+	t_ipos	res;
 
 	res.i = i;
 	res.j = j;

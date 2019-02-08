@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/08 13:45:36 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/08 14:10:51 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int			key_press(int key, t_fdf *fdf)
 	else if (key == UP_ARROW || key == DOWN_ARROW || PAD_NBRS)
 	{
 		if (key == UP_ARROW || key == DOWN_ARROW)
-			event_adjust_alt(key, &(fdf->alt));
+			event_adjust_alt(key, &(fdf->alt_ratio));
 		else
 			event_move(key, fdf);
 		if (!(projection(fdf)))
