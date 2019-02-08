@@ -6,7 +6,7 @@
 #    By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 17:58:51 by dtrigalo          #+#    #+#              #
-#    Updated: 2019/02/07 14:29:21 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/02/08 11:42:10 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,15 +45,13 @@ LIBFT= libft/libft.a
 
 MLX = -I /usr/local/include -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit
 
-all: $(LIBFT) $(NAME)
+all: $(NAME)
 
 $(NAME): $(OBJSFD) $(LIBFT) $(OBJS)
+	@make -C libft
 	@echo "$(CYAN)\nCompiling $@...$(NC)"
 	@gcc $(FLAGS) $(MLX) $(OBJS) $(LIB_BINARY) -o $@
 	@echo "$(CYAN)$@ is ready$(NC)"
-
-$(LIBFT):
-	@make -C libft
 
 $(OBJSFD):
 	@mkdir $@

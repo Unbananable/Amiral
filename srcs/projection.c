@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 13:23:29 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/07 16:15:47 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 10:55:25 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-static void		init_minmax(t_fdf *fdf)
+static void	init_minmax(t_fdf *fdf)
 {
 	if (fdf->map_info.proj == TOP)
 	{
