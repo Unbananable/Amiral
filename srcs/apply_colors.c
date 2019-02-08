@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:13:13 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/08 11:33:06 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:17:11 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ static int	y_gradient(t_point p, t_point p1, t_point p2)
 
 int			altitude_color(t_fdf *fdf, double z)
 {
-	if (fdf->map_info.zmax == fdf->map_info.zmin)
+	if (fdf->zmax == fdf->zmin)
 		return ((z >= 0) ? LOW : SEA);
-	else if (z > fdf->map_info.zmax / 2)
-		return (z_gradient(percent(z, fdf->map_info.zmax / 2,
-						fdf->map_info.zmax), MEDIUM, HIGH));
+	else if (z > fdf->zmax / 2)
+		return (z_gradient(percent(z, fdf->zmax / 2,
+						fdf->zmax), MEDIUM, HIGH));
 	else if (z >= 0)
-		return (z_gradient(percent(z, 0, fdf->map_info.zmax / 2),
+		return (z_gradient(percent(z, 0, fdf->zmax / 2),
 					LOW, MEDIUM));
 	else
-		return (z_gradient(percent(z, fdf->map_info.zmin, 0), SEA, SHORE));
+		return (z_gradient(percent(z, fdf->zmin, 0), SEA, SHORE));
 }
 
 int			rainbow_color(t_fdf *fdf, t_point p)
@@ -59,10 +59,10 @@ int			rainbow_color(t_fdf *fdf, t_point p)
 	t_point p_min;
 	t_point p_moy;
 
-	p_max.y = fdf->map_info.ymax * fdf->map_info.scale + fdf->map_info.y_offset;
+	p_max.y = fdf->ymax * fdf->scale + fdf->y_offset;
 	p_max.x = 0;
 	p_max.color = 0xFF0000;
-	p_min.y = fdf->map_info.ymin * fdf->map_info.scale + fdf->map_info.y_offset;
+	p_min.y = fdf->ymin * fdf->scale + fdf->y_offset;
 	p_min.x = 0;
 	p_min.color = 0x0000FF;
 	p_moy.y = (p_max.y + p_min.y) / 2;

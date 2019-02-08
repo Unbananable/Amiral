@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/08 12:26:20 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:31:12 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int			key_press(int key, t_fdf *fdf)
 	}
 	else if (key == R)
 	{
-		fdf->map_info.color_scheme = FANCY_RAINBOW;
+		fdf->color_scheme = FANCY_RAINBOW;
 		event_rainbow(fdf);
 	}
 	draw_image(fdf);
@@ -78,15 +78,15 @@ int			key_release(int key, t_fdf *fdf)
 	{
 		ft_bzero(fdf->addr, WIN_WIDTH * WIN_HEIGHT * 4);
 		if (key == P)
-			PROJ = PARALLEL;
+			fdf->proj_type = PARALLEL;
 		if (key == I)
-			PROJ = ISOMETRIC;
+			fdf->proj_type = ISOMETRIC;
 		if (key == T)
-			PROJ = TOP;
+			fdf->proj_type = TOP;
 		if (key == C)
 		{
-			fdf->map_info.color_scheme = (fdf->map_info.color_scheme == MONO) ? ALTITUDE : fdf->map_info.color_scheme + 1;
-			fdf->map_info.color_scheme += (fdf->map_info.color_scheme == FANCY_RAINBOW) ? 1 : 0;
+			fdf->color_scheme = (fdf->color_scheme == MONO) ? ALTITUDE : fdf->color_scheme + 1;
+			fdf->color_scheme += (fdf->color_scheme == FANCY_RAINBOW) ? 1 : 0;
 		}
 		else
 		{

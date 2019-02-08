@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:11:03 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/08 12:07:47 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:25:16 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int		gradient(t_fdf *fdf, t_point p, t_point p1, t_point p2)
 	int		blue;
 
 	ratio = (p2.x - p1.x > p2.y - p1.y) ?
-		percent(p.x, p1.x * fdf->map_info.scale + fdf->map_info.x_offset, p2.x
-				* fdf->map_info.scale + fdf->map_info.x_offset)
-		: percent(p.y, p1.y * fdf->map_info.scale + fdf->map_info.y_offset, p2.y
-				* fdf->map_info.scale + fdf->map_info.y_offset);
+		percent(p.x, p1.x * fdf->scale + fdf->x_offset, p2.x
+				* fdf->scale + fdf->x_offset)
+		: percent(p.y, p1.y * fdf->scale + fdf->y_offset, p2.y
+				* fdf->scale + fdf->y_offset);
 	red = color_lvl((p1.color >> 16) & 0xFF, (p2.color >> 16) & 0xFF, ratio);
 	green = color_lvl((p1.color >> 8) & 0xFF, (p2.color >> 8) & 0xFF, ratio);
 	blue = color_lvl(p1.color & 0xFF, p2.color & 0xFF, ratio);

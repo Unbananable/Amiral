@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:29:32 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/07 16:29:30 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:25:40 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		mouse_press(int button, int x, int y, t_fdf *fdf)
 	if (button == MOUSE_SCROLL_UP || button == MOUSE_SCROLL_DOWN)
 	{
 		ft_bzero(fdf->addr, WIN_WIDTH * WIN_HEIGHT * 4);
-		event_zoom(button, &(fdf->map_info));
+		event_zoom(button, fdf);
 		draw_image(fdf);
 		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
 	}
@@ -49,8 +49,8 @@ int		mouse_move(int x, int y, t_fdf *fdf)
 	if (fdf->mouse.pressed == 1)
 	{
 		ft_bzero(fdf->addr, WIN_WIDTH * WIN_HEIGHT * 4);
-		fdf->map_info.beta += (x - fdf->mouse.last_x) * MOUSE_ROTATION_COEF;
-		fdf->map_info.alpha += (y - fdf->mouse.last_y) * MOUSE_ROTATION_COEF;
+		fdf->beta += (x - fdf->mouse.last_x) * MOUSE_ROTATION_COEF;
+		fdf->alpha += (y - fdf->mouse.last_y) * MOUSE_ROTATION_COEF;
 		get_placement_info(fdf);
 		projection(fdf);
 		draw_image(fdf);
