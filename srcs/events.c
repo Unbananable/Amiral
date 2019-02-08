@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/07 17:27:20 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:04:20 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int			key_press(int key, t_fdf *fdf)
 	}
 	else if (key == R)
 	{
-		COLOR_SCHEME = FANCY_RAINBOW;
+		fdf->map_info.color_scheme = FANCY_RAINBOW;
 		event_rainbow(fdf);
 	}
 	draw_image(fdf);
@@ -85,8 +85,8 @@ int			key_release(int key, t_fdf *fdf)
 			PROJ = TOP;
 		if (key == C)
 		{
-			COLOR_SCHEME = (COLOR_SCHEME == MONO) ? ALTITUDE : COLOR_SCHEME + 1;
-			COLOR_SCHEME += (COLOR_SCHEME == FANCY_RAINBOW) ? 1 : 0;
+			fdf->map_info.color_scheme = (fdf->map_info.color_scheme == MONO) ? ALTITUDE : fdf->map_info.color_scheme + 1;
+			fdf->map_info.color_scheme += (fdf->map_info.color_scheme == FANCY_RAINBOW) ? 1 : 0;
 		}
 		else
 		{
