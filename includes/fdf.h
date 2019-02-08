@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/08 12:13:50 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:18:54 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,6 @@
 # define OFFSET_INCR 10
 # define ZOOM_INCR 0.2
 # define ALT_INCR 0.1
-
-# define WIDTH fdf->map_info.width
-# define DEPTH fdf->map_info.depth
-# define XMIN fdf->map_info.xmin
-# define XMAX fdf->map_info.xmax
-# define YMIN fdf->map_info.ymin
-# define YMAX fdf->map_info.ymax
-# define SCALE fdf->map_info.scale
-# define PROJ fdf->map_info.proj
-# define ZMAX fdf->map_info.zmax
-# define ZMIN fdf->map_info.zmin
-# define X_OFFSET fdf->map_info.x_offset
-# define Y_OFFSET fdf->map_info.y_offset
-# define COLOR_SCHEME fdf->map_info.color_scheme
 
 typedef enum	e_proj_type
 {
