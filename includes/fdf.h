@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/08 12:12:21 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:15:10 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,9 +143,9 @@ void			draw_image(t_fdf *fdf);
 int				red_cross_closing(t_fdf *fdf);
 int				key_press(int key, t_fdf *fdf);
 void			event_move(int key, t_fdf *fdf);
-void			event_zoom(int key, t_map *map_info);
-void			event_rotate(int key, t_map *map_info);
-void			event_adjust_alt(int key, t_map *map_info);
+void			event_zoom(int key, t_fdf *fdf);
+void			event_rotate(int key, t_fdf *fdf);
+void			event_adjust_alt(int key, t_fdf *fdf);
 void			event_reset(t_fdf *fdf);
 void			event_rainbow(t_fdf *fdf);
 int				key_release(int key, t_fdf *fdf);

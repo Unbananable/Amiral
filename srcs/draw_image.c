@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 14:05:36 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/08 11:59:40 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:19:52 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,27 +36,27 @@ static void	low_line(t_fdf *fdf, int i1, int j1, int i2, int j2)
 	int		yi;
 	int		delta;
 
-	dx = (fdf->proj[i2][j2].x - fdf->proj[i1][j1].x) * fdf->map_info.scale;
-	dy = (fdf->proj[i2][j2].y - fdf->proj[i1][j1].y) * fdf->map_info.scale;
+	dx = (fdf->proj[i2][j2].x - fdf->proj[i1][j1].x) * fdf->scale;
+	dy = (fdf->proj[i2][j2].y - fdf->proj[i1][j1].y) * fdf->scale;
 	yi = (dy < 0) ? -1 : 1;
 	dy = (dy < 0) ? -dy : dy;
 	delta = 2 * dy - dx;
-	p.y = fdf->proj[i1][j1].y * fdf->map_info.scale + fdf->map_info.y_offset;
-	p.x = fdf->proj[i1][j1].x * fdf->map_info.scale + fdf->map_info.x_offset;
-	while (p.x <= fdf->proj[i2][j2].x * fdf->map_info.scale + fdf->map_info.x_offset)
+	p.y = fdf->proj[i1][j1].y * fdf->scale + fdf->y_offset;
+	p.x = fdf->proj[i1][j1].x * fdf->scale + fdf->x_offset;
+	while (p.x <= fdf->proj[i2][j2].x * fdf->scale + fdf->x_offset)
 	{
-		if (fdf->map_info.color_scheme == MONO)
+		if (fdf->color_scheme == MONO)
 			p.color = 0xFFFFFF;
-		else if (fdf->map_info.color_scheme == MAP)
+		else if (fdf->color_scheme == MAP)
 			p.color = gradient(fdf, p, fdf->proj[i1][j1], fdf->proj[i2][j2]);
-		else if (fdf->map_info.color_scheme == ALTITUDE)
+		else if (fdf->color_scheme == ALTITUDE)
 			p.color = altitude_color(fdf, fdf->map[i1][j1]
-						+ percent(p.x, fdf->proj[i1][j1].x * fdf->map_info.scale
-						+ fdf->map_info.x_offset, fdf->proj[i2][j2].x * fdf->map_info.scale + fdf->map_info.x_offset)
+						+ percent(p.x, fdf->proj[i1][j1].x * fdf->scale
+						+ fdf->x_offset, fdf->proj[i2][j2].x * fdf->scale + fdf->x_offset)
 						* (fdf->map[i2][j2] - fdf->map[i1][j1]));
-		else if (fdf->map_info.color_scheme == RAINBOW)
+		else if (fdf->color_scheme == RAINBOW)
 			p.color = rainbow_color(fdf, p);
-		else if (fdf->map_info.color_scheme == FANCY_RAINBOW)
+		else if (fdf->color_scheme == FANCY_RAINBOW)
 			p.color = fdf->rainbow;
 		fill_pixel(fdf, p);
 		if (delta > 0)
@@ -77,28 +77,28 @@ static void	high_line(t_fdf *fdf, int i1, int j1, int i2, int j2)
 	int		xi;
 	int		delta;
 
-	dx = (fdf->proj[i2][j2].x - fdf->proj[i1][j1].x) * fdf->map_info.scale;
-	dy = (fdf->proj[i2][j2].y - fdf->proj[i1][j1].y) * fdf->map_info.scale;
+	dx = (fdf->proj[i2][j2].x - fdf->proj[i1][j1].x) * fdf->scale;
+	dy = (fdf->proj[i2][j2].y - fdf->proj[i1][j1].y) * fdf->scale;
 	xi = (dx < 0) ? -1 : 1;
 	dx = (dx < 0) ? -dx : dx;
 	delta = 2 * dx - dy;
-	p.y = fdf->proj[i1][j1].y * fdf->map_info.scale + fdf->map_info.y_offset;
-	p.x = fdf->proj[i1][j1].x * fdf->map_info.scale + fdf->map_info.x_offset;
-	while (p.y <= fdf->proj[i2][j2].y * fdf->map_info.scale + fdf->map_info.y_offset)
+	p.y = fdf->proj[i1][j1].y * fdf->scale + fdf->y_offset;
+	p.x = fdf->proj[i1][j1].x * fdf->scale + fdf->x_offset;
+	while (p.y <= fdf->proj[i2][j2].y * fdf->scale + fdf->y_offset)
 	{
-		if (fdf->map_info.color_scheme == MONO)
+		if (fdf->color_scheme == MONO)
 			p.color = 0xFFFFFF;
-		else if (fdf->map_info.color_scheme == MAP)
+		else if (fdf->color_scheme == MAP)
 			p.color = gradient(fdf, p, fdf->proj[i1][j1], fdf->proj[i2][j2]);
-		else if (fdf->map_info.color_scheme == ALTITUDE)
+		else if (fdf->color_scheme == ALTITUDE)
 			p.color = altitude_color(fdf, fdf->map[i1][j1]
-					+ percent(p.y, fdf->proj[i1][j1].y * fdf->map_info.scale
-					+ fdf->map_info.y_offset, fdf->proj[i2][j2].y
-					* fdf->map_info.scale + fdf->map_info.y_offset)
+					+ percent(p.y, fdf->proj[i1][j1].y * fdf->scale
+					+ fdf->y_offset, fdf->proj[i2][j2].y
+					* fdf->scale + fdf->y_offset)
 					* (fdf->map[i2][j2] - fdf->map[i1][j1]));
-		else if (fdf->map_info.color_scheme == RAINBOW)
+		else if (fdf->color_scheme == RAINBOW)
 			p.color = rainbow_color(fdf, p);
-		else if (fdf->map_info.color_scheme == FANCY_RAINBOW)
+		else if (fdf->color_scheme == FANCY_RAINBOW)
 			p.color = fdf->rainbow;
 		fill_pixel(fdf, p);
 		if (delta > 0)
@@ -138,29 +138,29 @@ void		draw_image(t_fdf *fdf)
 
 	if (DEPTH == 1 && WIDTH == 1)
 	{
-		p.x = fdf->map_info.x_offset;
-		p.y = fdf->map_info.y_offset;
-		if (fdf->map_info.color_scheme == MONO)
+		p.x = fdf->x_offset;
+		p.y = fdf->y_offset;
+		if (fdf->color_scheme == MONO)
 			p.color = 0xFFFFFF;
-		else if (fdf->map_info.color_scheme == ALTITUDE)
+		else if (fdf->color_scheme == ALTITUDE)
 			p.color = (fdf->map[0][0] < 0) ? SEA : LOW;
-		else if (fdf->map_info.color_scheme == MAP)
+		else if (fdf->color_scheme == MAP)
 			p.color = fdf->proj[0][0].color;
-		else if (fdf->map_info.color_scheme == RAINBOW)
+		else if (fdf->color_scheme == RAINBOW)
 			p.color = 0xFF0000;
-		else if (fdf->map_info.color_scheme == FANCY_RAINBOW)
+		else if (fdf->color_scheme == FANCY_RAINBOW)
 			p.color = fdf->rainbow;
 		fill_pixel(fdf, p);
 	}
 	i = 0;
-	while (i < fdf->map_info.depth)
+	while (i < fdf->depth)
 	{
 		j = 0;
-		while (j < fdf->map_info.width)
+		while (j < fdf->width)
 		{
-			if (i != fdf->map_info.depth - 1)
+			if (i != fdf->depth - 1)
 				draw_line(fdf, i, j, i + 1, j);
-			if (j != fdf->map_info.width - 1)
+			if (j != fdf->width - 1)
 				draw_line(fdf, i, j, i, j + 1);
 			j++;
 		}

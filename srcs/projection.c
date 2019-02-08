@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 13:23:29 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/08 10:55:25 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:27:15 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,21 @@
 
 static void	init_minmax(t_fdf *fdf)
 {
-	if (fdf->map_info.proj == TOP)
+	if (fdf->proj == TOP)
 	{
-		XMAX = WIDTH - 1;
-		XMIN = 0;
-		YMAX = DEPTH - 1;
-		YMIN = 0;
+		fdf->xmax = fdf->width - 1;
+		fdf->xmin = 0;
+		fdf->ymax = fdf->depth - 1;
+		fdf->ymin = 0;
 	}
-	if (fdf->map_info.proj == PARALLEL)
+	if (fdf->proj_type == PARALLEL)
 	{
-		XMAX = cos(M_PI / 4) * DEPTH;
-		XMIN = XMAX;
-		YMAX = -(fdf->map[0][0] + sin(M_PI / 4) * DEPTH);
+		fdf->xmax = cos(M_PI / 4) * DEPTH;
+		fdf->xmin = fdf->xmax;
+		fdf->ymax = -(fdf->map[0][0] + sin(M_PI / 4) * DEPTH);
 		YMIN = YMAX;
 	}
-	if (fdf->map_info.proj == ISOMETRIC)
+	if (fdf->proj_type == ISOMETRIC)
 	{
 		XMAX = 0;
 		XMIN = 0;
