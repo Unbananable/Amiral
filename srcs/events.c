@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/08 12:31:12 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 13:45:36 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ int			key_release(int key, t_fdf *fdf)
 			fdf->proj_type = TOP;
 		if (key == C)
 		{
-			fdf->color_scheme = (fdf->color_scheme == MONO) ? ALTITUDE : fdf->color_scheme + 1;
+			fdf->color_scheme = (fdf->color_scheme == MONO) ? ALTITUDE
+				: fdf->color_scheme + 1;
 			fdf->color_scheme += (fdf->color_scheme == FANCY_RAINBOW) ? 1 : 0;
 		}
 		else

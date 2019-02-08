@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/08 12:52:32 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/08 14:08:22 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ int				reader(char *file_name, t_fdf *fdf);
 int				projection(t_fdf *fdf);
 void			get_placement_info(t_fdf *fdf);
 
+int				apply_color(t_fdf *fdf, t_ipos p1, t_ipos p2);
 int				gradient(t_fdf *fdf, t_point p, t_point p1, t_point p2);
 double			percent(double current, double start, double end);
 int				color_lvl(int start, int end, double ratio);
@@ -131,6 +132,8 @@ int				rainbow_color(t_fdf *fdf, t_point p);
 
 int				new_image(t_fdf *fdf);
 void			draw_image(t_fdf *fdf);
+void			fill_pixel(t_fdf *fdf, t_point p);
+void			draw_point(t_fdf *fdf);
 
 int				red_cross_closing(t_fdf *fdf);
 int				key_press(int key, t_fdf *fdf);

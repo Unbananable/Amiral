@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:13:13 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/08 12:17:11 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 14:08:20 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,26 @@ int			rainbow_color(t_fdf *fdf, t_point p)
 		return (y_gradient(p, p_moy, p_max));
 	else
 		return (y_gradient(p, p_min, p_moy));
+}
+
+int			apply_color(t_fdf *fdf, t_ipos p1, t_ipos p2)
+{
+	int		color;
+
+	if (fdf->color_scheme == MONO)
+		color = 0xFFFFFF;
+	else if (fdf->color_scheme == MAP)
+		color = gradient(fdf, p, fdf->proj[p1.i][p1.j],
+				fdf->proj[p2.i][p2.j]);
+	else if (fdf->color_scheme == ALTITUDE)
+		color = altitude_color(fdf, fdf->map[p1.i][p1.j]
+				+ percent(p.y, fdf->proj[p1.i][p1.j].y * fdf->scale
+				+ fdf->y_offset, fdf->proj[p2.i][p2.j].y
+				* fdf->scale + fdf->y_offset)
+				* (fdf->map[p2.i][p2.j] - fdf->map[p1.i][p1.j]));
+	else if (fdf->color_scheme == RAINBOW)
+		color = rainbow_color(fdf, p);
+	else if (fdf->color_scheme == FANCY_RAINBOW)
+		color = fdf->rainbow;
+	return (color);
 }

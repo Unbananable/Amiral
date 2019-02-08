@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:38:14 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/08 12:38:12 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 13:46:15 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	calc_iso(t_fdf *fdf, int i, int j)
 	rotate_x(&y, &z, fdf->alpha);
 	rotate_y(&x, &z, fdf->beta);
 	rotate_z(&x, &y, fdf->gamma);
-	if ((fdf->proj[i][j].x = (x + y) * cos(M_PI / 6) * fdf->depth / 2) > fdf->xmax)
+	if ((fdf->proj[i][j].x = (x + y) * cos(M_PI / 6) * fdf->depth / 2)
+			> fdf->xmax)
 		fdf->xmax = fdf->proj[i][j].x;
 	fdf->xmin = (fdf->proj[i][j].x < fdf->xmin) ? fdf->proj[i][j].x : fdf->xmin;
 	if ((fdf->proj[i][j].y = (x - y) * sin(M_PI / 6) * fdf->width / 2 - z

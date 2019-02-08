@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 14:05:36 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/08 12:53:55 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/08 14:08:19 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "libft.h"
 #include "colors.h"
 
-static void	fill_pixel(t_fdf *fdf, t_point p)
+void		fill_pixel(t_fdf *fdf, t_point p)
 {
 	int		x;
 	int		y;
@@ -45,20 +45,7 @@ static void	low_line(t_fdf *fdf, t_ipos p1, t_ipos p2)
 	p.x = fdf->proj[p1.i][p1.j].x * fdf->scale + fdf->x_offset;
 	while (p.x <= fdf->proj[p2.i][p2.j].x * fdf->scale + fdf->x_offset)
 	{
-		if (fdf->color_scheme == MONO)
-			p.color = 0xFFFFFF;
-		else if (fdf->color_scheme == MAP)
-			p.color = gradient(fdf, p, fdf->proj[p1.i][p1.j], fdf->proj[p2.i][p2.j]);
-		else if (fdf->color_scheme == ALTITUDE)
-			p.color = altitude_color(fdf, fdf->map[p1.i][p1.j]
-						+ percent(p.x, fdf->proj[p1.i][p1.j].x * fdf->scale
-						+ fdf->x_offset, fdf->proj[p2.i][p2.j].x * fdf->scale
-						+ fdf->x_offset)
-						* (fdf->map[p2.i][p2.j] - fdf->map[p1.i][p1.j]));
-		else if (fdf->color_scheme == RAINBOW)
-			p.color = rainbow_color(fdf, p);
-		else if (fdf->color_scheme == FANCY_RAINBOW)
-			p.color = fdf->rainbow;
+		p.color = apply_color(fdf, p1, p2);
 		fill_pixel(fdf, p);
 		if (delta > 0)
 		{
@@ -87,20 +74,7 @@ static void	high_line(t_fdf *fdf, t_ipos p1, t_ipos p2)
 	p.x = fdf->proj[p1.i][p1.j].x * fdf->scale + fdf->x_offset;
 	while (p.y <= fdf->proj[p2.i][p2.j].y * fdf->scale + fdf->y_offset)
 	{
-		if (fdf->color_scheme == MONO)
-			p.color = 0xFFFFFF;
-		else if (fdf->color_scheme == MAP)
-			p.color = gradient(fdf, p, fdf->proj[p1.i][p1.j], fdf->proj[p2.i][p2.j]);
-		else if (fdf->color_scheme == ALTITUDE)
-			p.color = altitude_color(fdf, fdf->map[p1.i][p1.j]
-					+ percent(p.y, fdf->proj[p1.i][p1.j].y * fdf->scale
-					+ fdf->y_offset, fdf->proj[p2.i][p2.j].y
-					* fdf->scale + fdf->y_offset)
-					* (fdf->map[p2.i][p2.j] - fdf->map[p1.i][p1.j]));
-		else if (fdf->color_scheme == RAINBOW)
-			p.color = rainbow_color(fdf, p);
-		else if (fdf->color_scheme == FANCY_RAINBOW)
-			p.color = fdf->rainbow;
+		p.color = apply_color(fdf, p1, p2);
 		fill_pixel(fdf, p);
 		if (delta > 0)
 		{
@@ -139,27 +113,10 @@ void		draw_image(t_fdf *fdf)
 	int		j;
 	t_point	p;
 
-	if (fdf->depth == 1 && fdf->width == 1)
-	{
-		p.x = fdf->x_offset;
-		p.y = fdf->y_offset;
-		if (fdf->color_scheme == MONO)
-			p.color = 0xFFFFFF;
-		else if (fdf->color_scheme == ALTITUDE)
-			p.color = (fdf->map[0][0] < 0) ? SEA : LOW;
-		else if (fdf->color_scheme == MAP)
-			p.color = fdf->proj[0][0].color;
-		else if (fdf->color_scheme == RAINBOW)
-			p.color = 0xFF0000;
-		else if (fdf->color_scheme == FANCY_RAINBOW)
-			p.color = fdf->rainbow;
-		fill_pixel(fdf, p);
-	}
-	i = 0;
-	while (i < fdf->depth)
-	{
-		j = 0;
-		while (j < fdf->width)
+	if ((i = -1) && fdf->depth == 1 && fdf->width == 1)
+		draw_point(fdf);
+	while (++i < fdf->depth && (j = -1))
+		while (++j < fdf->width)
 		{
 			if (i != fdf->depth - 1)
 			{
@@ -173,9 +130,6 @@ void		draw_image(t_fdf *fdf)
 				p_end = get_ipos(i, j + 1);
 				draw_line(fdf, p_beg, p_end);
 			}
-			j++;
 		}
-		i++;
-	}
 	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
 }

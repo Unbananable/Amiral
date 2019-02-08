@@ -6,7 +6,7 @@
 #    By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 17:58:51 by dtrigalo          #+#    #+#              #
-#    Updated: 2019/02/08 12:10:15 by anleclab         ###   ########.fr        #
+#    Updated: 2019/02/08 14:09:46 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ SRC = 	gradient.c \
 		events.c \
 		event_actions.c \
 		apply_colors.c \
-		tools.c
+		tools.c \
+		draw_point.c
 
 SRCSFD = srcs/
 OBJSFD = objs/
