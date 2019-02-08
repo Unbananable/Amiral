@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/08 12:10:17 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:13:50 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@
 # define Y_OFFSET fdf->map_info.y_offset
 # define COLOR_SCHEME fdf->map_info.color_scheme
 
-typedef enum	e_proj
+typedef enum	e_proj_type
 {
 	ISOMETRIC,
 	PARALLEL,
 	TOP
-}				t_proj;
+}				t_proj_type;
 
 typedef enum	e_color
 {
@@ -73,26 +73,6 @@ typedef struct	s_point
 	int		color;
 }				t_point;
 
-typedef struct	s_map
-{
-	int		width;
-	int		depth;
-	double	xmax;
-	double	xmin;
-	double	ymax;
-	double	ymin;
-	int		zmax;
-	int		zmin;
-	double	scale;
-	int		x_offset;
-	int		y_offset;
-	double	alt_ratio;
-	t_proj	proj;
-	t_color	color_scheme;
-	double	alpha;
-	double	beta;
-	double	gamma;
-}				t_map;
 
 typedef struct	s_image
 {
@@ -108,12 +88,28 @@ typedef struct	s_fdf
 	void			*mlx_ptr;
 	void			*win_ptr;
 	void			*img_ptr;
-	t_point			**proj_map;
+	t_point			**proj;
 	t_mouse			mouse;
-	t_map			map_info;
 	t_image			image;
 	int				rainbow;
 	int				printed;
+	int				width;
+	int				depth;
+	double			xmax;
+	double			xmin;
+	double			ymax;
+	double			ymin;
+	int				zmax;
+	int				zmin;
+	double			scale;
+	int				x_offset;
+	int				y_offset;
+	double			alt_ratio;
+	t_proj_type		proj_type;
+	t_color			color_scheme;
+	double			alpha;
+	double			beta;
+	double			gamma;
 }				t_fdf;
 
 void			print_command_menu(t_fdf fdf);

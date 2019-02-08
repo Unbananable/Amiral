@@ -6,7 +6,7 @@
 #    By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:24:35 by dtrigalo          #+#    #+#              #
-#    Updated: 2019/02/01 10:33:45 by anleclab         ###   ########.fr        #
+#    Updated: 2019/02/08 11:27:18 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,6 +98,7 @@ SRCS =	 	ft_abs.c \
 			ft_fclose.c \
 			ft_fgetc.c \
 			ft_atoi_base.c
+
 SRCSFD = srcs/
 SRCS_PATH = $(addprefix $(SRCSFD),$(SRCS))
 OBJS = $(SRCS:.c=.o)

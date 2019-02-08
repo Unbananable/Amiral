@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:03:04 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/07 18:43:33 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:01:46 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int			reader(char *file_name, t_fdf *fdf)
 	while (++i < DEPTH && (j = -1))
 		while (++j < WIDTH && !(fdf->map[i][j] = 0))
 		{
-			fdf->proj_map[i][j].color = 0xFFFFFF;
+			fdf->proj[i][j].color = 0xFFFFFF;
 			if (!get_alt(fdf, j, i, stream))
 			{
 				ft_fclose(stream);
