@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/07 18:38:48 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:10:17 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,5 +156,7 @@ int				key_release(int key, t_fdf *fdf);
 int				mouse_press(int button, int x, int y, t_fdf *fdf);
 int				mouse_release(int button, int x, int y, t_fdf *fdf);
 int				mouse_move(int x, int y, t_fdf *fdf);
+
+int				is_valid_mapchar(char c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/07 18:46:46 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:10:21 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,9 @@ static int	get_width(char *file_name)
 		while (tmp == ' ' || tmp == '\t')
 			tmp = ft_fgetc(stream);
 		(tmp == '-' || (tmp >= '0' && tmp <= '9')) ? res++ : 0;
-		while (tmp == '-' || tmp == ',' || (tmp >= '0' && tmp <= '9') || tmp == 'x' || (tmp >= 'A' && tmp <= 'F') || (tmp >= 'a' && tmp <= 'f'))
+		while (is_valid_mapchar(tmp) && c != ' ' && c != '\n' && c != '\t')
 			tmp = ft_fgetc(stream);
-		if (tmp != '-' && tmp != ' ' && tmp != '\t' && (tmp < '0'
-					|| tmp > '9') && tmp != -1 && tmp != '\n')
+		if (!is_valid_mapchar(tmp))
 		{
 			ft_fclose(stream);
 			return (-1);
@@ -116,8 +115,9 @@ int			main(int ac, char **av)
 		error("error: failed to initialize", &fdf);
 	if (!reader(av[1], &fdf))
 		error("error: map error", &fdf);
-	if (!(fdf.mlx_ptr = mlx_init()) || !(fdf.win_ptr
-				= mlx_new_window(fdf.mlx_ptr, WIN_HEIGHT, WIN_WIDTH, "FdF")))
+	if (!(fdf.mlx_ptr = mlx_init()))
+		error("error: failed to initialize mlx connection");
+	if (!(fdf.win_ptr = mlx_new_window(fdf.mlx_ptr, WIN_HEIGHT, WIN_WIDTH, "FdF")))
 		error("error: mlx failure", &fdf);
 	if (!projection(&fdf))
 		error("error: failed to create projection", &fdf);
