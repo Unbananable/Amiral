@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/08 12:27:58 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/08 13:51:58 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	get_width(char *file_name)
 		while (tmp == ' ' || tmp == '\t')
 			tmp = ft_fgetc(stream);
 		(tmp == '-' || (tmp >= '0' && tmp <= '9')) ? res++ : 0;
-		while (is_valid_mapchar(tmp) && c != ' ' && c != '\n' && c != '\t')
+		while (is_valid_mapchar(tmp) && tmp != ' ' && tmp != '\n' && tmp != '\t')
 			tmp = ft_fgetc(stream);
 		if (!is_valid_mapchar(tmp))
 		{
@@ -116,7 +116,7 @@ int			main(int ac, char **av)
 	if (!reader(av[1], &fdf))
 		error("error: map error", &fdf);
 	if (!(fdf.mlx_ptr = mlx_init()))
-		error("error: failed to initialize mlx connection");
+		error("error: failed to initialize mlx connection", &fdf);
 	if (!(fdf.win_ptr = mlx_new_window(fdf.mlx_ptr, WIN_HEIGHT, WIN_WIDTH,
 					"FdF")))
 		error("error: mlx failure", &fdf);

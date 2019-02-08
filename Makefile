@@ -6,7 +6,7 @@
 #    By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 17:58:51 by dtrigalo          #+#    #+#              #
-#    Updated: 2019/02/08 12:10:15 by anleclab         ###   ########.fr        #
+#    Updated: 2019/02/08 13:45:21 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ MLX = -I /usr/local/include -L /usr/local/lib/ -lmlx -framework OpenGL -framewor
 
 all: $(NAME)
 
-$(NAME): $(OBJSFD) $(LIBFT) $(OBJS)
+$(NAME): $(OBJSFD) $(OBJS)
 	@make -C libft
 	@echo "$(CYAN)\nCompiling $@...$(NC)"
 	@gcc $(FLAGS) $(MLX) $(OBJS) $(LIB_BINARY) -o $@

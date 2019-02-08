@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:29:32 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/08 12:25:40 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 13:49:41 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		mouse_press(int button, int x, int y, t_fdf *fdf)
 	if (button == MOUSE_SCROLL_UP || button == MOUSE_SCROLL_DOWN)
 	{
 		ft_bzero(fdf->addr, WIN_WIDTH * WIN_HEIGHT * 4);
-		event_zoom(button, fdf);
+		event_zoom(button, &(fdf->scale));
 		draw_image(fdf);
 		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, 0, 0);
 	}
