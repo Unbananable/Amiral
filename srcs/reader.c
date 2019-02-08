@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 14:03:04 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/08 12:01:46 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:32:34 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	get_color(t_fdf *fdf, int x, int y, t_file *stream)
 	int		tmp;
 	int		i;
 
-	fdf->map_info.color_scheme = MAP;
+	fdf->color_scheme = MAP;
 	if (ft_fgetc(stream) != '0' || ft_fgetc(stream) != 'x')
 		return (0);
 	i = -1;

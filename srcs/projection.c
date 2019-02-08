@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 13:23:29 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/08 12:27:15 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:41:12 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static void	init_minmax(t_fdf *fdf)
 {
-	if (fdf->proj == TOP)
+	if (fdf->proj_type == TOP)
 	{
 		fdf->xmax = fdf->width - 1;
 		fdf->xmin = 0;
@@ -25,17 +25,17 @@ static void	init_minmax(t_fdf *fdf)
 	}
 	if (fdf->proj_type == PARALLEL)
 	{
-		fdf->xmax = cos(M_PI / 4) * DEPTH;
+		fdf->xmax = cos(M_PI / 4) * fdf->depth;
 		fdf->xmin = fdf->xmax;
-		fdf->ymax = -(fdf->map[0][0] + sin(M_PI / 4) * DEPTH);
-		YMIN = YMAX;
+		fdf->ymax = -(fdf->map[0][0] + sin(M_PI / 4) * fdf->depth);
+		fdf->ymin = fdf->ymax;
 	}
 	if (fdf->proj_type == ISOMETRIC)
 	{
-		XMAX = 0;
-		XMIN = 0;
-		YMAX = -fdf->map[0][0] * WIDTH / 2;
-		YMIN = YMAX;
+		fdf->xmax = 0;
+		fdf->xmin = 0;
+		fdf->ymax = -fdf->map[0][0] * fdf->width / 2;
+		fdf->ymin = fdf->ymax;
 	}
 }
 
@@ -45,10 +45,10 @@ static void	top_projection(t_fdf *fdf)
 	int		j;
 
 	i = -1;
-	while (++i < DEPTH)
+	while (++i < fdf->depth)
 	{
 		j = -1;
-		while (++j < WIDTH)
+		while (++j < fdf->depth)
 			calc_top(fdf, i, j);
 	}
 }
@@ -59,10 +59,10 @@ static void	parallel_projection(t_fdf *fdf)
 	int		j;
 
 	i = -1;
-	while (++i < DEPTH)
+	while (++i < fdf->depth)
 	{
 		j = -1;
-		while (++j < WIDTH)
+		while (++j < fdf->width)
 			calc_para(fdf, i, j);
 	}
 }
@@ -73,10 +73,10 @@ static void	isometric_projection(t_fdf *fdf)
 	int		j;
 
 	i = -1;
-	while (++i < DEPTH)
+	while (++i < fdf->depth)
 	{
 		j = -1;
-		while (++j < WIDTH)
+		while (++j < fdf->width)
 			calc_iso(fdf, i, j);
 	}
 }
@@ -84,11 +84,11 @@ static void	isometric_projection(t_fdf *fdf)
 int			projection(t_fdf *fdf)
 {
 	init_minmax(fdf);
-	if (PROJ == TOP)
+	if (fdf->proj_type == TOP)
 		top_projection(fdf);
-	else if (PROJ == ISOMETRIC)
+	else if (fdf->proj_type == ISOMETRIC)
 		isometric_projection(fdf);
-	else if (PROJ == PARALLEL)
+	else if (fdf->proj_type == PARALLEL)
 		parallel_projection(fdf);
 	else
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:38:14 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/08 12:01:35 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:38:12 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ void	calc_para(t_fdf *fdf, int i, int j)
 	y = j;
 	z = fdf->map[i][j];
 	fdf->proj[i][j].z = fdf->map[i][j];
-	rotate_x(&y, &z, fdf->map_info.alpha);
-	rotate_y(&x, &z, fdf->map_info.beta);
-	rotate_z(&x, &y, fdf->map_info.gamma);
-	if ((fdf->proj[i][j].x = y + cos(M_PI / 4) * (DEPTH - x)) > XMAX)
-		XMAX = fdf->proj[i][j].x;
-	XMIN = (fdf->proj[i][j].x < XMIN) ? fdf->proj[i][j].x : XMIN;
-	if ((fdf->proj[i][j].y = -(z * fdf->map_info.alt_ratio + sin(M_PI / 4)
-					* (DEPTH - x))) > YMAX)
-		YMAX = fdf->proj[i][j].y;
-	YMIN = (fdf->proj[i][j].y < YMIN) ? fdf->proj[i][j].y : YMIN;
+	rotate_x(&y, &z, fdf->alpha);
+	rotate_y(&x, &z, fdf->beta);
+	rotate_z(&x, &y, fdf->gamma);
+	if ((fdf->proj[i][j].x = y + cos(M_PI / 4) * (fdf->depth - x)) > fdf->xmax)
+		fdf->xmax = fdf->proj[i][j].x;
+	fdf->xmin = (fdf->proj[i][j].x < fdf->xmin) ? fdf->proj[i][j].x : fdf->xmin;
+	if ((fdf->proj[i][j].y = -(z * fdf->alt_ratio + sin(M_PI / 4)
+					* (fdf->depth - x))) > fdf->ymax)
+		fdf->ymax = fdf->proj[i][j].y;
+	fdf->ymin = (fdf->proj[i][j].y < fdf->ymin) ? fdf->proj[i][j].y : fdf->ymin;
 }
 
 void	calc_iso(t_fdf *fdf, int i, int j)
@@ -45,16 +45,16 @@ void	calc_iso(t_fdf *fdf, int i, int j)
 	y = j;
 	z = fdf->map[i][j];
 	fdf->proj[i][j].z = fdf->map[i][j];
-	rotate_x(&y, &z, fdf->map_info.alpha);
-	rotate_y(&x, &z, fdf->map_info.beta);
-	rotate_z(&x, &y, fdf->map_info.gamma);
-	if ((fdf->proj[i][j].x = (x + y) * cos(M_PI / 6) * DEPTH / 2) > XMAX)
-		XMAX = fdf->proj[i][j].x;
-	XMIN = (fdf->proj[i][j].x < XMIN) ? fdf->proj[i][j].x : XMIN;
-	if ((fdf->proj[i][j].y = (x - y) * sin(M_PI / 6) * WIDTH / 2 - z
-				* WIDTH / 2 * fdf->map_info.alt_ratio) > YMAX)
-		YMAX = fdf->proj[i][j].y;
-	YMIN = (fdf->proj[i][j].y < YMIN) ? fdf->proj[i][j].y : YMIN;
+	rotate_x(&y, &z, fdf->alpha);
+	rotate_y(&x, &z, fdf->beta);
+	rotate_z(&x, &y, fdf->gamma);
+	if ((fdf->proj[i][j].x = (x + y) * cos(M_PI / 6) * fdf->depth / 2) > fdf->xmax)
+		fdf->xmax = fdf->proj[i][j].x;
+	fdf->xmin = (fdf->proj[i][j].x < fdf->xmin) ? fdf->proj[i][j].x : fdf->xmin;
+	if ((fdf->proj[i][j].y = (x - y) * sin(M_PI / 6) * fdf->width / 2 - z
+				* fdf->width / 2 * fdf->alt_ratio) > fdf->ymax)
+		fdf->ymax = fdf->proj[i][j].y;
+	fdf->ymin = (fdf->proj[i][j].y < fdf->ymin) ? fdf->proj[i][j].y : fdf->ymin;
 }
 
 void	calc_top(t_fdf *fdf, int i, int j)
@@ -67,9 +67,9 @@ void	calc_top(t_fdf *fdf, int i, int j)
 	y = j;
 	z = fdf->map[i][j];
 	fdf->proj[i][j].z = fdf->map[i][j];
-	rotate_x(&y, &z, fdf->map_info.alpha);
-	rotate_y(&x, &z, fdf->map_info.beta);
-	rotate_z(&x, &y, fdf->map_info.gamma);
+	rotate_x(&y, &z, fdf->alpha);
+	rotate_y(&x, &z, fdf->beta);
+	rotate_z(&x, &y, fdf->gamma);
 	fdf->proj[i][j].x = y;
 	fdf->proj[i][j].y = x;
 }
