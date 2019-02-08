@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/07 18:46:46 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:18:40 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,9 @@ static int	get_width(char *file_name)
 		while (tmp == ' ' || tmp == '\t')
 			tmp = ft_fgetc(stream);
 		(tmp == '-' || (tmp >= '0' && tmp <= '9')) ? res++ : 0;
-		while (tmp == '-' || tmp == ',' || (tmp >= '0' && tmp <= '9') || tmp == 'x' || (tmp >= 'A' && tmp <= 'F') || (tmp >= 'a' && tmp <= 'f'))
+		while (is_valid_mapchar(tmp) && c != ' ' && c != '\n' && c != '\t')
 			tmp = ft_fgetc(stream);
-		if (tmp != '-' && tmp != ' ' && tmp != '\t' && (tmp < '0'
-					|| tmp > '9') && tmp != -1 && tmp != '\n')
+		if (!is_valid_mapchar(tmp))
 		{
 			ft_fclose(stream);
 			return (-1);
@@ -43,25 +42,25 @@ static int	get_width(char *file_name)
 	return (res);
 }
 
-static void	init_map_info_extra(t_fdf *fdf, t_map *map_info, char *file_path)
+static void	init_map_info_extra(t_fdf *fdf, char *file_path)
 {
-	if ((map_info->depth = ft_filelinecount(file_path)) == -1)
+	if ((fdf->depth = ft_filelinecount(file_path)) == -1)
 		error("error: invalid file", NULL);
-	if ((map_info->width = get_width(file_path)) == -1)
+	if ((fdf->width = get_width(file_path)) == -1)
 		error("error: invalid file", NULL);
-	if (map_info->depth == 0 || map_info->width == 0)
+	if (fdf->depth == 0 || fdf->width == 0)
 	{
 		ft_putstr("error: empty map\n");
 		exit(0);
 	}
-	map_info->alt_ratio = 1.0;
-	map_info->proj = PARALLEL;
-	map_info->color_scheme = MONO;
+	fdf->alt_ratio = 1.0;
+	fdf->proj_type = PARALLEL;
+	fdf->color_scheme = MONO;
 	fdf->addr = NULL;
 	fdf->mlx_ptr = NULL;
 	fdf->win_ptr = NULL;
 	fdf->img_ptr = NULL;
-	fdf->proj_map = NULL;
+	fdf->proj = NULL;
 	fdf->rainbow = 0xFF0000;
 	fdf->printed = 0;
 }
@@ -70,23 +69,23 @@ static int	init_fdf(t_fdf *fdf, char *file_path)
 {
 	int		i;
 
-	init_map_info_extra(fdf, &(fdf->map_info), file_path);
-	if (!(fdf->map = (int **)malloc(sizeof(int *) * fdf->map_info.depth)))
+	init_map_info_extra(fdf, file_path);
+	if (!(fdf->map = (int **)malloc(sizeof(int *) * fdf->depth)))
 		return (0);
 	i = -1;
-	while (++i < fdf->map_info.depth)
-		if (!(fdf->map[i] = (int *)malloc(sizeof(int) * fdf->map_info.width)))
+	while (++i < fdf->depth)
+		if (!(fdf->map[i] = (int *)malloc(sizeof(int) * fdf->width)))
 		{
 			free_2d_int_tab(&(fdf->map), i);
 			return (0);
 		}
-	if (!(fdf->proj_map = (t_point **)malloc(sizeof(t_point *) * fdf->map_info.depth)))
+	if (!(fdf->proj = (t_point **)malloc(sizeof(t_point *) * fdf->depth)))
 		return (0);
 	i = -1;
-	while (++i < fdf->map_info.depth)
-		if (!(fdf->proj_map[i] = (t_point *)malloc(sizeof(t_point) * fdf->map_info.width)))
+	while (++i < fdf->depth)
+		if (!(fdf->proj[i] = (t_point *)malloc(sizeof(t_point) * fdf->width)))
 		{
-			free_2d_tpoint_tab(&(fdf->proj_map), i);
+			free_2d_tpoint_tab(&(fdf->proj), i);
 			return (0);
 		}
 	return (1);
@@ -116,8 +115,10 @@ int			main(int ac, char **av)
 		error("error: failed to initialize", &fdf);
 	if (!reader(av[1], &fdf))
 		error("error: map error", &fdf);
-	if (!(fdf.mlx_ptr = mlx_init()) || !(fdf.win_ptr
-				= mlx_new_window(fdf.mlx_ptr, WIN_HEIGHT, WIN_WIDTH, "FdF")))
+	if (!(fdf.mlx_ptr = mlx_init()))
+		error("error: failed to initialize mlx connection");
+	if (!(fdf.win_ptr = mlx_new_window(fdf.mlx_ptr, WIN_HEIGHT, WIN_WIDTH,
+					"FdF")))
 		error("error: mlx failure", &fdf);
 	if (!projection(&fdf))
 		error("error: failed to create projection", &fdf);

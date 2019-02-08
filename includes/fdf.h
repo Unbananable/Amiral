@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:55:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/08 12:15:10 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:29:27 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,6 @@
 # define OFFSET_INCR 10
 # define ZOOM_INCR 0.2
 # define ALT_INCR 0.1
-
-# define WIDTH fdf->map_info.width
-# define DEPTH fdf->map_info.depth
-# define XMIN fdf->map_info.xmin
-# define XMAX fdf->map_info.xmax
-# define YMIN fdf->map_info.ymin
-# define YMAX fdf->map_info.ymax
-# define SCALE fdf->map_info.scale
-# define PROJ fdf->map_info.proj
-# define ZMAX fdf->map_info.zmax
-# define ZMIN fdf->map_info.zmin
-# define X_OFFSET fdf->map_info.x_offset
-# define Y_OFFSET fdf->map_info.y_offset
-# define COLOR_SCHEME fdf->map_info.color_scheme
 
 typedef enum	e_proj_type
 {
@@ -143,14 +129,16 @@ void			draw_image(t_fdf *fdf);
 int				red_cross_closing(t_fdf *fdf);
 int				key_press(int key, t_fdf *fdf);
 void			event_move(int key, t_fdf *fdf);
-void			event_zoom(int key, t_fdf *fdf);
+void			event_zoom(int key, double *scale);
 void			event_rotate(int key, t_fdf *fdf);
-void			event_adjust_alt(int key, t_fdf *fdf);
+void			event_adjust_alt(int key, double *alt);
 void			event_reset(t_fdf *fdf);
 void			event_rainbow(t_fdf *fdf);
 int				key_release(int key, t_fdf *fdf);
 int				mouse_press(int button, int x, int y, t_fdf *fdf);
 int				mouse_release(int button, int x, int y, t_fdf *fdf);
 int				mouse_move(int x, int y, t_fdf *fdf);
+
+int				is_valid_mapchar(char c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 16:29:47 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/08 12:21:31 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:30:06 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,20 @@ void	event_move(int key, t_fdf *fdf)
 		fdf->y_offset -= OFFSET_INCR;
 }
 
-void	event_zoom(int key, t_fdf *fdf)
+void	event_zoom(int key, double *scale)
 {
 	if (key == PLUS || key == PAD_PLUS || key == MOUSE_SCROLL_UP)
-		fdf->scale *= 1 + ZOOM_INCR;
+		*scale *= 1 + ZOOM_INCR;
 	else if (key == MINUS || key == PAD_MINUS || key == MOUSE_SCROLL_DOWN)
-		fdf->scale *= 1 - ZOOM_INCR;
+		*scale *= 1 - ZOOM_INCR;
 }
 
-void	event_adjust_alt(int key, t_fdf *fdf)
+void	event_adjust_alt(int key, double *alt_ratio)
 {
 	if (key == UP_ARROW)
-		fdf->alt_ratio *= 1 + ALT_INCR;
+		*alt_ratio *= 1 + ALT_INCR;
 	else if (key == DOWN_ARROW)
-		fdf->alt_ratio *= 1 - ALT_INCR;
+		*alt_ratio *= 1 - ALT_INCR;
 }
 
 void	event_reset(t_fdf *fdf)
