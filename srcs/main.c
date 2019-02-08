@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:51:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/08 14:22:27 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 14:43:21 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@ static int	get_width(char *file_name)
 {
 	int		res;
 	t_file	*stream;
-	int		tmp;
+	int		t;
 
 	if (!(stream = ft_fopen(file_name)))
 		return (-1);
 	res = 0;
-	tmp = ft_fgetc(stream);
-	while (tmp != -1 && tmp != '\n')
+	t = ft_fgetc(stream);
+	while (t != -1 && t != '\n')
 	{
-		while (tmp == ' ' || tmp == '\t')
-			tmp = ft_fgetc(stream);
-		(tmp == '-' || (tmp >= '0' && tmp <= '9')) ? res++ : 0;
-		while (is_valid_mapchar(tmp) && tmp != ' ' && tmp != '\n' && tmp != '\t')
-			tmp = ft_fgetc(stream);
-		if (!is_valid_mapchar(tmp))
+		while (t == ' ' || t == '\t')
+			t = ft_fgetc(stream);
+		(t == '-' || (t >= '0' && t <= '9')) ? res++ : 0;
+		while (is_valid_mapchar(t) && t != ' ' && t != '\n' && t != '\t')
+			t = ft_fgetc(stream);
+		if (!is_valid_mapchar(t))
 		{
 			ft_fclose(stream);
 			return (-1);

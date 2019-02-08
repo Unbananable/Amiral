@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/08 14:28:08 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 14:49:30 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@
 
 static int	is_available(int key)
 {
-	if (DIR_KEYS || PAD_NBRS || key == M || key == SPACE
+	if (key == PAD_1 || key == PAD_2 || key == PAD_3 || key == PAD_4
+			|| key == PAD_6 || key == PAD_7 || key == PAD_8 || key == PAD_9
+			|| key == A || key == W || key == S || key == D || key == Q
+			|| key == E || key == Z || key == X || key == M || key == SPACE
 			|| key == PLUS || key == MINUS || key == PAD_PLUS
 			|| key == PAD_MINUS || key == UP_ARROW || key == DOWN_ARROW
 			|| key == ESC || key == R)
@@ -46,21 +49,17 @@ int			key_press(int key, t_fdf *fdf)
 	if (!is_available(key))
 		return (0);
 	ft_bzero(fdf->addr, WIN_WIDTH * WIN_HEIGHT * 4);
-	if (DIR_KEYS)
+	if (key == A || key == W || key == S || key == D || key == Q
+			|| key == E || key == Z || key == X)
 		event_move(key, fdf);
 	else if (key == SPACE)
 		event_reset(fdf);
 	else if (key == PLUS || key == MINUS || key == PAD_PLUS || key == PAD_MINUS)
 		event_zoom(key, &(fdf->scale));
-	else if (key == UP_ARROW || key == DOWN_ARROW || PAD_NBRS)
-	{
-		if (key == UP_ARROW || key == DOWN_ARROW)
-			event_adjust_alt(key, &(fdf->alt_ratio));
-		else
-			event_move(key, fdf);
-		if (!(projection(fdf)))
-			error("error: failed to update projection", fdf);
-	}
+	else if (key == UP_ARROW || key == DOWN_ARROW || key == PAD_1
+			|| key == PAD_2 || key == PAD_3 || key == PAD_4 || key == PAD_6
+			|| key == PAD_7 || key == PAD_8 || key == PAD_9)
+		alt_and_move(key, fdf);
 	else if (key == R)
 	{
 		fdf->color_scheme = FANCY_RAINBOW;
