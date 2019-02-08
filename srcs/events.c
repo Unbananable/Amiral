@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 12:06:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/08 12:04:20 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/02/08 12:26:20 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ int			key_press(int key, t_fdf *fdf)
 	else if (key == SPACE)
 		event_reset(fdf);
 	else if (key == PLUS || key == MINUS || key == PAD_PLUS || key == PAD_MINUS)
-		event_zoom(key, &(fdf->map_info));
+		event_zoom(key, &(fdf->scale));
 	else if (key == UP_ARROW || key == DOWN_ARROW || PAD_NBRS)
 	{
 		if (key == UP_ARROW || key == DOWN_ARROW)
-			event_adjust_alt(key, &(fdf->map_info));
+			event_adjust_alt(key, &(fdf->alt));
 		else
 			event_move(key, fdf);
 		if (!(projection(fdf)))
