@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 14:05:36 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/02/08 14:08:19 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/08 14:19:37 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	low_line(t_fdf *fdf, t_ipos p1, t_ipos p2)
 	p.x = fdf->proj[p1.i][p1.j].x * fdf->scale + fdf->x_offset;
 	while (p.x <= fdf->proj[p2.i][p2.j].x * fdf->scale + fdf->x_offset)
 	{
-		p.color = apply_color(fdf, p1, p2);
+		p.color = apply_color(fdf, p1, p2, p);
 		fill_pixel(fdf, p);
 		if (delta > 0)
 		{
@@ -65,7 +65,7 @@ static void	high_line(t_fdf *fdf, t_ipos p1, t_ipos p2)
 	int		xi;
 	int		delta;
 
-	dx = (fdf->proj[p1.i][p2.i].x - fdf->proj[p1.i][p1.j].x) * fdf->scale;
+	dx = (fdf->proj[p2.i][p2.j].x - fdf->proj[p1.i][p1.j].x) * fdf->scale;
 	dy = (fdf->proj[p2.i][p2.j].y - fdf->proj[p1.i][p1.j].y) * fdf->scale;
 	xi = (dx < 0) ? -1 : 1;
 	dx = (dx < 0) ? -dx : dx;
@@ -74,7 +74,7 @@ static void	high_line(t_fdf *fdf, t_ipos p1, t_ipos p2)
 	p.x = fdf->proj[p1.i][p1.j].x * fdf->scale + fdf->x_offset;
 	while (p.y <= fdf->proj[p2.i][p2.j].y * fdf->scale + fdf->y_offset)
 	{
-		p.color = apply_color(fdf, p1, p2);
+		p.color = apply_color(fdf, p1, p2, p);
 		fill_pixel(fdf, p);
 		if (delta > 0)
 		{
@@ -91,7 +91,7 @@ static void	draw_line(t_fdf *fdf, t_ipos p1, t_ipos p2)
 	if (fabs(fdf->proj[p2.i][p2.j].y - fdf->proj[p1.i][p1.j].y)
 			< fabs(fdf->proj[p2.i][p2.j].x - fdf->proj[p1.i][p1.j].x))
 	{
-		if (fdf->proj[p1.i][p1.j].x > fdf->proj[p2.i][p2.i].x)
+		if (fdf->proj[p1.i][p1.j].x > fdf->proj[p2.i][p2.j].x)
 			low_line(fdf, p2, p1);
 		else
 			low_line(fdf, p1, p2);
@@ -111,7 +111,6 @@ void		draw_image(t_fdf *fdf)
 	t_ipos	p_end;
 	int		i;
 	int		j;
-	t_point	p;
 
 	if ((i = -1) && fdf->depth == 1 && fdf->width == 1)
 		draw_point(fdf);

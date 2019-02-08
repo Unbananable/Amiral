@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:13:13 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/08 14:08:20 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/08 14:16:52 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,11 @@ int			rainbow_color(t_fdf *fdf, t_point p)
 		return (y_gradient(p, p_min, p_moy));
 }
 
-int			apply_color(t_fdf *fdf, t_ipos p1, t_ipos p2)
+int			apply_color(t_fdf *fdf, t_ipos p1, t_ipos p2, t_point p)
 {
 	int		color;
 
-	if (fdf->color_scheme == MONO)
-		color = 0xFFFFFF;
-	else if (fdf->color_scheme == MAP)
+	if (fdf->color_scheme == MAP)
 		color = gradient(fdf, p, fdf->proj[p1.i][p1.j],
 				fdf->proj[p2.i][p2.j]);
 	else if (fdf->color_scheme == ALTITUDE)
@@ -93,5 +91,7 @@ int			apply_color(t_fdf *fdf, t_ipos p1, t_ipos p2)
 		color = rainbow_color(fdf, p);
 	else if (fdf->color_scheme == FANCY_RAINBOW)
 		color = fdf->rainbow;
+	else
+		color = 0xFFFFFF;
 	return (color);
 }

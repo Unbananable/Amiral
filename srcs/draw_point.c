@@ -6,9 +6,12 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 13:49:33 by anleclab          #+#    #+#             */
-/*   Updated: 2019/02/08 14:03:15 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/02/08 14:17:30 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "fdf.h"
+#include "colors.h"
 
 void	draw_point(t_fdf *fdf)
 {
